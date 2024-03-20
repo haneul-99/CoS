@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/3af232f97f.js" crossorigin="anonymous"></script>
+
+    <th:block layout:fragment="css"></th:block>
+    <th:block th:replace="fragments/config :: config"></th:block>
+
+    <th:block th:replace="fragments/header :: header"></th:block>
+    <th:block layout:fragment="content"></th:block>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    
+    <!-- JavaScript Libraries -->
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery-migrate.min.js"></script>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/easing.min.js"></script>
+	<script src="/js/hoverIntent.js"></script>
+	<script src="/js/superfish.min.js"></script>
+	<script src="/js/wow.min.js"></script>
+	<script src="/js/waypoints.min.js"></script>
+	<script src="/js/counterup.min.js"></script>
+	<script src="/js/owl.carousel.min.js"></script>
+	<script src="/js/isotope.pkgd.min.js"></script>
+	<script src="/js/lightbox.min.js"></script>
+	<script src="/js/jquery.touchSwipe.min.js"></script>
+	
+	<!-- Contact Form JavaScript File -->
+	<script src="/js/contactform.js"></script>
+	
+	<!-- Template Main Javascript File -->
+	<script src="/js/main.js"></script>
+	
+	<!-- 작성할 js 위치 -->
+    <th:block layout:fragment="script"></th:block>
+</html>
