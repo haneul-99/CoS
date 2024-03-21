@@ -27,7 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-	implementation 'org.springframework.session:spring-session-jdbc'
+	implementation 'org.springframework.session:spring-session-core'
 	implementation 'com.google.code.gson:gson:2.8.6'//자바객체를 -> JSON으로, JSON을 -> 자바객체로도 쉽게 표현 및 변환
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
