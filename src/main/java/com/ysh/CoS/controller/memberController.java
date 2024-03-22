@@ -42,7 +42,7 @@ public class memberController {
 		} else { return "redirect:/member/login"; }
 		
 	}
-	
+	 //안뇽
 	
 	
 	
