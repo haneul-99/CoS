@@ -1,15 +1,14 @@
 package com.ysh.CoS.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
-import com.ysh.CoS.model.member.Member;
+import com.ysh.CoS.dto.memberDTO;
+
 
 @Mapper
-
 public interface memberMapper {
 
-	Member loginCheck(String id, String password);
-
-
+	memberDTO loginCheck(@Param("id")String id, @Param("password")String password);
 
 }
