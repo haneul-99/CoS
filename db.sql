@@ -40,6 +40,7 @@ create table tblStudy (
     cSeq2 int not null,
     cSeq3 int not null,
     cSeq4 int not null,
+    sKind varchar(20) not null,
     sName varchar(100) not null,
     sContent varchar(1000) not null,
     sNumber varchar(20) not null,
