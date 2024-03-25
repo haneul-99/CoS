@@ -304,28 +304,48 @@ drop table tblMember;
 
 
 -- tblMember DML
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (1, 'seol12', 'qwer12!', 'ê¹€ì„¤í™”', '1999-11-26',  '010-6289-0859', 'seolhwa1126@naver.com', 'ê²½ê¸°ë„ ìš©ì¸ì‹œ ì²˜ì¸êµ¬', default, 'member01.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (2, 'nqis11', 'xxvl68&', 'ì´í˜•ì›', '1979-01-06',  '010-1019-6313', 'ebhv660@gamil.com', 'ê²½ê¸°ë„ ìš©ì¸ì‹œ ìˆ˜ì§€êµ¬', default, default);
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (3, 'texu47', 'bjdj73@', 'ê³ ë™ìš°', '1980-10-29',  '010-5480-5017', 'igvp682@outlook.com', 'ì¶©ì²­ë‚¨ë„ ì²œì•ˆì‹œ ë™ë‚¨êµ¬', default, 'member02.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (4, 'zbys26', 'itvd51@', 'ë³µí˜„ì£¼', '1972-03-25',  '010-2102-3243', 'ygbc790@ gamil.com', 'ë¶€ì‚°ê´‘ì—­ì‹œ ì¤‘êµ¬', default,  'member03.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (5, 'vsxd58', 'czeq87!', 'ë°±ì„¸ì›…', '1969-05-16',  '010-7966-4528', 'tkhm972@daum.net',  'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ëŒ€ì¹˜ë™', default, default);
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (6, 'orbv25', 'vwsz16@', 'ë°•ìš©í™˜', '1970-09-20',  '010-3861-5915', 'fmjr100@ gamil.com',  'ê²½ê¸°ë„ í•˜ë‚¨ì‹œ í•˜ë™', default, 'member04.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (7, 'ammg45', 'jcwk97@', 'ë¬¸ë‹¤ì€', '1996-08-16',  '010-1353-6378', 'telx281@daum.net',  'ê²½ê¸°ë„ ìˆ˜ì›ì‹œ íŒ”ë‹¬êµ¬', default, default);
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (8, 'gpad57', 'yweb91&', 'ê¶Œë¯¸ì—°', '1996-02-05',  '010-3786-2705', 'xcsm277@naver.com',  'ê²½ê¸°ë„ ìˆ˜ì›ì‹œ ì˜í†µêµ¬', default, 'member05.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (9, 'hwfa63', 'tdkj28&', 'ë¬¸ì€í˜œ', '1995-03-17',  '010-1287-2167', 'zonn842@daum.net',  'ê²½ê¸°ë„ ìˆ˜ì›ì‹œ ì¥ì•ˆêµ¬', default, 'member06.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (10, 'wzsr62', 'ktts33!', 'ì„¤ì„ ë¹ˆ', '1992-12-28',  '010-9943-8892', 'idze376@daum.net',  'ê²½ê¸°ë„ ìš©ì¸ì‹œ ìˆ˜ì§€êµ¬', default, 'member07.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (11, 'mdvn76', 'mpap15&', 'ë´‰ì§€ì„±', '1990-01-21',  '010-3622-1967', 'hpas771@ gamil.com',  'ì¶©ì²­ë¶ë„  ë‹¹ì§„ì‹œ ë™êµ¬', default, default);
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (12, 'ksxo53', 'dfth75!', 'í’í˜•ìˆ˜', '1979-04-11',  '010-6837-8185', 'wcpx766@ outlook.com',  'ì¸ì²œê´‘ì—­ì‹œ ì„œêµ¬', default, 'member08.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (13, 'ofzv31', 'gicd43!', 'ê³µì€í¬', '1979-05-19',  '010-7096-4111', 'lqif340@icloud.com',  'ì¸ì²œê´‘ì—­ì‹œ ë™êµ¬', default, default);
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (14, 'cgnn30', 'naky66@', 'í™ì²œí¬', '1979-02-13',  '010-3128-5758', 'dlwg531@ naver.com',  'ì„œìš¸íŠ¹ë³„ì‹œ ê°•ë‚¨êµ¬ ì—­ì‚¼ë™', default, default);
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (15, 'jowd79', 'sqzk10@', 'ì¶”ëª…í¬', '1989-05-08',  '010-3875-4748', 'bdpa391@ gamil.com',  'ê²½ê¸°ë„ ìš©ì¸ì‹œ ìˆ˜ì§€êµ¬', default, 'member09.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (16, 'ybed31', 'dpkn75!', 'ì„ìŠ¹í˜¸', '1989-06-06',  '010-2739-3012', 'ygei372@ outlook.com',  'ê²½ê¸°ë„ ì‹œí¥ì‹œ ì„œêµ¬', default, default);
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (17, 'edsr93', 'dchj10@', 'í™©ë¯¼ì•„', '1989-02-10',  '010-5424-5016', 'wkyx328@ gamil.com',  'ê²½ê¸°ë„ ìš©ì¸ì‹œ ì²˜ì¸êµ¬', default, default);
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (18, 'lnkz56', 'wnol32&', 'ê¹€ìœ¤ì§„', '1989-07-26',  '010-9964-9963', 'jqfo130@daum.net',  'ê²½ê¸°ë„ ìš©ì¸ì‹œ ë™ë°±êµ¬', default, 'member10.jpg');
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (19, 'vizi54', 'axtf57!', 'ê¹€ì² ì§„', '1979-04-26',  '010-8615-4893', 'ijwq663@ gamil.com',  'ê²½ê¸°ë„ ìš©ì¸ì‹œ ì²˜ì¸êµ¬', default, default);
-INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (20, 'ndml59', 'izhy59&', 'ìœ¤ì€ë¹„', '1989-04-30',  '010-6696-5853', 'fsdt969@daum.net',  'ê²½ê¸°ë„ ìš©ì¸ì‹œ ë™ë°±êµ¬', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (1, 'seol12', 'qwer12!', 'ê¹??„¤?™”', '1999-11-26',  '010-6289-0859', 'seolhwa1126@naver.com', 'ê²½ê¸°?„ ?š©?¸?‹œ ì²˜ì¸êµ?', default, 'member01.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (2, 'nqis11', 'xxvl68&', '?´?˜•?›', '1979-01-06',  '010-1019-6313', 'ebhv660@gamil.com', 'ê²½ê¸°?„ ?š©?¸?‹œ ?ˆ˜ì§?êµ?', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (3, 'texu47', 'bjdj73@', 'ê³ ë™?š°', '1980-10-29',  '010-5480-5017', 'igvp682@outlook.com', 'ì¶©ì²­?‚¨?„ ì²œì•ˆ?‹œ ?™?‚¨êµ?', default, 'member02.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (4, 'zbys26', 'itvd51@', 'ë³µí˜„ì£?', '1972-03-25',  '010-2102-3243', 'ygbc790@ gamil.com', 'ë¶??‚°ê´‘ì—­?‹œ ì¤‘êµ¬', default,  'member03.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (5, 'vsxd58', 'czeq87!', 'ë°±ì„¸?›…', '1969-05-16',  '010-7966-4528', 'tkhm972@daum.net',  '?„œ?š¸?Š¹ë³„ì‹œ ê°•ë‚¨êµ? ??ì¹˜ë™', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (6, 'orbv25', 'vwsz16@', 'ë°•ìš©?™˜', '1970-09-20',  '010-3861-5915', 'fmjr100@ gamil.com',  'ê²½ê¸°?„ ?•˜?‚¨?‹œ ?•˜?™', default, 'member04.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (7, 'ammg45', 'jcwk97@', 'ë¬¸ë‹¤??', '1996-08-16',  '010-1353-6378', 'telx281@daum.net',  'ê²½ê¸°?„ ?ˆ˜?›?‹œ ?Œ”?‹¬êµ?', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (8, 'gpad57', 'yweb91&', 'ê¶Œë?¸ì—°', '1996-02-05',  '010-3786-2705', 'xcsm277@naver.com',  'ê²½ê¸°?„ ?ˆ˜?›?‹œ ?˜?†µêµ?', default, 'member05.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (9, 'hwfa63', 'tdkj28&', 'ë¬¸ì??˜œ', '1995-03-17',  '010-1287-2167', 'zonn842@daum.net',  'ê²½ê¸°?„ ?ˆ˜?›?‹œ ?¥?•ˆêµ?', default, 'member06.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (10, 'wzsr62', 'ktts33!', '?„¤?„ ë¹?', '1992-12-28',  '010-9943-8892', 'idze376@daum.net',  'ê²½ê¸°?„ ?š©?¸?‹œ ?ˆ˜ì§?êµ?', default, 'member07.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (11, 'mdvn76', 'mpap15&', 'ë´‰ì??„±', '1990-01-21',  '010-3622-1967', 'hpas771@ gamil.com',  'ì¶©ì²­ë¶ë„  ?‹¹ì§„ì‹œ ?™êµ?', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (12, 'ksxo53', 'dfth75!', '?’?˜•?ˆ˜', '1979-04-11',  '010-6837-8185', 'wcpx766@ outlook.com',  '?¸ì²œê´‘?—­?‹œ ?„œêµ?', default, 'member08.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (13, 'ofzv31', 'gicd43!', 'ê³µì??¬', '1979-05-19',  '010-7096-4111', 'lqif340@icloud.com',  '?¸ì²œê´‘?—­?‹œ ?™êµ?', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (14, 'cgnn30', 'naky66@', '?™ì²œí¬', '1979-02-13',  '010-3128-5758', 'dlwg531@ naver.com',  '?„œ?š¸?Š¹ë³„ì‹œ ê°•ë‚¨êµ? ?—­?‚¼?™', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (15, 'jowd79', 'sqzk10@', 'ì¶”ëª…?¬', '1989-05-08',  '010-3875-4748', 'bdpa391@ gamil.com',  'ê²½ê¸°?„ ?š©?¸?‹œ ?ˆ˜ì§?êµ?', default, 'member09.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (16, 'ybed31', 'dpkn75!', '?„?Š¹?˜¸', '1989-06-06',  '010-2739-3012', 'ygei372@ outlook.com',  'ê²½ê¸°?„ ?‹œ?¥?‹œ ?„œêµ?', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (17, 'edsr93', 'dchj10@', '?™©ë¯¼ì•„', '1989-02-10',  '010-5424-5016', 'wkyx328@ gamil.com',  'ê²½ê¸°?„ ?š©?¸?‹œ ì²˜ì¸êµ?', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (18, 'lnkz56', 'wnol32&', 'ê¹??œ¤ì§?', '1989-07-26',  '010-9964-9963', 'jqfo130@daum.net',  'ê²½ê¸°?„ ?š©?¸?‹œ ?™ë°±êµ¬', default, 'member10.jpg');
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (19, 'vizi54', 'axtf57!', 'ê¹?ì² ì§„', '1979-04-26',  '010-8615-4893', 'ijwq663@ gamil.com',  'ê²½ê¸°?„ ?š©?¸?‹œ ì²˜ì¸êµ?', default, default);
+INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (20, 'ndml59', 'izhy59&', '?œ¤??ë¹?', '1989-04-30',  '010-6696-5853', 'fsdt969@daum.net',  'ê²½ê¸°?„ ?š©?¸?‹œ ?™ë°±êµ¬', default, default);
 
-
+-- tblQnA DML
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (1,1,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (2,2,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (3,3,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (4,4,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (5,5,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (6,6,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (7,7,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (8,8,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (9,9,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (10,10,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (11,11,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (12,12,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (13,13,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (14,14,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (15,15,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (16,16,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (17,17,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (18,18,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (19,19,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (20,20,'','','2022-01-02',22,default);
 
 
 
