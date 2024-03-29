@@ -326,29 +326,70 @@ INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img
 INSERT INTO tblMember (mSeq, id, pw, name, birth, tel, email, address, auth, img) VALUES (20, 'ndml59', 'izhy59&', '?쑄??鍮?', '1989-04-30',  '010-6696-5853', 'fsdt969@daum.net',  '寃쎄린?룄 ?슜?씤?떆 ?룞諛깃뎄', default, default);
 
 -- tblQnA DML
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (1,1,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (2,2,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (3,3,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (4,4,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (5,5,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (6,6,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (7,7,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (8,8,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (9,9,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (10,10,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (11,11,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (12,12,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (13,13,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (14,14,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (15,15,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (16,16,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (17,17,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (18,18,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (19,19,'','','2022-01-02',22,default);
-INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (20,20,'','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (1,1,'[Git] 초보자를 위한 깃허브 사용법 알려주세요.','','2022-01-02',22,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (2,2,'','','2022-01-04',32,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (3,3,'','','2022-01-08',31,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (4,4,'','','2022-01-13',21,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (5,5,'','','2022-01-19',18,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (6,6,'','','2022-02-03',9,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (7,7,'','','2022-02-12',52,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (8,8,'','','2022-02-21',62,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (9,9,'','','2022-02-29',42,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (10,10,'','','2022-03-08',23,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (11,11,'','','2022-03-11',46,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (12,12,'','','2022-03-12',56,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (13,13,'','','2022-03-14',43,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (14,14,'','','2022-03-22',23,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (15,15,'','','2022-04-05',98,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (16,16,'','','2022-04-09',27,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (17,17,'','','2022-04-16',24,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (18,18,'','','2022-04-17',109,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (19,19,'','','2022-04-26',28,default);
+INSERT INTO tblQnA (qSeq, mSeq, qTitle, qContent, qDate, qCount, qFile) VALUES (20,20,'','','2022-04-30',180,default);
 
+-- tblQgood DML
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (1,1,1);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (2,2,2);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (3,3,3);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (4,4,4);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (5,5,5);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (6,6,6);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (7,7,7);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (8,8,8);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (9,9,9);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (10,10,10);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (11,11,11);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (12,12,12);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (13,13,13);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (14,14,14);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (15,15,15);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (16,16,16);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (17,17,17);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (18,18,18);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (19,19,19);
+INSERT INTO tblQgood (qgSep, mSeq, qSeq) VALUES (20,20,20);
 
-
+-- tblCheck DML
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (1,1,'mysql 복습',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (2,2,'정보처리기사 필기 연습문제',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (3,3,'sqld 3단원',0);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (4,4,'java 코딩 연습',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (5,5,'adsp 연습문제',0);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (6,6,'Linux 공부',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (7,7,'mariadb 공부',0);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (8,8,'javascript 연습',0);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (9,9,'정보처리기사 실기 1단원',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (10,10,'웹페이지(회원가입)',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (11,11,'Node.js 공부',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (12,12,'spring boot 공부',0);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (13,13,'UI/UX 공부',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (14,14,'C언어 예습',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (15,15,'python',0);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (16,16,'웹페이지(로그인)',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (17,17,'블록체인 공부',0);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (18,18,'인공지능 공부',0);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (19,19,'github 사용법 공부',1);
+INSERT INTO tblCheck (cSep, mSeq, work, cState) VALUES (20,20,'C++ 공부',1);
 
 
 
