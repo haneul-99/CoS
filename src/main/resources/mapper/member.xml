@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ysh.CoS.mapper.memberMapper">
 
-	<select id = "loginCheck" parameterType="com.ysh.CoS.dto.memberDTO" resultType="com.ysh.CoS.dto.memberDTO">
+	<select id="loginCheck" parameterType="com.ysh.CoS.dto.memberDTO" resultType="com.ysh.CoS.dto.memberDTO">
 	
 		select * from tblMember where id=#{id} and pw=#{password}
 	
