@@ -11,12 +11,12 @@
     	</div>
 		
 		<div class="container" style="height: 800px;">
-	      	<h3><span>자유게시판</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QnA게시판&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;면접후기게시판</h3>
+	      	<h3><span id="free">자유게시판</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>QnA게시판</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>면접후기게시판</span></h3>
 			<h1 id="subTitle">자유게시판</h1>		 	
 				 	
 			<div id="searchDiv">
 				<select name="search" id="findSelect">
-					<option value="all" selected>제목+내용</option>
+					<option value="all">제목+내용</option>
 					<option value="title">제목</option>
 					<option value="auth">작성자</option>
 					<option value="content">내용</option>
@@ -29,7 +29,7 @@
 			<table id="tableBoard">
 				<tr>
 					<th>번호</th>
-					<th>제목[댓글 수]</th>
+					<th>제목</th>
 					<th>작성자</th>
 					<th>등록일</th>
 					<th>조회수</th>
@@ -39,21 +39,33 @@
 					<td>1</td>
 					<td>안녕 친구들아 [3]</td>
 					<td>김설화</td>
-					<td>2024-04-03</td>
+					<td>2024-04-17</td>
 					<td>10</td>
 					<!-- <td>3</td> -->
 				</tr>
 				<tr>
 					<td>2</td>
-					<td>안녕스터디할래 [13]</td>
+					<td>스터디 할래 [13]</td>
 					<td>김하늘</td>
 					<td>2024-04-10</td>
 					<td>20</td>
 					<!-- <td>13</td> -->
 				</tr>
+				<tr>
+					<td>3</td>
+					<td>프로젝트 할래 [11]</td>
+					<td>임예지</td>
+					<td>2024-04-03</td>
+					<td>11</td>
+					<!-- <td>11</td> -->
+				</tr>
 				
 			</table>
-		
+			
+			<div style="text-align: center; margin: 50px 0;">[1 2 3 4]</div>
+			
+			<button type="button" id="write"><i class="fa-solid fa-pen-fancy"></i> 글쓰기</button>
+			
     	</div>
     	
 	</div>
