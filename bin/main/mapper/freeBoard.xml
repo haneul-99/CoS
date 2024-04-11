@@ -3,4 +3,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ysh.CoS.mapper.freeBoardMapper">
+
+	<select id="selectList" resultType="com.ysh.CoS.dto.boardDTO">
+	
+		select b.*, m.name from tblBoard b inner join tblMember m on b.mseq = m.mseq
+	
+	</select>
+	
 </mapper>

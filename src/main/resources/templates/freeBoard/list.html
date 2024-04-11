@@ -34,26 +34,12 @@
 					<th>등록일</th>
 					<th>조회수</th>
 				</tr>
-				<tr>
-					<td>1</td>
-					<td>안녕 친구들아 [3]</td>
-					<td>김설화</td>
-					<td>2024-04-17</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>스터디 할래 [13]</td>
-					<td>김하늘</td>
-					<td>2024-04-10</td>
-					<td>20</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>프로젝트 할래 [11]</td>
-					<td>임예지</td>
-					<td>2024-04-03</td>
-					<td>11</td>
+				<tr th:each="list1 : ${list}">
+					<td th:text="${list1.bSeq}"></td>
+					<td th:text="${list1.bTitle}"></td>
+					<td th:text="${list1.name}"></td>
+					<td th:text="${list1.bDate}"></td>
+					<td th:text="${list1.bCount}"></td>
 				</tr>
 				
 			</table>

@@ -11,4 +11,6 @@ public class boardDTO {
 	private String bDate;		//작성일 
 	private String bCount;		//조회수 
 	private String bFile;		//첨부파일 
+	
+	private String name;
 }
