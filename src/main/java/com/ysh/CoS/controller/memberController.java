@@ -1,6 +1,7 @@
 package com.ysh.CoS.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -28,12 +29,12 @@ public class memberController {
 	}
 	
 	@PostMapping("/member/loginOk")
-	public String loginOk(String id, String password, HttpSession session, memberDTO member) {
+	public String loginOk(String id, String password, HttpSession session, Model model) {
 		
-		member = service.loginCheck(id,password);
+		memberDTO dto = service.loginCheck(id,password);
 		
-		if (member != null) {
-			String mSeq = member.getMSeq();
+		if (dto != null) {
+			String mSeq = dto.getMSeq();
 			session.setAttribute("mSeq",mSeq);
 			session.setAttribute("id", id);
 			
@@ -42,5 +43,14 @@ public class memberController {
 		} else { 
 			return "redirect:/member/login"; 
 		}
+	}
+	
+	@GetMapping("/member/logout")
+	public String logout(HttpSession session) {
+		
+		session.removeAttribute("mseq");		
+		session.removeAttribute("id");
+		
+		return "redirect:/index";
 	}
 }
