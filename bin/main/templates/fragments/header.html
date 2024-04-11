@@ -12,8 +12,8 @@
         		<ul class="nav-menu">
 		          <li class="menu-active"><a href="#intro">Home</a></li>
 		          <li><a href="#about">Study</a></li>
-		          <li><a href="#services">Blog</a></li>
-		          <li><a href="#team">My Schedule</a></li>
+		          <li th:if="${session.id != null}"><a href="#services">Blog</a></li>
+		          <li th:if="${session.id != null}"><a href="#team">My Schedule</a></li>
 		          <li class="menu-has-children"><a href="">Community</a>
 	            	<ul>
 		              <li><a href="/freeBoard/list">Free Board</a></li>
@@ -21,8 +21,9 @@
 		              <li><a href="#">Interview Board</a></li>
 	            	</ul>
           		  </li>
-          		  <li><a href="#portfolio">Mypage</a></li>
-          		  <li><a href="/member/login">Login</a></li>
+          		  <li th:if="${session.id != null}"><a href="#portfolio">Mypage</a></li>
+          		  <li th:if="${session.id == null}"><a href="/member/login">Login</a></li>
+          		  <li th:if="${session.id != null}"><a href="/member/logout">Logout</a></li>
         		</ul>
       		</nav><!-- #nav-menu-container -->
     	</div>

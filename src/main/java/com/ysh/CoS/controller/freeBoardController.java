@@ -17,6 +17,9 @@ public class freeBoardController {
 	
 	@GetMapping("/list")
 	public String list() {
+		
+		
+		
 		return "freeBoard/list";
 	}
 	
