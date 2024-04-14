@@ -1,8 +1,13 @@
 package com.ysh.CoS.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ysh.CoS.dto.interviewDTO;
 import com.ysh.CoS.service.interviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -13,5 +18,16 @@ import lombok.RequiredArgsConstructor;
 public class interviewController {
 	
 	private final interviewService interviewService;
-
+	
+	/* 면접후기게시판 페이지 */
+	@GetMapping(value="/interviewPage")
+	public String interviewPage(Model model) {
+		
+		List<interviewDTO> interview = interviewService.interviewList();
+		
+		model.addAttribute("interviewList", interview);
+		
+		return "/interview/interviewPage";
+	}
+	
 }
