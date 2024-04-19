@@ -13,4 +13,5 @@ public class interviewDTO {
 	private String iFile;		//첨부파일
 	
 	private String name;		//회원이름
+	private String rnum;		//rownum 정수설정
 }

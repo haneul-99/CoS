@@ -10,7 +10,12 @@ import com.ysh.CoS.dto.interviewDTO;
 public interface interviewMapper {
 
 	List<interviewDTO> interviewList();
+	
+	/*
+	List<Map<String, Object>> interviewList(Map<String, Object> search);
 
+	int interviewCnt(Map<String, Object> search);
+	*/
 	
 
 }
