@@ -10,7 +10,7 @@
     		<h1 id="title">자유게시판</h1>	
     	</div>
 		
-		<div class="container" style="height: 800px;">
+		<div class="container" style="height: 1000px;">
 	      	<h3><span id="free">자유게시판</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>QnA게시판</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>면접후기게시판</span></h3>
 			<h1 id="subTitle">자유게시판</h1>		 	
 				 	
@@ -35,7 +35,7 @@
 					<th>조회수</th>
 				</tr>
 				<tr th:each="list1 : ${list}">
-					<td th:text="${list1.bSeq}"></td>
+					<td th:text="${list1.bNo}"></td>
 					<td th:text="${list1.bTitle}"></td>
 					<td th:text="${list1.name}"></td>
 					<td th:text="${list1.bDate}"></td>
@@ -44,7 +44,7 @@
 				
 			</table>
 			
-			<div style="text-align: center; margin: 50px 0;">[1 2 3 4]</div>
+			<div id="pagebar" th:utext="${pagebar}"></div>
 			
 			<button type="button" id="write"><i class="fa-solid fa-pen-fancy"></i> 글쓰기</button>
 			
