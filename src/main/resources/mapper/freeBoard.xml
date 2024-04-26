@@ -4,9 +4,15 @@
 
 <mapper namespace="com.ysh.CoS.mapper.freeBoardMapper">
 
-	<select id="selectList" resultType="com.ysh.CoS.dto.boardDTO">
+	<select id="list" parameterType="hashmap" resultType="com.ysh.CoS.dto.boardDTO">
 	
-		select b.*, m.name from tblBoard b inner join tblMember m on b.mseq = m.mseq
+		select * from (select b.*, m.name, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq) r where bNo between ${begin} and ${end}
+	
+	</select>
+	
+	<select id="getTotalCount" resultType="Integer">
+	
+		select count(*) from tblBoard
 	
 	</select>
 	

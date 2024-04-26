@@ -12,5 +12,6 @@ public class boardDTO {
 	private String bCount;		//조회수 
 	private String bFile;		//첨부파일 
 	
-	private String name;
+	private String name;		//작성자
+	private String bNo;			//글 번호
 }

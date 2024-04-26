@@ -1,7 +1,8 @@
 package com.ysh.CoS.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,15 @@ public class freeBoardService {
 	
 	private final freeBoardMapper freeBoardMapper;
 
-	public List<boardDTO> selectList() {
+	public List<boardDTO> list(Map<String, String> map) {
 		
-		return freeBoardMapper.selectList();
+		return freeBoardMapper.list(map);
 	}
+
+	public int getTotalCount() {
+		
+		return freeBoardMapper.getTotalCount();
+	}
+
 
 }
