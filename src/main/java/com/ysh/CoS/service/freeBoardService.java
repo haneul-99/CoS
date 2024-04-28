@@ -19,12 +19,32 @@ public class freeBoardService {
 
 	public List<boardDTO> list(Map<String, String> map) {
 		
-		return freeBoardMapper.list(map);
+		if (map.get("isSearch").equals("n")) {
+		
+			return freeBoardMapper.list(map);
+		} else if (!map.get("search").equals("all")) {
+			
+			return freeBoardMapper.listSingleSearch(map);
+		} else {		
+			
+			return freeBoardMapper.listAllSearch(map);
+		}
+		
 	}
 
-	public int getTotalCount() {
+	public int getTotalCount(Map<String, String> map) {
 		
-		return freeBoardMapper.getTotalCount();
+		if (map.get("isSearch").equals("n")) {
+			
+			return freeBoardMapper.getTotalCount(map);
+		} else if (!map.get("search").equals("all")) {
+			
+			return freeBoardMapper.getSingleSearchCount(map);
+		} else {		
+			
+			return freeBoardMapper.getAllSearchCount(map);
+		}
+		
 	}
 
 
