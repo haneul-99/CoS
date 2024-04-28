@@ -53,12 +53,14 @@
 			</table>
 			
 			<div id="paging">
+				<a th:href="${list.first} ? '#' : @{/interview/interviewPage(page=${list.number-1})}"><i class="fa-solid fa-angles-left"></i></a>
 				<th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
 					<th:block th:if="${!list.isEmpty()}">
 		     			<a th:if="${page != nowPage}" th:href="@{/interview/interviewPage(page=${page - 1},search=${param.search},word=${param.word})}" th:text="${page}"></a>
 		     			<div th:if="${page == nowPage}" th:text="${page}"></div>
 	     			</th:block>
 				</th:block>
+				<a th:href="${list.last} ? '#' : @{/interview/interviewPage(page=${list.number+1})}"><i class="fa-solid fa-angles-right"></i></a>
 			</div>
 			
 			<button type="button" id="write"><i class="fa-solid fa-pen-fancy"></i> 글쓰기</button>
