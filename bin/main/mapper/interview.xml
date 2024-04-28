@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ysh.CoS.mapper.interviewMapper">
-
+	
 	<select id="interviewList" resultType="com.ysh.CoS.dto.interviewDTO">
 		select 
 			 @ROWNUM:=@ROWNUM+1 AS rnum
@@ -13,6 +13,66 @@
 			 tblInterview i inner join tblMember m
 			 on i.mSeq = m.mSeq
 			,(SELECT @ROWNUM := 0) R
+		limit
+			#{offset}, #{pageSize}
 	</select>
-
+	 
+	<select id="interviewSearchList" resultType="com.ysh.CoS.dto.interviewDTO">
+		select 
+			 @ROWNUM:=@ROWNUM+1 AS rnum
+			,i.*
+			,m.name
+		from 
+			 tblInterview i inner join tblMember m
+			 on i.mSeq = m.mSeq
+			,(SELECT @ROWNUM := 0) R
+		where 1=1
+			<if test='search == "all" and word != null and word != ""'>
+				AND iTitle LIKE CONCAT('%', #{word}, '%')
+				OR iContent LIKE CONCAT('%', #{word}, '%')
+			</if>
+			<if test='search == "title" and word != null and word != ""'>
+				AND iTitle LIKE CONCAT('%', #{word}, '%')
+			</if>
+			<if test='search == "auth" and word != null and word != ""'>
+				AND name LIKE CONCAT('%', #{word}, '%')
+			</if>
+			<if test='search == "content" and word != null and word != ""'>
+				AND iContent LIKE CONCAT('%', #{word}, '%')
+			</if>
+		limit
+			#{offset}, #{pageSize}
+		
+	</select>
+	
+	<select id="interviewCnt" resultType="int">
+		select 
+			count(*)
+		from tblInterview
+	</select>
+	
+	<select id="interviewSearchCnt" resultType="int">
+		select 
+			count(*)
+		from 
+			 tblInterview i inner join tblMember m
+			 on i.mSeq = m.mSeq
+		where 1=1
+			<if test='word != null and word != ""'>
+				<if test='search == "all"'>
+					AND iTitle LIKE CONCAT('%', #{word}, '%')
+					AND iContent LIKE CONCAT('%', #{word}, '%')
+				</if>
+				<if test='search == "title"'>
+					AND iTitle LIKE CONCAT('%', #{word}, '%')
+				</if>
+				<if test='search == "auth"'>
+					AND name LIKE CONCAT('%', #{word}, '%')
+				</if>
+				<if test='search == "content"'>
+					AND iContent LIKE CONCAT('%', #{word}, '%')
+				</if>
+			</if>
+	</select>
+	
 </mapper>
