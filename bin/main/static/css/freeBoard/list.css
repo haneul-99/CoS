@@ -177,6 +177,7 @@ td:nth-child(2) {
 	background-color: #18d26e;
 	color: white;
 	float: right;
+	margin-top: 10px;
 }
 
 #write > i {
