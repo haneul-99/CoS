@@ -41,7 +41,7 @@
 					<th>등록일</th>
 					<th>조회수</th>
 				</tr>
-				<tr th:each="list1 : ${list}">
+				<tr th:each="list1 : ${list}" th:id="${list1.bSeq}" th:onClick="|location.href='@{/freeBoard/listDetail/{id}(id=${list1.bSeq})}'|">
 					<td th:text="${list1.bNo}"></td>
 					<td th:utext="${list1.bTitle}"></td>
 					<td th:utext="${list1.name}"></td>
@@ -58,4 +58,5 @@
     	</div>
     	
 	</div>
+
 </html>
