@@ -1,3 +1,11 @@
+.nav-menu > .menu-active > a {
+	color: #fff;
+}
+
+.nav-menu > .menu-has-children > a {
+	color: #18d26e;
+}
+
 #backDiv {
 	background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('/img/notebook1.jpg');
 	width: 100%; 
@@ -34,7 +42,7 @@ span:hover {
 	color: black;
 }
 
-#free {
+#interview {
 	font-weight: bold;
 	color: black;
 	display: inline-block;

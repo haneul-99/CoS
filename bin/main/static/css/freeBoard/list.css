@@ -1,5 +1,9 @@
-.nav-menu > a {
-	    color: #fff;
+.nav-menu > .menu-active > a {
+	color: #fff;
+}
+
+.nav-menu > .menu-has-children > a {
+	color: #18d26e;
 }
 
 #backDiv {
