@@ -75,4 +75,18 @@
 			</if>
 	</select>
 	
+	<select id="listDetail" resultType="com.ysh.CoS.dto.interviewDTO">
+		select 
+			 @ROWNUM:=@ROWNUM+1 AS rnum
+			,i.*
+			,m.name
+			,m.img
+		from 
+			 tblInterview i inner join tblMember m
+			 on i.mSeq = m.mSeq
+			,(SELECT @ROWNUM := 0) R
+		where
+			i.iSeq = #{iSeq}
+	</select>
+	
 </mapper>

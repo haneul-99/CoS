@@ -160,6 +160,10 @@ td:nth-child(2) {
 	font-weight: 600;
 }
 
+td > a {
+	color: #666666;
+}
+
 #write {
 	border: none;
 	outline: none;
@@ -187,7 +191,7 @@ td:nth-child(2) {
 	display: inline-block;
 }
 
-a {
+#paging > a {
      padding: 15px 15px;
      text-align: center;
      display: inline-block;

@@ -39,7 +39,7 @@
 				
 				<tr th:each="list : ${list}">
 					<td th:text="${list.rnum}"></td>
-					<td th:text="${list.iTitle}"></td>
+					<td><a th:href="@{/interview/detail(iSeq=${list.iSeq})}" th:text="${list.iTitle}"></a></td>
 					<td th:text="${list.name}"></td>
 					<td th:text="${list.iDate}"></td>
 					<td th:text="${list.iCount}"></td>
