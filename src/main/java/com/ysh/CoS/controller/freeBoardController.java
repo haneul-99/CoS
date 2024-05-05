@@ -63,4 +63,10 @@ public class freeBoardController {
 		return "freeBoard/list";
 	}
 	
+	@GetMapping("/listDetail/{id}") 
+	public String listDetail(Model model) {
+		
+		return "freeBoard/listDetail";
+	}
+	
 }
