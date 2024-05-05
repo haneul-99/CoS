@@ -32,4 +32,9 @@ public class interviewService {
 		return new PageImpl<>(searchList, page, count);
 	}
 
+	public interviewDTO listDetail(String iSeq) {
+		return interviewMapper.listDetail(iSeq);
+	}
+
+	
 }

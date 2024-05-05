@@ -14,4 +14,5 @@ public class interviewDTO {
 	
 	private String name;		//회원이름
 	private String rnum;		//rownum 정수설정
+	private String img;			//회원 프로필
 }

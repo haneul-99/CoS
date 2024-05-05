@@ -61,4 +61,13 @@ public class interviewController {
        
 	}
 	
+	/* 면접후기게시판 상세조회 */
+	@GetMapping(value="/detail")
+	public String detail(String iSeq, Model model) {
+		interviewDTO listDetail = interviewService.listDetail(iSeq);
+		model.addAttribute("listDetail", listDetail);
+		//System.out.println("listDetail :" + listDetail);
+		return "/interview/detail";
+	}
+	
 }

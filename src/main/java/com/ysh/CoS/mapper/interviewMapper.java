@@ -16,8 +16,9 @@ public interface interviewMapper {
 
 	List<interviewDTO> interviewSearchList(Map<String, Object> resultMap);
 
-	//int interviewSearchCnt(@Param("search")String search, @Param("word")String word);
-
 	int interviewSearchCnt(Map<String, Object> resultMap);
+
+	interviewDTO listDetail(String iSeq);
+
 
 }
