@@ -57,7 +57,7 @@ public class interviewController {
         //System.out.println("endPage : " + list.getTotalPages());
         //System.out.println("nowPage : " + list.getPageable().getPageNumber());
         
-		return "/interview/interviewPage";
+		return "interview/interviewPage";
        
 	}
 	
@@ -67,7 +67,7 @@ public class interviewController {
 		interviewDTO listDetail = interviewService.listDetail(iSeq);
 		model.addAttribute("listDetail", listDetail);
 		//System.out.println("listDetail :" + listDetail);
-		return "/interview/detail";
+		return "interview/detail";
 	}
 	
 }
