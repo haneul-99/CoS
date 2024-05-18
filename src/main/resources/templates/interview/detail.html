@@ -2,14 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">   
 	<head>
-		<link href="/css/interview/listDetail.css" rel="stylesheet">
+		<link href="/css/interview/detail.css" rel="stylesheet">
 	</head>   
 	<div layout:fragment="content">
 		<div id="backDiv"></div>
 		<div class="board">
 			<div id="profile">
-				<img th:src="${listDetail.img}">
+				<img th:src="@{/img/member/}+${listDetail.img}">
+				<div id="nickNm">
+					<span>[[${listDetail.nickName}]]</span>
+					
+				</div>
 			</div>
 		</div>
 	</div>
 </html>
+
+

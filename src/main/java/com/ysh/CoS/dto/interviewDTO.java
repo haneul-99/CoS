@@ -13,6 +13,7 @@ public class interviewDTO {
 	private String iFile;		//첨부파일
 	
 	private String name;		//회원이름
-	private String rnum;		//rownum 정수설정
+	private String iNum;		//번호(순위함수)
 	private String img;			//회원 프로필
+	private String nickName;	//닉네임
 }

@@ -6,26 +6,26 @@
 	
 	<select id="interviewList" resultType="com.ysh.CoS.dto.interviewDTO">
 		select 
-			 @ROWNUM:=@ROWNUM+1 AS rnum
-			,i.*
+			 i.*
 			,m.name
+			,m.nickName
+			,ROW_NUMBER() OVER(ORDER BY iSeq DESC) as iNum
 		from 
 			 tblInterview i inner join tblMember m
 			 on i.mSeq = m.mSeq
-			,(SELECT @ROWNUM := 0) R
 		limit
 			#{offset}, #{pageSize}
 	</select>
 	 
 	<select id="interviewSearchList" resultType="com.ysh.CoS.dto.interviewDTO">
 		select 
-			 @ROWNUM:=@ROWNUM+1 AS rnum
-			,i.*
+			i.*
 			,m.name
+			,m.nickName
+			,ROW_NUMBER() OVER(ORDER BY iSeq DESC) as iNum
 		from 
 			 tblInterview i inner join tblMember m
 			 on i.mSeq = m.mSeq
-			,(SELECT @ROWNUM := 0) R
 		where 1=1
 			<if test='search == "all" and word != null and word != ""'>
 				AND iTitle LIKE CONCAT('%', #{word}, '%')
@@ -77,14 +77,13 @@
 	
 	<select id="listDetail" resultType="com.ysh.CoS.dto.interviewDTO">
 		select 
-			 @ROWNUM:=@ROWNUM+1 AS rnum
-			,i.*
+			i.*
 			,m.name
+			,m.nickName
 			,m.img
 		from 
 			 tblInterview i inner join tblMember m
 			 on i.mSeq = m.mSeq
-			,(SELECT @ROWNUM := 0) R
 		where
 			i.iSeq = #{iSeq}
 	</select>
