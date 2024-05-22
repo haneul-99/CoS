@@ -6,19 +6,19 @@
 
 	<select id="list" parameterType="hashmap" resultType="com.ysh.CoS.dto.boardDTO">
 	
-		select * from (select b.*, m.name, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq) r where bNo between ${begin} and ${end}
+		select * from (select b.*, m.nickName, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq) r where bNo between ${begin} and ${end}
 	
 	</select>
 	
 	<select id="listSingleSearch" parameterType="hashmap" resultType="com.ysh.CoS.dto.boardDTO">
 	
-		select * from (select b.*, m.name, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq where ${search} like '%${word}%') r where bNo between ${begin} and ${end}
+		select * from (select b.*, m.nickName, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq where ${search} like '%${word}%') r where bNo between ${begin} and ${end}
 	
 	</select>
 	
 	<select id="listAllSearch" parameterType="hashmap" resultType="com.ysh.CoS.dto.boardDTO">
 	
-		select * from (select b.*, m.name, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq where bTitle like '%${word}%' || bContent like '%${word}%' || name like '%${word}%') r where bNo between ${begin} and ${end}
+		select * from (select b.*, m.nickName, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq where bTitle like '%${word}%' || bContent like '%${word}%' || nickName like '%${word}%') r where bNo between ${begin} and ${end}
 	
 	</select>
 	
@@ -36,7 +36,7 @@
 	
 	<select id="getAllSearchCount" parameterType="hashmap" resultType="Integer">
 	
-		select count(*) from tblBoard b inner join tblMember m on b.mseq = m.mseq where bTitle like '%${word}%' || bContent like '%${word}%' || name like '%${word}%'
+		select count(*) from tblBoard b inner join tblMember m on b.mseq = m.mseq where bTitle like '%${word}%' || bContent like '%${word}%' || nickName like '%${word}%'
 	
 	</select>
 	

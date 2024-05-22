@@ -134,12 +134,12 @@ public class freeBoardService {
 					title = title.replace(map.get("word"), "<span style=\"background-color: gold; color: tomato;\">" + map.get("word") + "</span>");
 					dto.setBTitle(title);
 				}
-			} else if (map.get("search").equals("name")) {
+			} else if (map.get("search").equals("nickName")) {
 				for (boardDTO dto : list) {
-					String name = dto.getName();
+					String name = dto.getNickName();
 					
 					name = name.replace(map.get("word"), "<span style=\"background-color: gold; color: tomato;\">" + map.get("word") + "</span>");
-					dto.setName(name);
+					dto.setNickName(name);
 				}
 			} else if (map.get("search").equals("bContent")) {
 				for (boardDTO dto : list) {
@@ -151,7 +151,7 @@ public class freeBoardService {
 			} else {
 				for (boardDTO dto : list) {
 					String title = dto.getBTitle();
-					String name = dto.getName();
+					String name = dto.getNickName();
 					String content = dto.getBContent();
 					
 					title = title.replace(map.get("word"), "<span style=\"background-color: gold; color: tomato;\">" + map.get("word") + "</span>");
@@ -159,7 +159,7 @@ public class freeBoardService {
 					content = content.replace(map.get("word"), "<span style=\"background-color: gold; color: tomato;\">" + map.get("word") + "</span>");
 				
 					dto.setBTitle(title);
-					dto.setName(name);
+					dto.setNickName(name);
 					dto.setBContent(content);
 				}
 			}
