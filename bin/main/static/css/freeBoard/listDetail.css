@@ -58,6 +58,20 @@
 	border: 1px solid #D4D5D9;
 }
 
+.profile2 {
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	border: 1px solid #D4D5D9;
+}
+
+.profile3 {
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	border: 1px solid #D4D5D9;
+}
+
 .description {
 	width: 1005px;
 	height: 45px;
@@ -209,6 +223,12 @@ textarea {
 	margin-bottom: 10px; 
 }
 
+.commentInfo2 {
+	display: flex;
+	margin-top: 15px;
+	margin-bottom: 10px; 
+}
+
 .commentContent {
 	font-size: 14px;
 	margin: 10px 0;
@@ -217,6 +237,11 @@ textarea {
 .replyComment {
 	font-size: 13px;
 	margin-bottom: 25px;
+}
+
+.replyComment2 {
+	font-size: 13px;
+	margin-bottom: 15px;
 }
 
 .moreComment {
@@ -238,8 +263,9 @@ textarea {
 }
 
 .viewComment {
-	width: 97%;
-	padding: 0 10px;
-	border: 1px solid orange;
+	width: 96%;
+	min-width: 300px;
+	padding: 0 15px; 
+	border-left: 2px solid #E5E7EB;
 	margin: 0 auto;
 }
