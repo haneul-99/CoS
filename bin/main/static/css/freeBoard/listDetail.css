@@ -1,3 +1,245 @@
 #header {
 	background-color: black;
 }
+
+.nav-menu > .menu-active > a {
+	color: #fff;
+}
+
+.nav-menu > .menu-has-children > a {
+	color: #18d26e;
+}
+
+#listLine {
+	height: 55px;
+}
+
+#before {
+	border: 0.5px solid #D4D5D9;
+	display: inline-block;
+	width: 2%;
+	position: relative;
+	top: 10px;
+}
+
+#moveList {
+	width: 17%;
+	display: inline-block;
+	margin-bottom: 10px;
+	margin: 0 5px;
+	font-size: 15px;
+	color: #9FA3AE;
+}
+
+#moveList > a {
+	font-weight: bold;
+}
+
+#moveList > a:hover {
+	color: black;
+}
+
+#after {
+	border: 0.5px solid #D4D5D9;
+	display: inline-block;
+	width: 79%;
+	position: relative;
+	top: 10px;
+}
+
+.info {
+	display: flex;
+	margin: 25px 0;
+}
+
+.profile {
+	width: 45px;
+	border-radius: 50%;
+	border: 1px solid #D4D5D9;
+}
+
+.description {
+	width: 1005px;
+	height: 45px;
+	line-height: 125%;
+	padding: 2px 0;
+	margin-left: 8px;
+}
+
+.nick {
+	font-weight: bold;
+	font-size: 15px;
+	padding: 50px 0;
+	color: #000;
+}
+
+.subDescription {
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.miniImg {
+	width: 16px;
+	margin-right: 1px;
+}
+
+.like {
+	width: 45px;
+}
+
+#lessImg:hover {
+	content: url("/img/fullheart.png");
+}
+
+#fullImg:hover {
+	content: url("/img/lessheart.png");
+}
+
+h2 {
+	font-weight: bold;
+	color: #000;
+	margin: 40px 0;
+}
+
+#content {
+	margin-bottom: 30px;
+}
+
+#buttons {
+	height: 38px;
+	margin-bottom: 50px;
+}
+
+.btn {
+	border: none;
+	outline: none;
+	width: 115px;
+	height: 35px;
+	font-size: 15px;
+	font-weight: bold;
+	background-color: #18d26e;
+	color: white;
+	border-radius: 0;
+	margin-left: 30px;
+	float: right;
+}
+
+.btn:hover {
+	background-color: #000;
+}
+
+hr {
+	border: 0.5px solid #D4D5D9;
+}
+
+#comment {
+	border: 1.5px solid #D4D5D9;
+	border-radius: 10px 10px 10px 10px;
+	margin: 40px 0;
+	margin-bottom: 50px;
+}
+
+#minicomment {
+	display: inline-block;
+	width: 1065px;
+	height: 80px;
+	margin: 10px 20px;
+	margin-top: 25px;
+	position: relative;
+}
+
+.miniProfile {
+	width: 38px;
+	display: inline-block;
+	border: 1px solid #D4D5D9;
+	border-radius: 50%;
+	margin-right: 10px;
+	margin-top: -105px; /* 105 or 110 */
+}
+
+textarea {
+	resize: none;
+	outline: 0;
+	border: 1.5px solid #D4D5D9;
+	border-radius: 8px 8px 8px 8px;
+	padding: 15px;
+	width: 1010px;
+	height: 78px;
+	font-size: 15px;
+	background-color: #FCFCFD;
+}
+
+.fa-circle-info {
+	font-size: 16px;
+} 
+
+#message {
+	display: inline-block;
+	position: absolute;
+	top: 15px;
+	left: 68px;
+}
+
+#moveLogin {
+	text-decoration: underline;
+}
+
+#writeBtn {
+	outline: none;
+	border: none;
+	width: 110px;
+	height: 35px;
+	background-color: #18d26e;
+	color: white;
+	border-radius: 4px 4px 4px 4px;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 25px;
+	margin-left: 971px;
+	justify-content: right;
+}
+
+#writeBtn:hover {
+	background-color: #000;
+}
+
+.commentInfo1 {
+	display: flex;
+	margin-top: 25px;
+	margin-bottom: 10px; 
+}
+
+.commentContent {
+	font-size: 14px;
+	margin: 10px 0;
+}
+
+.replyComment {
+	font-size: 13px;
+	margin-bottom: 25px;
+}
+
+.moreComment {
+	margin-right: 20px;
+	color: #18d26e; 
+}
+
+.moreComment:hover {
+	color: #18d26e; 
+}
+
+.remove {
+	color: red;
+	float: right;
+}
+
+.rdComment:hover {
+	color: #18d26e; 
+}
+
+.viewComment {
+	width: 97%;
+	padding: 0 10px;
+	border: 1px solid orange;
+	margin: 0 auto;
+}

@@ -7,10 +7,88 @@
        
 	<div layout:fragment="content">
     	
-		<div class="container" style="height: 1000px;">
+		<div class="container" style="height: auto; margin-top: 120px; margin-bottom: 120px;">
 
+			<div id="listLine">
+			<hr id="before"> <div id="moveList">COMMUNITY / <a href="/freeBoard/list">Free Board</a></div> <hr id="after">
+			</div>
+			
+			<div class="info">
+				<img class="profile" src="/img/member/member01.jpg">
+				<div class="description">
+					<span class="nick">코가더</span><br><span class="subDescription">주니어 개발자 ㆍ 13일 전 ㆍ <img class="miniImg" src="/img/fullheart.png">10 ㆍ <img class="miniImg" src="/img/eye.png">100</span>
+				</div>
+				<img id="lessImg" class="like" src="/img/lessheart.png">
+				<!-- <img id="fullImg" class="like" src="/img/fullheart.png"> -->
+			</div>
+			
+			<h2>불황에도 집값은 잘 버티네요.</h2>
+
+			<div id="content">
+				눈에 띄는 댓글이 있네요<br><br>여보 집사서 평생노예처럼일만 하면서 빚갚으면서 살아요<br><br>우리가 희생해서 기득권들 부자들 도와줘요 ㅎㅎ<br><br>재건축이 내가 알기로는<br><br>집이 한채 있으면 시행사가 10층 아파트를 지으면<br><br>원주인은 1채+@ 가져가고(헌집받고 새집준다+@)<br><br>그런 나머지는 시행사가 갖게되는데<br><br>입장을 바꿔서 내가 시행사라면<br><br>원주인은 1채+@ 가져가고(헌집받고 새집준다+@)<br><br>그런 나머지는 시행사가 갖게되는데<br><br>입장을 바꿔서 내가 시행사라면
+			</div>
+			
+			<div id="buttons">
+				<button type="button" class="btn"><i class="fa-solid fa-trash-can"></i> 삭제하기</button>
+				<button type="button" class="btn"><i class="fa-solid fa-pen-to-square"></i> 수정하기</button>
+			</div>
+			
+			<hr>
+			31개의 댓글
+			
+			<div id="comment">
+			<form method="POST" action="">
+				<div id="minicomment">
+					<img class="miniProfile" src="/img/member/default.jpg">
+					<textarea></textarea>
+					<div id="message">
+						<i class="fa-solid fa-circle-info"></i> 
+						댓글을 쓰려면 <a id="moveLogin" href="/member/login">로그인</a>이 필요합니다.
+					</div>
+				</div>
+				<button id="writeBtn" type="submit">댓글 쓰기</button>
+			</form>
+			
+			</div>
+			
+			<div class="commentInfo1">
+				<img class="profile" src="/img/member/default.jpg">
+				<div class="description">
+					<span class="nick">RunningDog</span><br><span class="subDescription">시니어 개발자 ㆍ 12일 전</span>
+				</div>
+			</div>
+			<div class="commentContent">안사면 떨어집니다. 고시원 살면서 이악물고 버티겠습니다. 평생 혼자살겠습니다!</div>
+			<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
+      		
+      		<!-- 세부 대댓글 디자인 시작 --> <!-- 24.05.22 여기서부터 -->
+      		<div class="viewComment">
+      		
+      			<div class="commentInfo1">
+					<img class="profile" src="/img/member/member03.jpg" style="width: 42px; height: 42px;">
+					<div class="description">
+						<span class="nick">잠바</span><br><span class="subDescription">주니어 개발자 ㆍ 9일 전</span>
+					</div>
+				</div>
+				<div class="commentContent">그러내요...ㅋㅋㅋㅋ</div>
+				<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
+      			
+      			
+      		</div>
+      		<!-- 세부 대댓글 디자인 끝 -->
+      		
+      		<hr>
+      		<div class="commentInfo1">
+				<img class="profile" src="/img/member/member02.jpg">
+				<div class="description">
+					<span class="nick">jjavaman</span><br><span class="subDescription">주니어 개발자 ㆍ 7일 전</span>
+				</div>
+			</div>
+			<div class="commentContent">집 한채 구하고 싶은데<br>떨어져도 올라도 너무 비싸서 못사겠어요....<br>노후엔 어디 숲속에 텐트치고 살각인거 같습니다</div>
+			<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-down"></i> 댓글 1개 보기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
+      		
+      		
+      		
       	</div>
-    	
     	
 	<script>
 	</script>	

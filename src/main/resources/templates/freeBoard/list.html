@@ -21,8 +21,8 @@
 					<option th:unless="${map.search == 'all'}" value="all">제목+내용</option>
 					<option th:if="${map.search == 'bTitle'}" value="bTitle" selected>제목</option>
 					<option th:unless="${map.search == 'bTitle'}" value="bTitle">제목</option>
-					<option th:if="${map.search == 'name'}" value="name" selected>작성자</option>
-					<option th:unless="${map.search == 'name'}" value="name">작성자</option>
+					<option th:if="${map.search == 'nickName'}" value="nickName" selected>작성자</option>
+					<option th:unless="${map.search == 'nickName'}" value="nickName">작성자</option>
 					<option th:if="${map.search == 'bContent'}" value="bContent" selected>내용</option>
 					<option th:unless="${map.search == 'bContent'}" value="bContent">내용</option>
 				</select>
@@ -43,8 +43,8 @@
 				</tr>
 				<tr th:each="list1 : ${list}" th:id="${list1.bSeq}" th:onClick="|location.href='@{/freeBoard/listDetail/{id}(id=${list1.bSeq})}'|">
 					<td th:text="${list1.bNo}"></td>
-					<td th:utext="${list1.bTitle}"></td>
-					<td th:utext="${list1.name}"></td>
+					<td th:utext="${list1.bTitle} + ' [댓글수' + ${list1.bCount} + ']'"></td>
+					<td th:utext="${list1.nickName}"></td>
 					<td th:text="${list1.bDate}"></td>
 					<td th:text="${list1.bCount}"></td>
 				</tr>
