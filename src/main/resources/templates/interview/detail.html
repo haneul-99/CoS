@@ -6,16 +6,62 @@
 	</head>   
 	<div layout:fragment="content">
 		<div id="backDiv"></div>
-		<div class="board">
+		<div class="container" style="width: 900px; height: auto; margin: 40px auto 120px; padding: 0 15px;	">
+			<div id="line">
+				<hr id="after"><div id="moveList">COMMUNITY / <a href="/interview/interviewPage">Interview Board</a></div><hr id="before">
+			</div>
 			<div id="profile">
-				<img th:src="@{/img/member/}+${listDetail.img}">
-				<div id="nickNm">
-					<span>[[${listDetail.nickName}]]</span>
-					
+				<img class="profileImg" th:src="@{/img/member/}+${listDetail.img}">
+				<div id="infoDiv">
+					<div id="userDiv">
+						<span>[[${listDetail.nickName}]]</span><br>
+						<span th:text="${listDetail.auth} == 1 ? '주니어 개발자' : '시니어 개발자'" class="info"/> ·
+						<span class="info">[[${listDetail.iDate}]] ·
+						<i class="fa-solid fa-heart"></i></i>&nbsp;10 ·
+						<i class="fa-regular fa-eye"></i>&nbsp;[[${listDetail.iCount}]]</span>
+						<button id="likeBtn"><i class="fa-solid fa-heart fa-2x"></i></button>
+					</div>
 				</div>
 			</div>
+			<h1>[[${listDetail.iTitle}]]</h1>
+			<div id="iContent" th:text="${listDetail.iContent}"></div>
+			<div id="buttons" th:if="${listDetail.id} == ${session.id}">
+				<button type="button" class="btn"><i class="fa-solid fa-pen-to-square"></i>수정하기</button>
+				<button type="button" class="btn"><i class="fa-solid fa-trash-can"></i>삭제하기</button>
+			</div>
+		</div>
+		<hr>
+		<div id="cmtContainer">
+			<span>[[${IntCmtCount}]]개의 댓글</span>
+			<div id="comment">
+				<form meth="GET" action="/interview/writeCmt">
+				<div id="writeCmt">
+					<th:block th:if="${session.id} != null">
+						<img class="profileImg" src="/img/member/default.jpg">
+						<div id="textBox">
+							<textarea name="icContent"></textarea>
+						</div>
+					</th:block>
+					<th:block th:if="${session.id} == null">
+						<img id="profileImg" src="/img/member/default.jpg">
+						<div id="message">
+							<i class="fa-solid fa-circle-info"></i> 
+							댓글을 쓰려면 <a id="moveLogin" href="/member/login">로그인</a>이 필요합니다.
+						</div>
+					</th:block>
+				</div>
+				<input type="hidden" th:name="iSeq" th:value="${listDetail.iSeq}">
+				<button id="writeBtn" type="submit">댓글 쓰기</button>
+				</form>
+			</div>
+			<!--
+			<th:if="${not #lists.isEmpty(listCmt)}" th:each="list:${listCmt}" >
+				<div>
+					<img class="profileImg" th:src="@{/img/member/}+${list.img}">
+				</div>
+			</th:if>
+			-->
 		</div>
 	</div>
 </html>
-
 

@@ -3,14 +3,14 @@ package com.ysh.CoS.dto;
 import lombok.Data;
 
 @Data
-public class interviewDTO {
-	private String iSeq;		//면접후기 번호
-	private String mSeq;		//회원번호 
-	private String iTitle;		//제목 
-	private String iContent;	//내용 
-	private String iDate;		//작성일 
-	private String iCount;		//조회수
-	private String iFile;		//첨부파일
+public class intCmtDTO {
+	private String icSeq;			//댓글번호 
+	private String mSeq;			//회원번호 
+	private String iSeq;			//면접 후기 번호 
+	private String icDate;			//작성일
+	private String step;			//스텝 
+	private String deps;			//뎁스 
+	private String icContent;		//댓글내용
 	
 	private String name;		//회원이름
 	private String iNum;		//번호(순위함수)

@@ -34,8 +34,8 @@
 			<if test='search == "title" and word != null and word != ""'>
 				AND iTitle LIKE CONCAT('%', #{word}, '%')
 			</if>
-			<if test='search == "auth" and word != null and word != ""'>
-				AND name LIKE CONCAT('%', #{word}, '%')
+			<if test='search == "nickName" and word != null and word != ""'>
+				AND nickName LIKE CONCAT('%', #{word}, '%')
 			</if>
 			<if test='search == "content" and word != null and word != ""'>
 				AND iContent LIKE CONCAT('%', #{word}, '%')
@@ -66,8 +66,8 @@
 				<if test='search == "title"'>
 					AND iTitle LIKE CONCAT('%', #{word}, '%')
 				</if>
-				<if test='search == "auth"'>
-					AND name LIKE CONCAT('%', #{word}, '%')
+				<if test='search == "nickName"'>
+					AND nickName LIKE CONCAT('%', #{word}, '%')
 				</if>
 				<if test='search == "content"'>
 					AND iContent LIKE CONCAT('%', #{word}, '%')
@@ -81,6 +81,8 @@
 			,m.name
 			,m.nickName
 			,m.img
+			,m.auth
+			,m.id
 		from 
 			 tblInterview i inner join tblMember m
 			 on i.mSeq = m.mSeq
@@ -88,4 +90,49 @@
 			i.iSeq = #{iSeq}
 	</select>
 	
+	<select id="IntCmtCount" resultType="int">
+		select 
+			count(*)
+		from 
+			tblInterview i inner join tblIntcmt ic
+		where
+			i.iSeq = #{iSeq}
+	</select>
+	
+	<insert id="writeCmt" parameterType="com.ysh.CoS.dto.intCmtDTO">
+		insert into tblIntcmt(
+				 icSeq
+				,mSeq
+				,iSeq
+				,icDate
+				,icContent
+				,step
+				,deps
+		)VALUES(
+				 #{icSeq}
+				,#{mSeq}
+				,#{iSeq}
+				,#{icDate}
+				,#{icContent}
+				,0
+				,0
+		)	
+	</insert>
+	
+	<select id="listCmt" resultType="com.ysh.CoS.dto.intCmtDTO">
+		select
+			 c.*
+			,m.name
+			,m.nickName
+			,m.img
+			,m.auth
+			,m.id
+		from
+			tblIntcmt c inner join tblInterview i
+			on c.iSeq = i.iSeq
+			inner join tblMember m
+			on i.mSeq = m.mSeq
+		where
+			c.iSeq=#{iSeq}
+	</select>
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ysh.CoS.dto.intCmtDTO;
 import com.ysh.CoS.dto.interviewDTO;
 import com.ysh.CoS.mapper.interviewMapper;
 
@@ -34,6 +35,18 @@ public class interviewService {
 
 	public interviewDTO listDetail(String iSeq) {
 		return interviewMapper.listDetail(iSeq);
+	}
+
+	public int IntCmtCount(String iSeq) {
+		return interviewMapper.IntCmtCount(iSeq);
+	}
+
+	public int writeCmt(intCmtDTO intCmt) {
+		return interviewMapper.writeCmt(intCmt);
+	}
+
+	public List<intCmtDTO> listCmt(String iSeq) {
+		return interviewMapper.listCmt(iSeq);
 	}
 
 	
