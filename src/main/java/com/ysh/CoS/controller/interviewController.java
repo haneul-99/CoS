@@ -1,6 +1,9 @@
 package com.ysh.CoS.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
@@ -11,9 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ysh.CoS.dto.intCmtDTO;
 import com.ysh.CoS.dto.interviewDTO;
 import com.ysh.CoS.service.interviewService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -63,11 +68,32 @@ public class interviewController {
 	
 	/* 면접후기게시판 상세조회 */
 	@GetMapping(value="/detail")
-	public String detail(String iSeq, Model model) {
+	public String detail(String iSeq, Model model, HttpSession session) {
 		interviewDTO listDetail = interviewService.listDetail(iSeq);
+		List<intCmtDTO> listCmt = interviewService.listCmt(iSeq);
+		int IntCmtCount = interviewService.IntCmtCount(iSeq);
+		session.getAttribute("id");
+		model.addAttribute("listCmt", listCmt);
 		model.addAttribute("listDetail", listDetail);
-		//System.out.println("listDetail :" + listDetail);
+		model.addAttribute("IntCmtCount", IntCmtCount);
 		return "interview/detail";
 	}
 	
+	/* 게시판 댓글 작성 */
+	@GetMapping(value="/writeCmt")
+	public String writeCmt(intCmtDTO intCmt, HttpSession session, String iSeq) {
+		
+		LocalDateTime now = LocalDateTime.now();
+	    String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		
+	    intCmt.setIcSeq(intCmt.getIcSeq());
+	    intCmt.setIcContent(intCmt.getIcContent());
+	    intCmt.setIcDate(date);
+	    intCmt.setMSeq((String)session.getAttribute("mSeq"));
+	    intCmt.setISeq(iSeq);
+		
+		int result = interviewService.writeCmt(intCmt);
+		
+		return "redirect:/interview/detail?iSeq=" + iSeq;
+	}
 }

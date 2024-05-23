@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ysh.CoS.dto.intCmtDTO;
 import com.ysh.CoS.dto.interviewDTO;
 
 @Mapper
@@ -19,6 +20,12 @@ public interface interviewMapper {
 	int interviewSearchCnt(Map<String, Object> resultMap);
 
 	interviewDTO listDetail(String iSeq);
+
+	int IntCmtCount(String iSeq);
+
+	int writeCmt(intCmtDTO intCmt);
+
+	List<intCmtDTO> listCmt(String iSeq);
 
 
 }
