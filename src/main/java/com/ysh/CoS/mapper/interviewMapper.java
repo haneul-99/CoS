@@ -27,5 +27,7 @@ public interface interviewMapper {
 
 	List<intCmtDTO> listCmt(String iSeq);
 
+	int delComment(String string);
+
 
 }
