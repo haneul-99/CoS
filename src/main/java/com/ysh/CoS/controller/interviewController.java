@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ysh.CoS.dto.intCmtDTO;
@@ -85,7 +86,7 @@ public class interviewController {
 		
 		LocalDateTime now = LocalDateTime.now();
 	    String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		
+
 	    intCmt.setIcSeq(intCmt.getIcSeq());
 	    intCmt.setIcContent(intCmt.getIcContent());
 	    intCmt.setIcDate(date);
@@ -94,6 +95,13 @@ public class interviewController {
 		
 		int result = interviewService.writeCmt(intCmt);
 		
+		return "redirect:/interview/detail?iSeq=" + iSeq;
+	}
+	
+	/* 게시판 댓글 삭제 */
+	@PostMapping(value="delComment")
+	public String delComment(intCmtDTO intCmt, String iSeq) {
+		int result = interviewService.delComment(intCmt.getIcSeq());
 		return "redirect:/interview/detail?iSeq=" + iSeq;
 	}
 }

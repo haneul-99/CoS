@@ -83,6 +83,11 @@
 			,m.img
 			,m.auth
 			,m.id
+			,CASE
+        		WHEN TIMESTAMPDIFF(MINUTE, i.iDate, NOW()) &lt; 1 THEN concat(TIMESTAMPDIFF(MINUTE, i.iDate, NOW()), '분 전')
+        		WHEN TIMESTAMPDIFF(HOUR, i.iDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, i.iDate, NOW()), '시간 전')
+        		WHEN TIMESTAMPDIFF(DAY, i.iDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, i.iDate, NOW()), '일 전')
+        		ELSE date_format(i.iDate, '%Y-%m-%d') END as regDate
 		from 
 			 tblInterview i inner join tblMember m
 			 on i.mSeq = m.mSeq
@@ -127,6 +132,11 @@
 			,m.img
 			,m.auth
 			,m.id
+			,CASE 
+				WHEN TIMESTAMPDIFF(MINUTE, c.icDate, NOW()) &lt; 1 THEN concat(TIMESTAMPDIFF(MINUTE, c.icDate, NOW()), '분 전')
+        		WHEN TIMESTAMPDIFF(HOUR, c.icDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, c.icDate, NOW()), '시간 전')
+        		WHEN TIMESTAMPDIFF(DAY, c.icDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, c.icDate, NOW()), '일 전')
+        		ELSE date_format(c.icDate, '%Y-%m-%d') END as regDate
 		from
 			tblIntcmt c inner join tblInterview i
 			on c.iSeq = i.iSeq
@@ -135,4 +145,10 @@
 		where
 			c.iSeq=#{iSeq}
 	</select>
+	
+	<delete id="delComment">
+		delete from tblIntcmt
+		where
+			icSeq = #{icSeq}
+	</delete>
 </mapper>

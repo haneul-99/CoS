@@ -49,5 +49,9 @@ public class interviewService {
 		return interviewMapper.listCmt(iSeq);
 	}
 
+	public int delComment(String string) {
+		return interviewMapper.delComment(string);
+	}
+
 	
 }
