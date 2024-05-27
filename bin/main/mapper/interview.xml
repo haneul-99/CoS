@@ -7,6 +7,7 @@
 	<select id="interviewList" resultType="com.ysh.CoS.dto.interviewDTO">
 		select 
 			 i.*
+			,date_format(i.iDate, '%Y-%m-%d') as regDate
 			,m.name
 			,m.nickName
 			,ROW_NUMBER() OVER(ORDER BY iSeq DESC) as iNum
@@ -20,6 +21,7 @@
 	<select id="interviewSearchList" resultType="com.ysh.CoS.dto.interviewDTO">
 		select 
 			i.*
+			,date_format(i.iDate, '%Y-%m-%d') as regDate
 			,m.name
 			,m.nickName
 			,ROW_NUMBER() OVER(ORDER BY iSeq DESC) as iNum
