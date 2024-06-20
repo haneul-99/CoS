@@ -16,7 +16,7 @@
 					<span class="nick">[[${listDetail.nickName}]]</span><br>
 					<span th:text="${listDetail.auth} == 1 ? '주니어 개발자' : '시니어 개발자'" class="info"/> ·
 					<span class="info">[[${listDetail.regDate}]] ·
-					<i class="fa-solid fa-heart"></i></i>&nbsp;10 ·
+					<i class="fa-solid fa-heart"></i></i>&nbsp;[[${listDetail.iGood}]] ·
 					<i class="fa-regular fa-eye"></i>&nbsp;[[${listDetail.iCount}]]</span>
 					<button id="likeBtn"><i class="fa-solid fa-heart fa-2x"></i></button>
 				</div>
@@ -49,7 +49,7 @@
 					</th:block>
 				</div>
 				<input type="hidden" th:name="iSeq" th:value="${listDetail.iSeq}">
-				<button id="writeBtn" type="submit" disabled>댓글 쓰기</button>
+				<button id="writeBtn" type="submit">댓글 쓰기</button>
 				</form>
 			</div>
 			
@@ -70,19 +70,11 @@
 					<button id="delCommentBtn">댓글 삭제</button>
 				</div>
 			</th:if>
-			
 		</div>
 	</div>
-	<script>
-		var writeBtn = document.getElementById('writeBtn'); 
-		writeBtn.addEventListener('click', function() {
-			 
-			 if(writeBtn.disabled == true) {
-				 writeBtn.removeAttribute("disabled"); 
-			 } else {
-				 writeBtn.setAttribute('disabled',true);
-			 }
-		} 
-	</script>
+	<script th:inline="javascript">
+          
+    </script>
+	
 </html>
 

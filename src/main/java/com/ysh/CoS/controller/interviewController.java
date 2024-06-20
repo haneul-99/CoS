@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +30,7 @@ public class interviewController {
 	
 	/* 면접후기게시판 페이지 */
 	@GetMapping(value="/interviewPage")
-	public String interviewPage(String search, String word, Model model, @PageableDefault(page = 0, size = 10) Pageable page) {
+	public String interviewPage(String search,String word, Model model,Pageable page) {
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Page<interviewDTO> list = null;
@@ -77,7 +76,8 @@ public class interviewController {
 		model.addAttribute("listCmt", listCmt);
 		model.addAttribute("listDetail", listDetail);
 		model.addAttribute("IntCmtCount", IntCmtCount);
-		return "interview/detail";
+		System.out.println(listDetail);
+		return "/interview/detail";
 	}
 	
 	/* 게시판 댓글 작성 */
@@ -99,9 +99,10 @@ public class interviewController {
 	}
 	
 	/* 게시판 댓글 삭제 */
-	@PostMapping(value="delComment")
-	public String delComment(intCmtDTO intCmt, String iSeq) {
-		int result = interviewService.delComment(intCmt.getIcSeq());
+	@PostMapping(value="/delComment")
+	public String delComment(intCmtDTO intCmt, String icSeq, String iSeq) {
+		int result = interviewService.delComment(icSeq);
+		System.out.println(result);
 		return "redirect:/interview/detail?iSeq=" + iSeq;
 	}
 }
