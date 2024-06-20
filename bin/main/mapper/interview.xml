@@ -80,28 +80,33 @@
 	<select id="listDetail" resultType="com.ysh.CoS.dto.interviewDTO">
 		select 
 			i.*
+			,iLike.iGood
 			,m.name
 			,m.nickName
 			,m.img
 			,m.auth
 			,m.id
 			,CASE
-        		WHEN TIMESTAMPDIFF(MINUTE, i.iDate, NOW()) &lt; 1 THEN concat(TIMESTAMPDIFF(MINUTE, i.iDate, NOW()), '분 전')
+				WHEN TIMESTAMPDIFF(SECOND, i.iDate, NOW()) &lt; 60 THEN '방금'
+        		WHEN TIMESTAMPDIFF(MINUTE, i.iDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, i.iDate, NOW()), '분 전')
         		WHEN TIMESTAMPDIFF(HOUR, i.iDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, i.iDate, NOW()), '시간 전')
         		WHEN TIMESTAMPDIFF(DAY, i.iDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, i.iDate, NOW()), '일 전')
         		ELSE date_format(i.iDate, '%Y-%m-%d') END as regDate
 		from 
 			 tblInterview i inner join tblMember m
 			 on i.mSeq = m.mSeq
+			 left outer join (select iSeq, count(*) as iGood from tblIntgood group by iSeq) as iLike
+			 on i.iSeq = iLike.iSeq
 		where
 			i.iSeq = #{iSeq}
 	</select>
 	
 	<select id="IntCmtCount" resultType="int">
 		select 
-			count(*)
+			IFNULL(ic.IntCmt, 0)
 		from 
-			tblInterview i inner join tblIntcmt ic
+			tblInterview i left outer join (select iSeq, count(*) as Intcmt from tblIntcmt group by iSeq) ic
+			on i.iSeq = ic.iSeq
 		where
 			i.iSeq = #{iSeq}
 	</select>
@@ -135,7 +140,8 @@
 			,m.auth
 			,m.id
 			,CASE 
-				WHEN TIMESTAMPDIFF(MINUTE, c.icDate, NOW()) &lt; 1 THEN concat(TIMESTAMPDIFF(MINUTE, c.icDate, NOW()), '분 전')
+				WHEN TIMESTAMPDIFF(SECOND, c.icDate, NOW()) &lt; 60 THEN '방금'
+				WHEN TIMESTAMPDIFF(MINUTE, c.icDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, c.icDate, NOW()), '분 전')
         		WHEN TIMESTAMPDIFF(HOUR, c.icDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, c.icDate, NOW()), '시간 전')
         		WHEN TIMESTAMPDIFF(DAY, c.icDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, c.icDate, NOW()), '일 전')
         		ELSE date_format(c.icDate, '%Y-%m-%d') END as regDate

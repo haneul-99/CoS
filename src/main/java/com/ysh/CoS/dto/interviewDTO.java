@@ -19,4 +19,5 @@ public class interviewDTO {
 	private String auth;		//권한 1-주니어 개발자, 2-시니어 개발자
 	private String id;			//회원아이디
 	private String regDate;		//몇분전, 몇시간전, 몇일전
+	private String iGood;
 }
