@@ -12,6 +12,10 @@ public class boardDTO {
 	private String bCount;		//조회수 
 	private String bFile;		//첨부파일 
 	
-	private String nickName;	//작성자
+	private String nickName;	//닉네임
 	private String bNo;			//글 번호
+	
+	private String img;			//이미지
+	private String auth;		//개발자 종류
+	private String count;		//좋아요 수
 }

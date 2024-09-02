@@ -41,9 +41,9 @@
 					<th>등록일</th>
 					<th>조회수</th>
 				</tr>
-				<tr th:each="list1 : ${list}" th:id="${list1.bSeq}" th:onClick="|location.href='@{/freeBoard/listDetail/{id}(id=${list1.bSeq})}'|">
+				<tr th:each="list1 : ${list}" th:id="${list1.bSeq}" th:onClick="|location.href='@{/freeBoard/listDetail/{bSeq}(bSeq=${list1.bSeq})}'|">
 					<td th:text="${list1.bNo}"></td>
-					<td th:utext="${list1.bTitle} + ' [댓글수' + ${list1.bCount} + ']'"></td>
+					<td th:utext="${list1.bTitle} + ' [' + ${list1.bCount} + ']'"></td>
 					<td th:utext="${list1.nickName}"></td>
 					<td th:text="${list1.bDate}"></td>
 					<td th:text="${list1.bCount}"></td>
@@ -56,7 +56,20 @@
 			<button type="button" id="write"><i class="fa-solid fa-pen-fancy"></i> 글쓰기</button>
 			
     	</div>
+    	<script>
     	
+    	const mSeq =  "[[${session.mSeq}]]";
+		
+    	$('#write').click(function(){
+  
+    		if(mSeq == "") {
+    			alert('로그인을 완료해야 글을 작성할 수 있습니다.');
+    			location.href="/member/login";
+    		} else {
+    			location.href="/freeBoard/write";
+    		}
+    	});
+    	</script>
 	</div>
 
 </html>

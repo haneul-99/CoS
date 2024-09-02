@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">  
+    <head>
+    <link href="/css/freeBoard/write.css" rel="stylesheet">    
+    <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8">
+    </script>
+    </head>
+    
+	<div layout:fragment="content">
+    
+    	<div id="backDiv">
+    		<h1 id="title">자유게시판 <span>(작성)</span></h1>	
+    	</div>
+		
+		<div class="container">
+	    
+	    	<div id="inputForm">
+	    		<form method="POST" action="/freeBoard/writeOk">	
+	    			<span id="subDesc" class="star">* 필수 입력 항목</span>
+	    			<hr id="firstLine">
+					<span class="leftTitle"><span class="star">*</span> 작성자</span><input type=text id="nickName" name="nickName" disabled value="해바라기">
+					<hr>
+					<span class="leftTitle"><span class="star">*</span> 제목</span><input type=text id="bTitle" name="bTitle">
+					<hr>
+					<span id="content" class="leftTitle"><span class="star">*</span> 내용</span>
+					<div id="smarteditor">
+						<textarea id="editorTxt" name="editorTxt"></textarea>
+					</div>
+					<hr>
+					<span class="leftTitle">첨부파일</span>
+					
+					<label for="file">
+						<span id="desc">* 첨부용량: 최대 10MB를 넣을 수 없습니다.</span>
+						<div class="uploadBtn">파일추가</div>
+					</label>
+					<span id="fileName">선택된 파일이 없습니다.</span>
+					<input type="file" id="file" name="file">
+					
+					<hr id="lastLine">
+					<div id="btns">
+					<Button type="submit" id="writeBtn">확인</Button>
+					<Button type="button">취소</Button>
+					</div>
+					
+				</form>  	
+			</div>
+    	</div>
+    </div>
+    <body>
+    <script>
+    let oEditors = []
+
+    smartEditor = function() {
+    	
+    	nhn.husky.EZCreator.createInIFrame({
+    		oAppRef: oEditors,
+    		elPlaceHolder: "editorTxt",
+    		sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+    		fCreator: "createSEditor2"
+    	})
+    }
+
+    $(document).ready(function() {
+    	smartEditor()
+    })	
+    
+    $('#writeBtn').click(function() {
+    	alert($('#bTitle').val());
+    });
+    /* 필수항목 입력안했을때 알림창 뜨게하기 ok로 안넘어가게 */
+    let msg = "[[${msg}]]";
+    
+    if (msg == "emptyCategory") {
+    	alert('필수 입력 항목을 입력하지 않았습니다.');
+    }
+    </script>
+	</body>
+
+</html>
