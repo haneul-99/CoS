@@ -40,4 +40,34 @@
 	
 	</select>
 	
+	<select id="getBoardInfo" parameterType="String" resultType="com.ysh.CoS.dto.boardDTO">
+	
+		select m.nickName, m.auth, m.img, b.bSeq, b.mSeq, b.bTitle, b.bContent, b.bDate, b.bCount, b.bFile, (case when b.count is null then 0 else b.count end)as count from tblMember m inner join (select b.*, bg.count from tblBoard b left outer join (select bSeq, count(bSeq) as count from tblBGood group by bSeq) bg on b.bSeq = bg.bSeq) b on m.mSeq = b.mSeq where bSeq = ${bSeq}
+	
+	</select>
+	
+	<update id="increaseCount" parameterType="String">
+	
+		update tblBoard set bCount = ${count} where bSeq = ${bSeq}
+		
+	</update>
+	
+	<select id="flagLike" parameterType="String" resultType="Integer">
+	
+		select count(*) from tblBgood where bSeq = ${bSeq} and mSeq = ${mSeq}
+	
+	</select>
+	
+	<insert id="addLike" parameterType="String">
+	
+		INSERT INTO tblBgood (mSeq, bSeq) VALUES (${mSeq}, ${bSeq})
+	
+	</insert>
+	
+	<delete id="removeLike" parameterType="String">
+	
+		delete from tblBgood where mSeq = ${mSeq} and bSeq = ${bSeq}
+	
+	</delete>
+	
 </mapper>

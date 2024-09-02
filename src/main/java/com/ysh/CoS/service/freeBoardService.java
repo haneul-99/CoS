@@ -1,5 +1,6 @@
 package com.ysh.CoS.service;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -169,4 +170,76 @@ public class freeBoardService {
 		return pagebar;
 	}
 
+	public boardDTO getBoardInfo(String bSeq) {
+		
+		return freeBoardMapper.getBoardInfo(bSeq);
+	}
+
+	public boardDTO dtoProcess(boardDTO dto) {
+	
+		if (dto.getAuth() == "1") dto.setAuth("주니어 개발자");
+		else dto.setAuth("시니어 개발자");
+		
+		String date = dto.getBDate();
+		int year = Integer.parseInt(date.substring(0, 4));
+		int month = Integer.parseInt(date.substring(5, 7)) - 1;	//month는 0~11
+		int day = Integer.parseInt(date.substring(8, 10));
+		
+		int hour =  Integer.parseInt(date.substring(11, 13));
+		int min =  Integer.parseInt(date.substring(14, 16));
+		int sec =  Integer.parseInt(date.substring(17));
+		
+		
+		Calendar nowDate = Calendar.getInstance();
+		Calendar bDate = Calendar.getInstance();
+		bDate.set(year, month, day, hour, min, sec);
+		
+		long time = nowDate.getTimeInMillis() - bDate.getTimeInMillis();
+		
+		int weekDay = (int)(time / 1000 / 60 / 60 / 24); 
+		int weekMin = (int)(time / 1000 / 60); 
+		
+		if (weekDay < 1) {
+			
+			if (weekMin < 1) {
+				dto.setBDate("방금 전");
+			} else if (weekMin < 60) {
+				dto.setBDate(weekMin + "분 전");
+			} else {
+				dto.setBDate("1일 전");
+			}
+			
+		} else if (weekDay <= 14) {
+			dto.setBDate(weekDay + "일 전");
+		} else {
+			dto.setBDate(date.substring(0, 10));
+		}
+		
+		return dto;
+	}
+
+	public int increaseCount(String bSeq, String count) {
+		
+		return freeBoardMapper.increaseCount(bSeq, count);
+	}
+
+	public int flagLike(String bSeq, String mSeq) {
+		
+		return freeBoardMapper.flagLike(bSeq, mSeq);
+	}
+
+	public int addLike(String mSeq, String bSeq) {
+		
+		return freeBoardMapper.addLike(mSeq, bSeq);
+	}
+
+	public int removeLike(String mSeq, String bSeq) {
+		
+		return freeBoardMapper.removeLike(mSeq, bSeq);
+	}
+
+	public int addBoard(String mSeq, String bTitle, String editorTxt, String file) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

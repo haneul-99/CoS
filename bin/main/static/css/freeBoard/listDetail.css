@@ -101,11 +101,11 @@
 	width: 45px;
 }
 
-#lessImg:hover {
+.lessImg:hover {
 	content: url("/img/fullheart.png");
 }
 
-#fullImg:hover {
+.fullImg:hover {
 	content: url("/img/lessheart.png");
 }
 
@@ -117,6 +117,7 @@ h2 {
 
 #content {
 	margin-bottom: 30px;
+	line-height: 180%;
 }
 
 #buttons {
@@ -192,10 +193,6 @@ textarea {
 	position: absolute;
 	top: 15px;
 	left: 68px;
-}
-
-#moveLogin {
-	text-decoration: underline;
 }
 
 #writeBtn {

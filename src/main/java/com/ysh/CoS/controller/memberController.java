@@ -48,7 +48,7 @@ public class memberController {
 	@GetMapping("/member/logout")
 	public String logout(HttpSession session) {
 		
-		session.removeAttribute("mseq");		
+		session.removeAttribute("mSeq");		
 		session.removeAttribute("id");
 		
 		return "redirect:/index";

@@ -4,7 +4,6 @@
     <head>
     <link href="/css/freeBoard/listDetail.css" rel="stylesheet">   
     </head> 
-       
 	<div layout:fragment="content">
     	
 		<div class="container" style="height: auto; margin-top: 120px; margin-bottom: 120px;">
@@ -14,23 +13,22 @@
 			</div>
 			
 			<div class="info">
-				<img class="profile" src="/img/member/member01.jpg">
+				<img class="profile" th:src="@{/img/member/} + ${dto.img}">
 				<div class="description">
-					<span class="nick">코가더</span><br><span class="subDescription">주니어 개발자 ㆍ 13일 전 ㆍ <img class="miniImg" src="/img/fullheart.png">10 ㆍ <img class="miniImg" src="/img/eye.png">100</span>
+					<span class="nick" th:text="${dto.nickName}"></span><br><span class="subDescription" th:text="${dto.auth}"></span> ㆍ <span class="subDescription" th:text="${dto.bDate}"></span> ㆍ <img class="miniImg" src="/img/fullheart.png"> <span class="subDescription count" th:text="${dto.count}"></span> ㆍ <img class="miniImg" src="/img/eye.png"> <span class="subDescription" th:text="${dto.bCount}"></span>
 				</div>
-				<img id="lessImg" class="like" src="/img/lessheart.png">
-				<!-- <img id="fullImg" class="like" src="/img/fullheart.png"> -->
+				<img th:if="${flike} == 0" th:id="${dto.bSeq}" class="like lessImg" src="/img/lessheart.png">
+				<img th:unless="${flike} == 0" th:id="${dto.bSeq}" class="like fullImg" src="/img/fullheart.png">
 			</div>
 			
-			<h2>불황에도 집값은 잘 버티네요.</h2>
+			<h2 th:text="${dto.bTitle}"></h2>
 
-			<div id="content">
-				눈에 띄는 댓글이 있네요<br><br>여보 집사서 평생노예처럼일만 하면서 빚갚으면서 살아요<br><br>우리가 희생해서 기득권들 부자들 도와줘요 ㅎㅎ<br><br>재건축이 내가 알기로는<br><br>집이 한채 있으면 시행사가 10층 아파트를 지으면<br><br>원주인은 1채+@ 가져가고(헌집받고 새집준다+@)<br><br>그런 나머지는 시행사가 갖게되는데<br><br>입장을 바꿔서 내가 시행사라면<br><br>원주인은 1채+@ 가져가고(헌집받고 새집준다+@)<br><br>그런 나머지는 시행사가 갖게되는데<br><br>입장을 바꿔서 내가 시행사라면
+			<div id="content" th:utext="${dto.bContent}">
 			</div>
 			
-			<div id="buttons">
-				<button type="button" class="btn"><i class="fa-solid fa-trash-can"></i> 삭제하기</button>
-				<button type="button" class="btn"><i class="fa-solid fa-pen-to-square"></i> 수정하기</button>
+			<div th:if="${dto.mSeq}==${session.mSeq}" id="buttons">
+				<button type="button" th:id="d + ${dto.bSeq}" class="btn"><i class="fa-solid fa-trash-can"></i> 삭제하기</button>
+				<button type="button" th:id="e + ${dto.bSeq}" class="btn"><i class="fa-solid fa-pen-to-square"></i> 수정하기</button>
 			</div>
 			
 			<hr>
@@ -43,7 +41,7 @@
 					<textarea></textarea>
 					<div id="message">
 						<i class="fa-solid fa-circle-info"></i> 
-						댓글을 쓰려면 <a id="moveLogin" href="/member/login">로그인</a>이 필요합니다.
+						댓글을 작성하려면 여기를 클릭하세요.
 					</div>
 				</div>
 				<button id="writeBtn" type="submit">댓글 쓰기</button>
@@ -143,11 +141,74 @@
 			<div class="commentContent">집 한채 구하고 싶은데<br>떨어져도 올라도 너무 비싸서 못사겠어요....<br>노후엔 어디 숲속에 텐트치고 살각인거 같습니다</div>
 			<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-down"></i> 댓글 1개 보기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
       		
-      		
+      		<!-- <span th:text="${session.mSeq}"></span> -->
       		
       	</div>
     	
 	<script>
+	
+		const mSeq =  "[[${session.mSeq}]]";
+		
+		if (!mSeq) {
+			alert('로그인을 완료해야 세부 게시글을 조회할 수 있습니다.');
+			location.href="/member/login"; 
+		}
+		
+		$('.like').click(function() {
+			
+			const bSeq = event.target.id;
+			
+			if ($('.like').hasClass('lessImg')) {
+				
+				$.ajax({
+					type: 'POST',
+					url: '/freeBoard/addLike', 
+					data: {mSeq : mSeq
+						, bSeq : bSeq},
+					dataType: 'json',
+					success: function(result) {
+						
+						$('.lessImg').attr("src", "/img/fullheart.png");
+						
+						$('.lessImg').addClass("fullImg"); 
+						$('.lessImg').removeClass("lessImg");
+						
+						$('.count').text(result);
+						
+					},
+					error: function(a,b,c) {
+						console.log(a,b,c);
+					}
+					
+				}); 
+				
+			} else {
+				
+				$.ajax({
+					type: 'POST',
+					url: '/freeBoard/removeLike', 
+					data: {mSeq : mSeq
+						, bSeq : bSeq},
+					dataType: 'json',
+					success: function(result) {
+						
+						$('.fullImg').attr("src", "/img/lessheart.png");
+						
+						$('.fullImg').addClass("lessImg"); 
+						$('.fullImg').removeClass("fullImg");
+						
+						$('.count').text(result);
+						
+					},
+					error: function(a,b,c) {
+						console.log(a,b,c);
+					}
+					
+				}); 
+				
+			}
+		});
+		
 	</script>	
 	</div>
 	

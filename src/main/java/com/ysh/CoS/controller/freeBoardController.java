@@ -1,5 +1,6 @@
 package com.ysh.CoS.controller;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,11 +8,18 @@ import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ysh.CoS.dto.boardDTO;
+import com.ysh.CoS.dto.memberDTO;
 import com.ysh.CoS.service.freeBoardService;
 
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -50,6 +58,9 @@ public class freeBoardController {
 		
 		List<boardDTO> list = service.list(map);
 		
+		for (boardDTO dto : list) {
+			dto = service.dtoProcess(dto);
+		}
 		totalCount = service.getTotalCount(map);
 		totalPage = (int)Math.ceil((double)totalCount / pageSize);
 		
@@ -63,10 +74,87 @@ public class freeBoardController {
 		return "freeBoard/list";
 	}
 	
-	@GetMapping("/listDetail/{id}") 
-	public String listDetail(Model model) {
+	@GetMapping("/listDetail/{bSeq}") 
+	public String listDetail(HttpSession session, Model model, @PathVariable String bSeq) {
 		
+		String mSeq = (String) session.getAttribute("mSeq");
+		int flike = 0; 
+		
+		boardDTO dto = service.getBoardInfo(bSeq);
+			
+		dto = service.dtoProcess(dto);
+		
+		if (mSeq != null) {
+			
+			flike = service.flagLike(bSeq, mSeq);
+			
+			if (!mSeq.equals(dto.getMSeq())) {
+				
+				String scount = dto.getBCount();
+				String count = Integer.parseInt(scount) + 1 + "";
+				
+				int result = service.increaseCount(bSeq, count);
+				
+				dto.setBCount(count);
+				
+			}
+			
+		}
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("flike", flike);
+			
 		return "freeBoard/listDetail";
+			
+	}
+	
+	@ResponseBody
+	@PostMapping("/addLike") 
+	public int addLike(Model model, String mSeq, String bSeq) {
+		
+		int result = service.addLike(mSeq, bSeq);
+		
+		boardDTO dto = service.getBoardInfo(bSeq);
+		dto = service.dtoProcess(dto);
+		
+		result = Integer.parseInt(dto.getCount());
+		
+		return result; 
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("/removeLike") 
+	public int removeLike(Model model, String mSeq, String bSeq) {
+		
+		int result = service.removeLike(mSeq, bSeq);
+		
+		boardDTO dto = service.getBoardInfo(bSeq);
+		dto = service.dtoProcess(dto);
+		
+		result = Integer.parseInt(dto.getCount());
+		
+		return result; 
+		
+	}
+	
+	@GetMapping("/write") 
+	public String write(Model model) {
+		
+		return "freeBoard/write";
+	}
+	
+	@PostMapping("/writeOk")
+	public String writeOk(String nickName, String bTitle, String editorTxt, String file, HttpSession session, Model model) {
+		System.out.println(nickName + " :nickName " + bTitle + " : bTitle " + editorTxt + " :editorTxt " + file + " : file");
+		
+		if (bTitle != "" && editorTxt != "") {
+			String mSeq = (String) session.getAttribute("mSeq");
+			int result = service.addBoard(mSeq, bTitle, editorTxt, file);
+		} else {
+			model.addAttribute("msg", "emptyCategory");
+		}
+		return "freeBoard/write";
 	}
 	
 }
