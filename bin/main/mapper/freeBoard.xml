@@ -70,4 +70,11 @@
 	
 	</delete>
 	
+	<insert id="addFreeBoard" parameterType="com.ysh.CoS.dto.boardDTO">
+	
+		INSERT INTO tblBoard (mSeq, bTitle, bContent, bDate, bCount, bFile) VALUES (#{mSeq}, #{bTitle}, #{bContent}, default, default, #{bFile})
+	
+	</insert>
+	
+	
 </mapper>

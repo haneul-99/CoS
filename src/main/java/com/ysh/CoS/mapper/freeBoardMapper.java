@@ -32,4 +32,6 @@ public interface freeBoardMapper {
 	int addLike(@Param("mSeq")String mSeq, @Param("bSeq")String bSeq);
 
 	int removeLike(@Param("mSeq")String mSeq, @Param("bSeq")String bSeq);
+
+	int addFreeBoard(boardDTO dto);
 }

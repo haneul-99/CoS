@@ -18,4 +18,5 @@ public class boardDTO {
 	private String img;			//이미지
 	private String auth;		//개발자 종류
 	private String count;		//좋아요 수
+
 }
