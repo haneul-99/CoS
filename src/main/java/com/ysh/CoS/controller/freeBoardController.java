@@ -1,5 +1,6 @@
 package com.ysh.CoS.controller;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ysh.CoS.dto.boardDTO;
 import com.ysh.CoS.dto.memberDTO;
 import com.ysh.CoS.service.freeBoardService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -145,16 +149,82 @@ public class freeBoardController {
 	}
 	
 	@PostMapping("/writeOk")
-	public String writeOk(String nickName, String bTitle, String editorTxt, String file, HttpSession session, Model model) {
-		System.out.println(nickName + " :nickName " + bTitle + " : bTitle " + editorTxt + " :editorTxt " + file + " : file");
+	public String writeOk(HttpSession session, HttpServletRequest req) {
+
+		boardDTO dto = new boardDTO();
 		
-		if (bTitle != "" && editorTxt != "") {
-			String mSeq = (String) session.getAttribute("mSeq");
-			int result = service.addBoard(mSeq, bTitle, editorTxt, file);
-		} else {
-			model.addAttribute("msg", "emptyCategory");
+		MultipartHttpServletRequest multi = (MultipartHttpServletRequest) req;
+		
+		String mSeq = (String) session.getAttribute("mSeq");
+		String bTitle = multi.getParameter("bTitle");
+		String bContent = multi.getParameter("editorTxt");
+		String fileName = null;
+		MultipartFile file = multi.getFile("file");
+		
+		if (!file.isEmpty()) {
+			
+			//파일 업로드 완료 > 파일이 어디 있는지? > 임시 폴더에 저장 > 우리가 원하는 폴더로 이동 
+			fileName = file.getOriginalFilename();
+			String path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg";
+		
+			System.out.println(path);
+		
+			//파일명 중복 방지
+			fileName = getFileName(path, fileName);
+		
+			//파일 이동 
+			File file2 = new File(path + "\\" + fileName);
+		
+			try {	//이걸 안하면 임시 폴더에 저장됨 
+			
+				file.transferTo(file2); //이동할 파일 넣어주면 임시폴더에 저장된 파일이 원하는 폴더의 이름으로 이동 
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		return "freeBoard/write";
+		
+		dto.setMSeq(mSeq);
+		dto.setBTitle(bTitle);
+		dto.setBContent(bContent);
+		dto.setBFile(fileName);
+			
+		int result = service.addFreeBoard(dto);
+
+		if (result == 1) {
+			return "redirect:/freeBoard/list";
+		} else {
+			return "freeBoard/write";
+		}
+	
+	}
+
+	private String getFileName(String path, String fileName) {
+		
+		//저장할 폴더내의 파일명을 중복되지 않게 만들기
+		//path = "resource/static/fileImg"
+		//fileName = "test.txt"
+		
+		//test.txt > test(1).txt > test(2).txt
+		int n = 1; //인덱스 숫자
+		int index = fileName.lastIndexOf("."); //확장자 위치
+		
+		String tempName = fileName.substring(0, index);	//"test"
+		String tempExt = fileName.substring(index);		//".txt"
+		
+		while (true) { //이름과 똑같은애가 몇개인지 몰라서(몇번의 작업을 할지 몰라서) 무한루프돔 
+			
+			File file = new File(path + "\\" + fileName);
+			
+			if (file.exists()) { //경로에 파일이 존재하는지 확인
+				//있다. > 중복 > 파일명 변경
+				fileName = String.format("%s(%d)%s", tempName, n, tempExt);
+				n++;
+			} else {
+				//없다. > 사용 가능한 파일명
+				return fileName;
+			}
+		}
 	}
 	
 }

@@ -26,6 +26,10 @@
 			<div id="content" th:utext="${dto.bContent}">
 			</div>
 			
+			<div id="imgFile">
+			<img th:if="${dto.bFile != null}" th:src="${'/freeBoardImg/'+dto.bFile}">
+			</div>
+			
 			<div th:if="${dto.mSeq}==${session.mSeq}" id="buttons">
 				<button type="button" th:id="d + ${dto.bSeq}" class="btn"><i class="fa-solid fa-trash-can"></i> 삭제하기</button>
 				<button type="button" th:id="e + ${dto.bSeq}" class="btn"><i class="fa-solid fa-pen-to-square"></i> 수정하기</button>

@@ -157,6 +157,10 @@ td:nth-child(2) {
 	font-weight: 600;
 }
 
+#newBoard {
+	font-weight: bold;
+}
+
 #pagebar {
 	text-align: center;
 	margin: 30px 0;

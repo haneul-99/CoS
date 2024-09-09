@@ -238,8 +238,10 @@ public class freeBoardService {
 		return freeBoardMapper.removeLike(mSeq, bSeq);
 	}
 
-	public int addBoard(String mSeq, String bTitle, String editorTxt, String file) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int addFreeBoard(boardDTO dto) {
+		
+		return freeBoardMapper.addFreeBoard(dto);
 	}
+
+	
 }
