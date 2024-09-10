@@ -32,7 +32,7 @@
 			
 			<div th:if="${dto.mSeq}==${session.mSeq}" id="buttons">
 				<button type="button" th:id="d + ${dto.bSeq}" class="btn"><i class="fa-solid fa-trash-can"></i> 삭제하기</button>
-				<button type="button" th:id="e + ${dto.bSeq}" class="btn"><i class="fa-solid fa-pen-to-square"></i> 수정하기</button>
+				<button type="button" th:id="e + ${dto.bSeq}" class="btn" th:onClick="|location.href='@{/freeBoard/edit/{bSeq}(bSeq=${dto.bSeq})}'|"><i class="fa-solid fa-pen-to-square"></i> 수정하기</button>
 			</div>
 			
 			<hr>
