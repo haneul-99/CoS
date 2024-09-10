@@ -8,9 +8,11 @@ import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,8 +31,8 @@ public class interviewController {
 	private final interviewService interviewService;
 	
 	/* 면접후기게시판 페이지 */
-	@GetMapping(value="/interviewPage")
-	public String interviewPage(String search,String word, Model model,Pageable page) {
+	@GetMapping(value="/interviewList")
+	public String interviewPage(String search,String word, Model model, @PageableDefault(value = 10) Pageable page) {
 
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Page<interviewDTO> list = null;
@@ -62,13 +64,13 @@ public class interviewController {
         //System.out.println("endPage : " + list.getTotalPages());
         //System.out.println("nowPage : " + list.getPageable().getPageNumber());
         
-		return "interview/interviewPage";
+		return "/interview/interviewList";
        
 	}
 	
 	/* 면접후기게시판 상세조회 */
-	@GetMapping(value="/detail")
-	public String detail(String iSeq, Model model, HttpSession session) {
+	@GetMapping(value="/detail/{iSeq}")
+	public String detail(@PathVariable("iSeq") String iSeq, Model model, HttpSession session) {
 		interviewDTO listDetail = interviewService.listDetail(iSeq);
 		List<intCmtDTO> listCmt = interviewService.listCmt(iSeq);
 		int IntCmtCount = interviewService.IntCmtCount(iSeq);
@@ -76,8 +78,9 @@ public class interviewController {
 		model.addAttribute("listCmt", listCmt);
 		model.addAttribute("listDetail", listDetail);
 		model.addAttribute("IntCmtCount", IntCmtCount);
-		System.out.println(listDetail);
-		return "/interview/detail";
+		//System.out.println("listDetail: "+ listDetail);
+		//System.out.println("listCmt: " + listCmt);
+		return "/interview/interviewDetail";
 	}
 	
 	/* 게시판 댓글 작성 */
@@ -93,16 +96,16 @@ public class interviewController {
 	    intCmt.setMSeq((String)session.getAttribute("mSeq"));
 	    intCmt.setISeq(iSeq);
 		
-		int result = interviewService.writeCmt(intCmt);
-		
-		return "redirect:/interview/detail?iSeq=" + iSeq;
+		interviewService.writeCmt(intCmt);
+
+		return "redirect:/interview/interviewList";
 	}
 	
 	/* 게시판 댓글 삭제 */
-	@PostMapping(value="/delComment")
-	public String delComment(intCmtDTO intCmt, String icSeq, String iSeq) {
+	@PostMapping(value="/delComment/{icSeq}")
+	public String delComment(intCmtDTO intCmt, @PathVariable("icSeq") String icSeq, String iSeq) {
 		int result = interviewService.delComment(icSeq);
 		System.out.println(result);
-		return "redirect:/interview/detail?iSeq=" + iSeq;
+		return "redirect:/interview/interviewList";
 	}
 }

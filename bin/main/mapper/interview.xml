@@ -139,6 +139,7 @@
 			,m.img
 			,m.auth
 			,m.id
+			,m.mSeq
 			,CASE 
 				WHEN TIMESTAMPDIFF(SECOND, c.icDate, NOW()) &lt; 60 THEN '방금'
 				WHEN TIMESTAMPDIFF(MINUTE, c.icDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, c.icDate, NOW()), '분 전')

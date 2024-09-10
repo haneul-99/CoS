@@ -194,18 +194,21 @@ td > a {
 }
 
 #paging {
-	width: 500px;
-	margin: 5px 470px;
-	display: inline-block;
+	text-align: center;
 }
 
 #paging > a {
      padding: 15px 15px;
      text-align: center;
      display: inline-block;
+     color: #666666;
+}
+
+#paging > a:hover {
+    color: #74CE79;
 }
 
 #paging > div {
 	display: inline-block;
-	padding: 15px 15px;
+	padding: 20px 15px;
 }
