@@ -76,5 +76,28 @@
 	
 	</insert>
 	
+	<select id="getNickName" parameterType="String" resultType="String">
+	
+		select nickName from tblMember where mSeq = ${mSeq}
+	
+	</select>
+	
+	<select id="getEditInfo" parameterType="String" resultType="com.ysh.CoS.dto.boardDTO">
+	
+		select b.*, m.nickName from tblBoard b inner join tblMember m on b.mSeq = m.mSeq where bSeq = ${bSeq}
+	
+	</select>
+	
+	<update id="editNFreeBoard" parameterType="com.ysh.CoS.dto.boardDTO">
+	
+		update tblBoard set bTitle = #{bTitle}, bContent = #{bContent} where bSeq = #{bSeq}
+		
+	</update>
+	
+	<update id="editFreeBoard" parameterType="com.ysh.CoS.dto.boardDTO">
+	
+		update tblBoard set bTitle = #{bTitle}, bContent = #{bContent}, bFile = #{bFile} where bSeq = #{bSeq}
+		
+	</update>
 	
 </mapper>

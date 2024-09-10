@@ -19,7 +19,7 @@
 	    		<form method="POST" action="/freeBoard/writeOk" enctype="multipart/form-data">	
 	    			<span id="subDesc" class="star">* 필수 입력 항목</span>
 	    			<hr id="firstLine">
-					<span class="leftTitle"><span class="star">*</span> 작성자</span><input type=text id="nickName" name="nickName" disabled value="해바라기">
+					<span class="leftTitle"><span class="star">*</span> 작성자</span><input type=text id="nickName" name="nickName" th:value="${nickName}" disabled>
 					<hr>
 					<span class="leftTitle"><span class="star">*</span> 제목</span><input type=text id="bTitle" name="bTitle" required>
 					<hr>
@@ -40,7 +40,7 @@
 					<hr id="lastLine">
 					<div id="btns">
 					<Button type="submit" id="writeBtn" onClick="return check()">확인</Button>
-					<Button type="button">취소</Button>
+					<Button type="button" onClick="history.back();">취소</Button>
 					</div>
 					
 				</form>  
@@ -107,6 +107,7 @@
  		if (fileSize > maxSize) {
  			alert('파일첨부 사이즈는 4MB 이내로 가능합니다.');
  			$(this).val(''); //업로드한 파일 제거
+ 			$('#fileName').text('선택된 파일이 없습니다.');
  			return;
  		}
  		var fileName = $(this).val().split('/').pop().split('\\').pop();

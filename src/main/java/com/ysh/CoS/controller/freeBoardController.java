@@ -143,8 +143,12 @@ public class freeBoardController {
 	}
 	
 	@GetMapping("/write") 
-	public String write(Model model) {
+	public String write(HttpSession session, Model model) {
 		
+		String mSeq = (String)session.getAttribute("mSeq");
+		String nickName = service.getNickName(mSeq);
+		
+		model.addAttribute("nickName", nickName);
 		return "freeBoard/write";
 	}
 	
@@ -225,6 +229,80 @@ public class freeBoardController {
 				return fileName;
 			}
 		}
+	}
+	
+	@GetMapping("/edit/{bSeq}") 
+	public String edit(HttpSession session, Model model, @PathVariable String bSeq) {
+		
+		boardDTO dto = service.getEditInfo(bSeq);
+		
+		model.addAttribute("dto", dto);
+		
+		System.out.println(dto);
+			
+		return "freeBoard/edit";
+			
+	}
+	
+	@PostMapping("/editOk")
+	public String editOk(HttpSession session, HttpServletRequest req) {
+
+		boardDTO dto = new boardDTO();
+		
+		MultipartHttpServletRequest multi = (MultipartHttpServletRequest) req;
+		
+		String mSeq = (String) session.getAttribute("mSeq");
+		String bTitle = multi.getParameter("bTitle");
+		String bContent = multi.getParameter("editorTxt");
+		String bFile1 = multi.getParameter("bFile1");
+		String bSeq = multi.getParameter("bSeq");
+		String fileName = null;
+		
+		Boolean flag = false;	//파일 그대로 유지 여부
+		
+		MultipartFile file = multi.getFile("file");
+		
+		if (!file.isEmpty()) {
+			
+			//파일 업로드 완료 > 파일이 어디 있는지? > 임시 폴더에 저장 > 우리가 원하는 폴더로 이동 
+			fileName = file.getOriginalFilename();
+			String path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg";
+		
+			System.out.println(path);
+		
+			//파일명 중복 방지
+			fileName = getFileName(path, fileName);
+		
+			//파일 이동 
+			File file2 = new File(path + "\\" + fileName);
+		
+			try {	//이걸 안하면 임시 폴더에 저장됨 
+			
+				file.transferTo(file2); //이동할 파일 넣어주면 임시폴더에 저장된 파일이 원하는 폴더의 이름으로 이동 
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+		
+		dto.setBSeq(bSeq);
+		dto.setMSeq(mSeq);
+		dto.setBTitle(bTitle);
+		dto.setBContent(bContent);
+		dto.setBFile(fileName);
+		
+		if (bFile1 != null && file.isEmpty()) { //파일 수정X > 원본 유지 
+			flag = true;
+		} 
+			
+		int result = service.editFreeBoard(dto, flag);
+
+		if (result == 1) {
+			return "redirect:/freeBoard/listDetail/" + bSeq ;
+		} else {
+			return "redirect:/freeBoard/edit/" + bSeq;
+		}
+	
 	}
 	
 }

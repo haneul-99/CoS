@@ -243,5 +243,26 @@ public class freeBoardService {
 		return freeBoardMapper.addFreeBoard(dto);
 	}
 
+	public String getNickName(String mSeq) {
+		
+		return freeBoardMapper.getNickName(mSeq);
+	}
+
+	public boardDTO getEditInfo(String bSeq) {
+		
+		return freeBoardMapper.getEditInfo(bSeq);
+	}
+
+	public int editFreeBoard(boardDTO dto, Boolean flag) {
+		
+		if (flag) {
+			System.out.println("noFile update");
+			return freeBoardMapper.editNFreeBoard(dto);
+		} else {
+			System.out.println("yesFile update");
+			return freeBoardMapper.editFreeBoard(dto);
+		}
+	}
+
 	
 }
