@@ -42,4 +42,6 @@ public interface freeBoardMapper {
 	int editNFreeBoard(boardDTO dto);
 
 	int editFreeBoard(boardDTO dto);
+
+	String getFileNamed(String bSeq);
 }

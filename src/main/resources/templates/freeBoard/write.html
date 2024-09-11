@@ -35,6 +35,8 @@
 						<div class="uploadBtn">파일추가</div>
 					</label>
 					<span id="fileName">선택된 파일이 없습니다.</span>
+					<span id="delFile" style="display: none;"><i class="fa-solid fa-xmark"></i></span>
+ 
 					<input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
 					
 					<hr id="lastLine">
@@ -112,6 +114,13 @@
  		}
  		var fileName = $(this).val().split('/').pop().split('\\').pop();
  		$('#fileName').text(fileName);
+ 		$('#delFile').show();
+ 	});
+ 	
+ 	$('#delFile').click(function() {
+ 		$('#file').val('');
+ 		$('#fileName').text('선택된 파일이 없습니다.');
+ 		$('#delFile').hide();
  	});
  	
     </script>

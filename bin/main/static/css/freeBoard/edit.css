@@ -119,6 +119,15 @@ input[type="text"] {
 	font-size: 14px;
 }
 
+#delFile {
+	margin-left: 2px;
+	color: black;
+	&:hover {
+		color: #18d26e;
+		cursor: pointer;
+	}
+}
+
 #file {
 	display: none;
 }

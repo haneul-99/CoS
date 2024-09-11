@@ -100,4 +100,9 @@
 		
 	</update>
 	
+	<select id="getFileNamed" parameterType="String" resultType="String">
+	
+		select bFile from tblBoard where bSeq = ${bSeq}
+	
+	</select>
 </mapper>
