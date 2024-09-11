@@ -83,6 +83,13 @@ public class interviewController {
 		return "/interview/interviewDetail";
 	}
 	
+	/* 게시글 작성 
+	@GetMapping(value="/write")
+	public String write() {
+		
+		
+	}
+	*/
 	/* 게시판 댓글 작성 */
 	@GetMapping(value="/writeCmt")
 	public String writeCmt(intCmtDTO intCmt, HttpSession session, String iSeq) {

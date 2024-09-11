@@ -63,7 +63,7 @@
 				<a th:href="${list.last} ? '#' : @{/interview/interviewList(page=${list.number+1})}"><i class="fa-solid fa-angles-right"></i></a>
 			</div>
 			
-			<button type="button" id="write" onClick="location.href='interviewWrite'"><i class="fa-solid fa-pen-fancy"></i> 글쓰기</button>
+			<button type="button" id="write" th:onClick="|location.href='@{/interview/interviewWrite}'|"><i class="fa-solid fa-pen-fancy"></i> 글쓰기</button>
 			
     	</div>
 	</div>
