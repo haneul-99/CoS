@@ -281,7 +281,7 @@ public class freeBoardController {
 			}
 		}
 		
-		if (!file.isEmpty()) { //수정 -> 이전에 저장돤 파일 삭제 후 새로 저장 24.09.11
+		if (!file.isEmpty()) { 
 			
 			//파일 업로드 완료 > 파일이 어디 있는지? > 임시 폴더에 저장 > 우리가 원하는 폴더로 이동 
 			fileName = file.getOriginalFilename();
