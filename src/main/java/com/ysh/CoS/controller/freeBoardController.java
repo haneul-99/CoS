@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.processing.SupportedSourceVersion;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -171,8 +173,6 @@ public class freeBoardController {
 			fileName = file.getOriginalFilename();
 			String path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg";
 		
-			System.out.println(path);
-		
 			//파일명 중복 방지
 			fileName = getFileName(path, fileName);
 		
@@ -237,8 +237,6 @@ public class freeBoardController {
 		boardDTO dto = service.getEditInfo(bSeq);
 		
 		model.addAttribute("dto", dto);
-		
-		System.out.println(dto);
 			
 		return "freeBoard/edit";
 			
@@ -257,18 +255,37 @@ public class freeBoardController {
 		String bFile1 = multi.getParameter("bFile1");
 		String bSeq = multi.getParameter("bSeq");
 		String fileName = null;
+		String path;
 		
 		Boolean flag = false;	//파일 그대로 유지 여부
 		
 		MultipartFile file = multi.getFile("file");
 		
-		if (!file.isEmpty()) {
+		String nFile = service.getFileNamed(bSeq);	//이전 파일이름 불러옴
+		
+		if (nFile != null) {	//이전파일이 null이 아니면 > 이전파일 삭제 
+			
+			path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg\\";
+			path += nFile;
+			
+			File filed = new File(path);
+			
+			if (filed.exists()) {
+				if (filed.delete()) {
+					System.out.println(nFile + "파일삭제 성공");
+				} else {
+					System.out.println(nFile + "파일삭제 실패");
+				}
+			} else {
+				System.out.println(nFile + "파일이 존재하지 않습니다.");
+			}
+		}
+		
+		if (!file.isEmpty()) { //수정 -> 이전에 저장돤 파일 삭제 후 새로 저장 24.09.11
 			
 			//파일 업로드 완료 > 파일이 어디 있는지? > 임시 폴더에 저장 > 우리가 원하는 폴더로 이동 
 			fileName = file.getOriginalFilename();
-			String path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg";
-		
-			System.out.println(path);
+			path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg";
 		
 			//파일명 중복 방지
 			fileName = getFileName(path, fileName);
@@ -291,7 +308,7 @@ public class freeBoardController {
 		dto.setBContent(bContent);
 		dto.setBFile(fileName);
 		
-		if (bFile1 != null && file.isEmpty()) { //파일 수정X > 원본 유지 
+		if (bFile1 == null && file.isEmpty()) { //파일 수정X > 원본 유지 (null 유지)
 			flag = true;
 		} 
 			

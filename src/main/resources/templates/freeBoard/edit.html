@@ -36,6 +36,8 @@
 					</label>
 					<span id="fileName" th:if="${dto.bFile} == null">선택된 파일이 없습니다.</span>
 					<span id="fileName" th:if="${dto.bFile} != null" th:text="${dto.bFile}">선택된 파일이 없습니다.</span>
+					<span id="delFile"><i class="fa-solid fa-xmark"></i></span>
+
 					<input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
 					
 					<hr id="lastLine">
@@ -115,6 +117,19 @@
  		}
  		var fileName = $(this).val().split('/').pop().split('\\').pop();
  		$('#fileName').text(fileName);
+ 		$('#delFile').show();
+ 	});
+ 	
+ 	if ($('#fileName').text() == '선택된 파일이 없습니다.') {
+ 		$('#delFile').hide();
+ 	} else {
+ 		$('#delFile').show();
+ 	}
+ 	
+ 	$('#delFile').click(function() {
+ 		$('#file').val('');
+ 		$('#fileName').text('선택된 파일이 없습니다.');
+ 		$('#delFile').hide();
  	});
  	
     </script>

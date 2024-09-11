@@ -256,12 +256,15 @@ public class freeBoardService {
 	public int editFreeBoard(boardDTO dto, Boolean flag) {
 		
 		if (flag) {
-			System.out.println("noFile update");
 			return freeBoardMapper.editNFreeBoard(dto);
 		} else {
-			System.out.println("yesFile update");
 			return freeBoardMapper.editFreeBoard(dto);
 		}
+	}
+
+	public String getFileNamed(String bSeq) {
+
+		return freeBoardMapper.getFileNamed(bSeq);
 	}
 
 	
