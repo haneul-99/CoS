@@ -10,6 +10,7 @@ import javax.annotation.processing.SupportedSourceVersion;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -252,9 +253,10 @@ public class freeBoardController {
 		String mSeq = (String) session.getAttribute("mSeq");
 		String bTitle = multi.getParameter("bTitle");
 		String bContent = multi.getParameter("editorTxt");
-		String bFile1 = multi.getParameter("bFile1");
 		String bSeq = multi.getParameter("bSeq");
-		String fileName = null;
+		String bFile2 = multi.getParameter("bFile2");
+		System.out.println(bFile2 + " 넘어온 span값"); //넘어온 span값 출력
+		String fName = null;
 		String path;
 		
 		Boolean flag = false;	//파일 그대로 유지 여부
@@ -262,8 +264,8 @@ public class freeBoardController {
 		MultipartFile file = multi.getFile("file");
 		
 		String nFile = service.getFileNamed(bSeq);	//이전 파일이름 불러옴
-		
-		if (nFile != null) {	//이전파일이 null이 아니면 > 이전파일 삭제 
+		System.out.println(nFile + " 넘어온 nFile값");
+		if (nFile != null && !nFile.equals(bFile2)) {	//이전파일이 null이 아니면 > 이전파일 삭제 
 			
 			path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg\\";
 			path += nFile;
@@ -284,14 +286,14 @@ public class freeBoardController {
 		if (!file.isEmpty()) { 
 			
 			//파일 업로드 완료 > 파일이 어디 있는지? > 임시 폴더에 저장 > 우리가 원하는 폴더로 이동 
-			fileName = file.getOriginalFilename();
+			fName = file.getOriginalFilename();
 			path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg";
 		
 			//파일명 중복 방지
-			fileName = getFileName(path, fileName);
+			fName = getFileName(path, fName);
 		
 			//파일 이동 
-			File file2 = new File(path + "\\" + fileName);
+			File file2 = new File(path + "\\" + fName);
 		
 			try {	//이걸 안하면 임시 폴더에 저장됨 
 			
@@ -306,9 +308,9 @@ public class freeBoardController {
 		dto.setMSeq(mSeq);
 		dto.setBTitle(bTitle);
 		dto.setBContent(bContent);
-		dto.setBFile(fileName);
+		dto.setBFile(fName);
 		
-		if (bFile1 == null && file.isEmpty()) { //파일 수정X > 원본 유지 (null 유지)
+		if (nFile == null && file.isEmpty() || nFile.equals(bFile2)) { //파일 수정X > 원본 유지 (null 유지)
 			flag = true;
 		} 
 			
@@ -322,4 +324,15 @@ public class freeBoardController {
 	
 	}
 	
+	@ResponseBody
+	@DeleteMapping("/delOk") 
+	public int delOk(Model model, String bSeq) {
+		
+		int result = service.delBgood(bSeq);
+		result *= service.delBcmt(bSeq);
+		result *= service.delBoard(bSeq);
+		
+		return result;
+	}
+		
 }

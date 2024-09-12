@@ -266,6 +266,26 @@ public class freeBoardService {
 
 		return freeBoardMapper.getFileNamed(bSeq);
 	}
+	
+	public int delBgood(String bSeq) {
+		
+		return freeBoardMapper.delBgood(bSeq);
+	}
+
+	public int delBcmt(String bSeq) {
+		
+		return freeBoardMapper.delBcmt(bSeq);
+	}
+	
+	public int delBoard(String bSeq) {
+		
+		return freeBoardMapper.delBoard(bSeq);
+	}
+
+	
+
+
+
 
 	
 }
