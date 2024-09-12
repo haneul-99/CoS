@@ -2,16 +2,126 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default_layout}">  
     <head>
-    	<link href="/css/interview/interviewList.css" rel="stylesheet">    
+    	<link href="/css/interview/interviewWrite.css" rel="stylesheet">    
     	<script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
     </head>
 	<div layout:fragment="content">
-		<div class="container" style="height: auto; margin-top: 92px;">
+		<div id="backDiv">
+    		<h1 id="title">면접후기게시판 <span>(작성)</span></h1>	
+    	</div>
+    	
+    	<div class="container">
+			<div id="inputForm">
+				<form method="POST" action="/interview/writeForm" enctype="multipart/form-data">
+					<span id="subDesc" class="star">* 필수 입력 항목</span>
+					<hr id="firstLine">
+					<span class="leftTitle"><span class="star">*</span> 작성자</span><input type="text" id="nickName" name="nickName" th:value="${nickName}" disabled>
+					<hr>
+					<span class="leftTitle"><span class="star">*</span> 제목</span><input type="text" id="iTitle" name="iTitle" required>
+					<hr>
+					<span class="leftTitle" id="content"><span class="star">*</span> 내용</span>
+					
+					<div id="smarteditor">
+						<textarea id="editorTxt" name="editorTxt" required></textarea>
+					</div>
+					
+					<hr>
+					<span class="leftTitle">첨부파일</span>
+					
+					<label for="file">
+						<span id="desc">* 첨부용량: 최대 4MB를 넣을 수 있습니다.</span>
+						<div class="uploadBtn">파일추가</div>
+					</label>
+					
+					<span id="fileName">선택된 파일이 없습니다.</span>
+					<span id="delFile" style="display: none;"><i class="fa-solid fa-xmark"></i></span>
+					
+					<input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
+						
+					<hr id="lastLine">
+					
+					<div id="btns">
+						<Button type="submit" id="writeBtn" onClick="return check()">확인</Button>
+						<Button type="button" onClick="history.back();">취소</Button>
+					</div>
+				</form>
+			</div>
+		</div>
+    <th:block layout:fragment="script">
+		<script th:inline="javascript">
 
-      	</div>
-    
-    <script>
-	</script>	
-	</div>
-	
+			let oEditors = []
+			
+			smartEditor = function() {
+				nhn.husky.EZCreator.createInIFrame({
+					oAppRef: oEditors,
+					elPlaceHolder: "editorTxt",
+					sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+					fCreator: "createSEditor2",
+					htParams: {
+						// 툴바 사용여부 (true: 사용, false: 미사용)
+						bUseToolbar: true,	
+						// 입력창 크키 조절바 사용여부 (true: 사용, false: 미사용)
+						bUseVerticalResizer: false,	
+						// 모드 탭(Editor | HTML | TEXT) 사용여부 (true: 사용, false: 미사용)
+						bUseModeChanger: false	
+					}
+				});
+			}
+			
+			$(document).ready(function(){
+				smartEditor()
+			});
+			
+			function check() {
+				const id = [[${session.id}]];
+				
+				if(id == '') {
+					alert("로그인 후 글을 작성해주세요.");
+					location.href="/member/login";
+					return false;
+				}
+				
+				oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);  //에디터에서 textarea의 값을 가져오기 위해서는 UPDATE_CONTENTS_FIELD 메시지를 호출해야함.
+				let title = document.getElementById("iTitle").value;
+				let content = document.getElementById("editorTxt").value;		
+				
+				if(title == '') {
+					alert("제목을 입력해주세요.");
+					title.exec("FOCUS");
+					return false;
+				} 		
+				
+				if(content == '') {
+					alert("내용을 입력해주세요.");
+					oEditors.getById["editorTxt"].exec("FOCUS");
+					return false;
+				} 
+				return true;
+			}
+			
+			//이벤트 핸들러에서 this는 이벤트를 받는 HTML 요소
+			$('#file').on('change', function() {
+				let fileSize = this.files[0].size;
+				let maxSize = 4 * 1024 * 1024;
+				
+				if(fileSize > maxSize) {
+					alert('파일첨부 사이즈는 4MB이하입니다.');
+					$(this).val('');
+					$('#fileName').text('선택된 파일이 없습니다.');
+					return;
+				}
+				let fileName = $(this).val().split('/').pop().split('\\').pop();
+				$('#fileName').text(fileName);
+				//console.log(fileName);
+				$('#delFile').show();
+			});
+
+			$('#delFile').click(function(){
+				$('#file').val('');
+				$('#fileName').text('선택된 파일이 없습니다.');
+				$('#delFile').hide();
+			});
+		</script>	
+	</th:blocK>
 </html>

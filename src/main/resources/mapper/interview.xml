@@ -101,6 +101,15 @@
 			i.iSeq = #{iSeq}
 	</select>
 	
+	<select id="nickName" resultType="String">
+		select
+			nickName
+		from 
+			tblMember
+		where
+			mSeq = #{mSeq}
+	</select>
+	
 	<select id="IntCmtCount" resultType="int">
 		select 
 			IFNULL(ic.IntCmt, 0)
