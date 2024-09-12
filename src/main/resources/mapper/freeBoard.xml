@@ -105,4 +105,23 @@
 		select bFile from tblBoard where bSeq = ${bSeq}
 	
 	</select>
+	
+	<delete id="delBgood" parameterType="String">
+	
+		delete from tblBgood where bSeq = ${bSeq}
+	
+	</delete>
+	
+	<delete id="delBcmt" parameterType="String">
+	
+		delete from tblBcmt where bSeq = ${bSeq}
+	
+	</delete>
+	
+	<delete id="delBoard" parameterType="String">
+	
+		delete from tblBoard where bSeq = ${bSeq}
+	
+	</delete>
+	
 </mapper>

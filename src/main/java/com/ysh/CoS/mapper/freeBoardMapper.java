@@ -44,4 +44,11 @@ public interface freeBoardMapper {
 	int editFreeBoard(boardDTO dto);
 
 	String getFileNamed(String bSeq);
+
+	int delBgood(String bSeq);
+	
+	int delBcmt(String bSeq);
+	
+	int delBoard(String bSeq);
+
 }
