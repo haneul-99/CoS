@@ -29,5 +29,7 @@ public interface interviewMapper {
 
 	int delComment(String string);
 
+	String nickName(String mSeq);
+
 
 }

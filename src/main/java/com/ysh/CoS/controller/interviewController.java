@@ -83,13 +83,16 @@ public class interviewController {
 		return "/interview/interviewDetail";
 	}
 	
-	/* 게시글 작성 
+	/* 게시글 작성 */
 	@GetMapping(value="/write")
-	public String write() {
-		
+	public String write(HttpSession session, Model model) {
+		String mSeq = (String) session.getAttribute("mSeq");
+		String nickName = interviewService.nickName(mSeq);
+		model.addAttribute("nickName", nickName);
+		return "/interview/interviewWrite";
 		
 	}
-	*/
+	
 	/* 게시판 댓글 작성 */
 	@GetMapping(value="/writeCmt")
 	public String writeCmt(intCmtDTO intCmt, HttpSession session, String iSeq) {

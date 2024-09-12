@@ -53,5 +53,8 @@ public class interviewService {
 		return interviewMapper.delComment(string);
 	}
 
+	public String nickName(String mSeq) {
+		return interviewMapper.nickName(mSeq);
+	}
 	
 }
