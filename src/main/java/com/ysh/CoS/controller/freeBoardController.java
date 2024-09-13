@@ -254,8 +254,8 @@ public class freeBoardController {
 		String bTitle = multi.getParameter("bTitle");
 		String bContent = multi.getParameter("editorTxt");
 		String bSeq = multi.getParameter("bSeq");
-		String bFile2 = multi.getParameter("bFile2");
-		System.out.println(bFile2 + " 넘어온 span값"); //넘어온 span값 출력
+		String bFile1 = multi.getParameter("bFile1");
+	
 		String fName = null;
 		String path;
 		
@@ -264,24 +264,31 @@ public class freeBoardController {
 		MultipartFile file = multi.getFile("file");
 		
 		String nFile = service.getFileNamed(bSeq);	//이전 파일이름 불러옴
-		System.out.println(nFile + " 넘어온 nFile값");
-		if (nFile != null && !nFile.equals(bFile2)) {	//이전파일이 null이 아니면 > 이전파일 삭제 
-			
-			path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg\\";
-			path += nFile;
-			
-			File filed = new File(path);
-			
-			if (filed.exists()) {
-				if (filed.delete()) {
-					System.out.println(nFile + "파일삭제 성공");
-				} else {
-					System.out.println(nFile + "파일삭제 실패");
-				}
+		
+		if ((nFile == null && bFile1 == null)) { //파일 유지 
+			flag = true;
+		} else if (nFile != null) { //이전파일이 null이 아니고 같은 파일이 아니면 이전파일 삭제 
+			if (nFile.equals(bFile1)) {
+				flag = true;
 			} else {
-				System.out.println(nFile + "파일이 존재하지 않습니다.");
+				
+				path = "C:\\Users\\snow9\\OneDrive\\문서\\GitHub\\CoS\\src\\main\\resources\\static\\freeBoardImg\\";
+				path += nFile;
+				
+				File filed = new File(path);
+				
+				if (filed.exists()) {
+					if (filed.delete()) {
+						System.out.println(nFile + "파일삭제 성공");
+					} else {
+						System.out.println(nFile + "파일삭제 실패");
+					}
+				} else {
+					System.out.println(nFile + "파일이 존재하지 않습니다.");
+				}
 			}
 		}
+		
 		
 		if (!file.isEmpty()) { 
 			
@@ -310,10 +317,7 @@ public class freeBoardController {
 		dto.setBContent(bContent);
 		dto.setBFile(fName);
 		
-		if (nFile == null && file.isEmpty() || nFile.equals(bFile2)) { //파일 수정X > 원본 유지 (null 유지)
-			flag = true;
-		} 
-			
+		
 		int result = service.editFreeBoard(dto, flag);
 
 		if (result == 1) {
