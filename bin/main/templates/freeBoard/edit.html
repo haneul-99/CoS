@@ -34,8 +34,8 @@
 						<span id="desc">* 첨부용량: 최대 4MB를 넣을 수 없습니다.</span>
 						<div class="uploadBtn">파일추가</div>
 					</label>
-					<span id="fileName" name="fileName" th:if="${dto.bFile} == null">선택된 파일이 없습니다.</span>
-					<span id="fileName" name="fileName" th:if="${dto.bFile} != null" th:text="${dto.bFile}"></span>
+					<span id="fileName" th:if="${dto.bFile} == null">선택된 파일이 없습니다.</span>
+					<span id="fileName" th:if="${dto.bFile} != null" th:text="${dto.bFile}"></span>
 					<span id="delFile"><i class="fa-solid fa-xmark"></i></span>
 
 					<input type="file" id="file" name="file" accept=".jpg, .jpeg, .png">
@@ -44,8 +44,7 @@
 					<div id="btns">
 					<Button type="submit" id="writeBtn" onClick="return check()">확인</Button>
 					<Button type="button" onClick="history.back();">취소</Button>
-					<input type="hidden" id="bFile1" name="bFile1" th:value="${dto.bFile}">
-					<input type="hidden" id="bFile2" name="bFile2">
+					<input type="hidden" id="bFile1" name="bFile1">
 					<input type="hidden" id="bSeq" name="bSeq" th:value="${dto.bSeq}">
 					</div>
 					
@@ -81,8 +80,8 @@
     	smartEditor()
     });	
     
-    let nFile = $('#bFile1').val();
-    $('#bFile2').val(nFile);
+    let nFile = $('#fileName').text();
+    $('#bFile1').val(nFile);
     
  	function check() {
     	const mSeq =  "[[${session.mSeq}]]";
@@ -117,12 +116,13 @@
  			alert('파일첨부 사이즈는 4MB 이내로 가능합니다.');
  			$(this).val(''); //업로드한 파일 제거
  			$('#fileName').text('선택된 파일이 없습니다.');
+ 			$('#delFile').hide();
  			return;
  		}
  		var fileName = $(this).val().split('/').pop().split('\\').pop();
  		$('#fileName').text(fileName);
  		$('#delFile').show();
- 		$('#bFile2').val(fileName);
+ 		$('#bFile1').val(fileName);
  	});
  	
  	if ($('#fileName').text() == '선택된 파일이 없습니다.') {
@@ -135,6 +135,7 @@
  		$('#file').val('');
  		$('#fileName').text('선택된 파일이 없습니다.');
  		$('#delFile').hide();
+ 		$('#bFile1').val(fileName);
  	});
  	
     </script>
