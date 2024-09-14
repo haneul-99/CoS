@@ -1,7 +1,6 @@
 package com.ysh.CoS.controller;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ysh.CoS.dto.intCmtDTO;
 import com.ysh.CoS.dto.interviewDTO;
@@ -93,16 +94,55 @@ public class interviewController {
 		
 	}
 	
+	@PostMapping(value="/writeForm")
+	public String writeForm(interviewDTO interview, MultipartHttpServletRequest request, HttpSession session) {
+		
+		String iTitle = request.getParameter("iTitle");
+		String iContent = request.getParameter("editorTxt");
+		String fileName = "";
+		MultipartFile file = request.getFile("file");
+		
+		if(!file.isEmpty()) {
+			fileName = file.getOriginalFilename();
+			String filePath = "/Users/kimhaneul/Documents/GitHub/CoS/bin/main/static/interviewImg/";
+			
+			fileName = uploadFile(filePath, fileName);
+			
+			File save = new File(filePath + "//" + fileName);
+			
+			try {
+				file.transferTo(save);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		interview.setMSeq((String)session.getAttribute("mSeq"));
+		interview.setITitle(iTitle);
+		interview.setIContent(iContent);
+		interview.setIFile(fileName);
+		
+		//mybatis insert는 int로 return 해야함
+		int result = interviewService.writeInterview(interview);
+		
+		if (result == 1) {
+			return "redirect:/interview/interviewList";
+		} else {
+			return "/interview/writeForm";
+		}
+	}
+	
+	private String uploadFile(String filePath, String fileName) {
+		
+		return null;
+	}
+
 	/* 게시판 댓글 작성 */
 	@GetMapping(value="/writeCmt")
 	public String writeCmt(intCmtDTO intCmt, HttpSession session, String iSeq) {
 		
-		LocalDateTime now = LocalDateTime.now();
-	    String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
 	    intCmt.setIcSeq(intCmt.getIcSeq());
 	    intCmt.setIcContent(intCmt.getIcContent());
-	    intCmt.setIcDate(date);
 	    intCmt.setMSeq((String)session.getAttribute("mSeq"));
 	    intCmt.setISeq(iSeq);
 		

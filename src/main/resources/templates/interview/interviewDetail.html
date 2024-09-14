@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<h1>[[${listDetail.iTitle}]]</h1>
-			<div id="iContent" th:text="${listDetail.iContent}"></div>
+			<div id="iContent" th:utext="${listDetail.iContent}"></div>
 			<div id="buttons" th:if="${listDetail.id} == ${session.id}">
 				<button type="button" class="btn"><i class="fa-solid fa-pen-to-square"></i>수정하기</button>
 				<button type="button" class="btn"><i class="fa-solid fa-trash-can"></i>삭제하기</button>

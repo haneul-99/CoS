@@ -56,5 +56,9 @@ public class interviewService {
 	public String nickName(String mSeq) {
 		return interviewMapper.nickName(mSeq);
 	}
+
+	public int writeInterview(interviewDTO interview) {
+		return interviewMapper.writeInterview(interview);
+	}
 	
 }

@@ -31,5 +31,6 @@ public interface interviewMapper {
 
 	String nickName(String mSeq);
 
+	int writeInterview(interviewDTO interview);
 
 }
