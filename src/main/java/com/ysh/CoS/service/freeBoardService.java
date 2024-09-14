@@ -223,6 +223,11 @@ public class freeBoardService {
 		return freeBoardMapper.increaseCount(bSeq, count);
 	}
 
+	public String getLogImg(String mSeq) {
+		
+		return freeBoardMapper.getLogImg(mSeq);
+	}
+	
 	public int flagLike(String bSeq, String mSeq) {
 		
 		return freeBoardMapper.flagLike(bSeq, mSeq);
@@ -281,11 +286,5 @@ public class freeBoardService {
 		
 		return freeBoardMapper.delBoard(bSeq);
 	}
-
-	
-
-
-
-
 	
 }

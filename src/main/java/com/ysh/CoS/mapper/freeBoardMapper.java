@@ -26,6 +26,8 @@ public interface freeBoardMapper {
 	boardDTO getBoardInfo(String bSeq);
 	
 	int increaseCount(@Param("bSeq")String bSeq, @Param("count")String count);
+	
+	String getLogImg(String mSeq);
 
 	int flagLike(@Param("bSeq")String bSeq, @Param("mSeq")String mSeq);
 

@@ -39,18 +39,15 @@
 			31개의 댓글
 			
 			<div id="comment">
-			<form method="POST" action="">
 				<div id="minicomment">
-					<img class="miniProfile" src="/img/member/default.jpg">
-					<textarea></textarea>
+					<img class="miniProfile" th:src="${'/img/member/'+img}">
+					<textarea id="writeComment"></textarea>
 					<div id="message">
 						<i class="fa-solid fa-circle-info"></i> 
 						댓글을 작성하려면 여기를 클릭하세요.
 					</div>
 				</div>
-				<button id="writeBtn" type="submit">댓글 쓰기</button>
-			</form>
-			
+				<button type="button" id="writeBtn">댓글 쓰기</button>
 			</div>
 			
 			<div class="commentInfo1">
@@ -236,6 +233,30 @@
 				alert('취소되었습니다.')
 			}
 		}
+		
+		$('#writeComment').click(function(){
+			$('#message').hide();
+		});
+		
+		$('#writeBtn').click(function(){
+			let str = $('#writeComment').val();
+			
+			str = str.replace(/&/g, "&amp;")
+		      .replace(/</g, "&lt;")
+		      .replace(/>/g, "&gt;")
+		      .replace(/'/g, "&apos;")
+		      .replace(/\"/g, "&quot;")
+		      .replace(/\t/g, "&emsp;")
+		      .replace(/\r\n/g, "<br>")
+		      .replace(/\r/g, "<br>")  
+		      .replace(/\n/g, "<br>");
+			
+			alert(str); /* 문자 이스케이프 해줘야함 */
+			/* $.ajax({
+				
+			}); */
+			
+		});
 		
 	</script>	
 	</div>
