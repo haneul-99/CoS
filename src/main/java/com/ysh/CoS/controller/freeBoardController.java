@@ -87,11 +87,15 @@ public class freeBoardController {
 		String mSeq = (String) session.getAttribute("mSeq");
 		int flike = 0; 
 		
-		boardDTO dto = service.getBoardInfo(bSeq);
+		boardDTO dto = service.getBoardInfo(bSeq); 
 			
 		dto = service.dtoProcess(dto);
 		
+		String img = "default.jpg";
+		
 		if (mSeq != null) {
+			
+			img = service.getLogImg(mSeq);
 			
 			flike = service.flagLike(bSeq, mSeq);
 			
@@ -110,6 +114,7 @@ public class freeBoardController {
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("flike", flike);
+		model.addAttribute("img", img);
 			
 		return "freeBoard/listDetail";
 			

@@ -52,6 +52,12 @@
 		
 	</update>
 	
+	<select id="getLogImg" parameterType="String" resultType="String">
+	
+		select img from tblMember where mSeq = ${mSeq}
+	
+	</select>
+	
 	<select id="flagLike" parameterType="String" resultType="Integer">
 	
 		select count(*) from tblBgood where bSeq = ${bSeq} and mSeq = ${mSeq}
