@@ -7,10 +7,15 @@
 	<select id="interviewList" resultType="com.ysh.CoS.dto.interviewDTO">
 		select 
 			 i.*
-			,date_format(i.iDate, '%Y-%m-%d') as regDate
 			,m.name
 			,m.nickName
 			,ROW_NUMBER() OVER(ORDER BY iSeq DESC) as iNum
+			,CASE
+				WHEN TIMESTAMPDIFF(SECOND, i.iDate, NOW()) &lt; 60 THEN '방금 전'
+        		WHEN TIMESTAMPDIFF(MINUTE, i.iDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, i.iDate, NOW()), '분 전')
+        		WHEN TIMESTAMPDIFF(HOUR, i.iDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, i.iDate, NOW()), '시간 전')
+        		WHEN TIMESTAMPDIFF(DAY, i.iDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, i.iDate, NOW()), '일 전')
+        		ELSE date_format(i.iDate, '%Y-%m-%d') END as regDate
 		from 
 			 tblInterview i inner join tblMember m
 			 on i.mSeq = m.mSeq
@@ -87,7 +92,7 @@
 			,m.auth
 			,m.id
 			,CASE
-				WHEN TIMESTAMPDIFF(SECOND, i.iDate, NOW()) &lt; 60 THEN '방금'
+				WHEN TIMESTAMPDIFF(SECOND, i.iDate, NOW()) &lt; 60 THEN '방금 전'
         		WHEN TIMESTAMPDIFF(MINUTE, i.iDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, i.iDate, NOW()), '분 전')
         		WHEN TIMESTAMPDIFF(HOUR, i.iDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, i.iDate, NOW()), '시간 전')
         		WHEN TIMESTAMPDIFF(DAY, i.iDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, i.iDate, NOW()), '일 전')
@@ -109,6 +114,26 @@
 		where
 			mSeq = #{mSeq}
 	</select>
+	
+	<insert id="writeInterview" parameterType="com.ysh.CoS.dto.interviewDTO">
+		insert into tblInterview (
+				iSeq
+				,mSeq
+				,iTitle
+				,iContent
+				,iDate
+				,iCount
+				,iFile
+		) VALUES (
+				#{iSeq}
+				,#{mSeq}
+				,#{iTitle}
+				,#{iContent}
+				,default
+				,0
+				,#{iFile}
+		)
+	</insert>
 	
 	<select id="IntCmtCount" resultType="int">
 		select 
@@ -133,7 +158,7 @@
 				 #{icSeq}
 				,#{mSeq}
 				,#{iSeq}
-				,#{icDate}
+				,default
 				,#{icContent}
 				,0
 				,0
@@ -150,7 +175,7 @@
 			,m.id
 			,m.mSeq
 			,CASE 
-				WHEN TIMESTAMPDIFF(SECOND, c.icDate, NOW()) &lt; 60 THEN '방금'
+				WHEN TIMESTAMPDIFF(SECOND, c.icDate, NOW()) &lt; 60 THEN '방금 전'
 				WHEN TIMESTAMPDIFF(MINUTE, c.icDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, c.icDate, NOW()), '분 전')
         		WHEN TIMESTAMPDIFF(HOUR, c.icDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, c.icDate, NOW()), '시간 전')
         		WHEN TIMESTAMPDIFF(DAY, c.icDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, c.icDate, NOW()), '일 전')

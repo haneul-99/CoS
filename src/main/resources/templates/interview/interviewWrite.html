@@ -47,6 +47,7 @@
 				</form>
 			</div>
 		</div>
+	</div>
     <th:block layout:fragment="script">
 		<script th:inline="javascript">
 
@@ -79,7 +80,7 @@
 				if(id == '') {
 					alert("로그인 후 글을 작성해주세요.");
 					location.href="/member/login";
-					return false;
+					return;
 				}
 				
 				oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);  //에디터에서 textarea의 값을 가져오기 위해서는 UPDATE_CONTENTS_FIELD 메시지를 호출해야함.
@@ -89,15 +90,15 @@
 				if(title == '') {
 					alert("제목을 입력해주세요.");
 					title.exec("FOCUS");
-					return false;
+					return;
 				} 		
 				
-				if(content == '') {
+				if(content == '<p>&nbsp;</p>') {
 					alert("내용을 입력해주세요.");
 					oEditors.getById["editorTxt"].exec("FOCUS");
-					return false;
-				} 
-				return true;
+					return;
+				}
+				return;
 			}
 			
 			//이벤트 핸들러에서 this는 이벤트를 받는 HTML 요소
