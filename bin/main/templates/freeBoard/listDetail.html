@@ -36,7 +36,7 @@
 			</div>
 			
 			<hr>
-			31개의 댓글
+			31개의 댓글 <!-- dto 댓글 수 불러와서 적용시켜야함 -->
 			
 			<div id="comment">
 				<div id="minicomment">
@@ -48,7 +48,7 @@
 					</div>
 				</div>
 				<button type="button" id="writeBtn">댓글 쓰기</button>
-			</div>
+			</div> <!-- 메인댓글 작성 란 -->
 			
 			<div class="commentInfo1">
 				<img class="profile" src="/img/member/default.jpg">
@@ -140,9 +140,23 @@
 				</div>
 			</div>
 			<div class="commentContent">집 한채 구하고 싶은데<br>떨어져도 올라도 너무 비싸서 못사겠어요....<br>노후엔 어디 숲속에 텐트치고 살각인거 같습니다</div>
-			<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-down"></i> 댓글 1개 보기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
+			<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-down"></i> 댓글 1개 보기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span>
+			</div>
+			
+			<div id="subComment">
+				<div id="subMiniComment">
+					<img class="subMiniProfile" th:src="${'/img/member/'+img}">
+					<textarea id="subWriteComment"></textarea>
+					<div id="subMessage">
+						<i class="fa-solid fa-circle-info"></i> 
+						댓글을 작성하려면 여기를 클릭하세요.
+					</div>
+				</div>
+				<button type="button" id="writeBtn">댓글 쓰기</button>
+			</div> <!-- 세부 댓글 작성란 -->
+			
       		
-      		<!-- <span th:text="${session.mSeq}"></span> -->
+
       		
       	</div>
     	
@@ -250,11 +264,21 @@
 		      .replace(/\r\n/g, "<br>")
 		      .replace(/\r/g, "<br>")  
 		      .replace(/\n/g, "<br>");
-			
-			alert(str); /* 문자 이스케이프 해줘야함 */
-			/* $.ajax({
-				
-			}); */
+			 
+			$.ajax({
+				type: 'POST',
+				url: '/freeBoard/addComment',
+				data:  {mSeq : mSeq
+					, bSeq : bSeq},
+				dataType: 'json',
+				success: function(result) {
+					alert('삭제되었습니다.');
+					location.href='/freeBoard/list';
+				},
+				error: function(a,b,c) {
+					console.log(a,b,c);
+				}
+			});
 			
 		});
 		
