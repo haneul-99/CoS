@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.ysh.CoS.dto.bCmtDTO;
 import com.ysh.CoS.dto.boardDTO;
 import com.ysh.CoS.mapper.freeBoardMapper;
 
@@ -285,6 +286,16 @@ public class freeBoardService {
 	public int delBoard(String bSeq) {
 		
 		return freeBoardMapper.delBoard(bSeq);
+	}
+
+	public Object selectBcRef(String bSeq) {
+		
+		return freeBoardMapper.selectBcRef(bSeq);
+	}
+
+	public int addFirstComment(bCmtDTO dto) {
+		
+		return freeBoardMapper.addFirstComment(dto);
 	}
 	
 }
