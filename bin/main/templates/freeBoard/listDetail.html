@@ -34,7 +34,7 @@
 				<button type="button" th:id="d + ${dto.bSeq}" class="btn" onClick="del()"><i class="fa-solid fa-trash-can"></i> 삭제하기</button>
 				<button type="button" th:id="e + ${dto.bSeq}" class="btn" th:onClick="|location.href='@{/freeBoard/edit/{bSeq}(bSeq=${dto.bSeq})}'|"><i class="fa-solid fa-pen-to-square"></i> 수정하기</button>
 			</div>
-			
+			<input type="hidden" id="writeNumber" th:value="${dto.bSeq}">
 			<hr>
 			31개의 댓글 <!-- dto 댓글 수 불러와서 적용시켜야함 -->
 			
@@ -152,7 +152,7 @@
 						댓글을 작성하려면 여기를 클릭하세요.
 					</div>
 				</div>
-				<button type="button" id="writeBtn">댓글 쓰기</button>
+				<button type="button" id="subWriteBtn">댓글 쓰기</button>
 			</div> <!-- 세부 댓글 작성란 -->
 			
       		
@@ -254,6 +254,8 @@
 		
 		$('#writeBtn').click(function(){
 			let str = $('#writeComment').val();
+			var writeNumber = document.getElementById('writeNumber');
+			var bSeq = writeNumber.value;
 			
 			str = str.replace(/&/g, "&amp;")
 		      .replace(/</g, "&lt;")
@@ -269,11 +271,14 @@
 				type: 'POST',
 				url: '/freeBoard/addComment',
 				data:  {mSeq : mSeq
-					, bSeq : bSeq},
+					, bSeq : bSeq
+					, bcContent : str},
 				dataType: 'json',
 				success: function(result) {
-					alert('삭제되었습니다.');
-					location.href='/freeBoard/list';
+					if (result==1)
+					alert('입력되었습니다.');
+					$('#writeComment').val('');
+					$('#message').show();
 				},
 				error: function(a,b,c) {
 					console.log(a,b,c);
@@ -281,6 +286,7 @@
 			});
 			
 		});
+		
 		
 	</script>	
 	</div>

@@ -130,4 +130,16 @@
 	
 	</delete>
 	
+	<select id="selectBcRef" parameterType="String" resultType="Object">
+	
+		select max(bcRef) from tblBcmt where bSeq = ${bSeq}
+	
+	</select>
+	
+	<insert id="addFirstComment" parameterType="com.ysh.CoS.dto.bCmtDTO">
+	
+		INSERT INTO tblBcmt (mSeq, bcDate, bSeq, bcRef, bcStep, bcLevel, bcDell, bcContent) VALUES (#{mSeq}, default, #{bSeq}, #{bcRef}, 0, 0, default, #{bcContent})
+	
+	</insert>
+	
 </mapper>

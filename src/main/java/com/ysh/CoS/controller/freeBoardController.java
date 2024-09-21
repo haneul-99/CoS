@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ysh.CoS.dto.bCmtDTO;
 import com.ysh.CoS.dto.boardDTO;
 import com.ysh.CoS.dto.memberDTO;
 import com.ysh.CoS.service.freeBoardService;
@@ -344,4 +345,38 @@ public class freeBoardController {
 		return result;
 	}
 		
+	@ResponseBody
+	@PostMapping("/addComment") 
+	public int addComment(Model model, String mSeq, String bSeq, String bcContent) {
+		
+		//1. 현재 글번호에서 bcRef가 있는지? > 제일 큰수 +1  없는지? > 1
+		Object index = service.selectBcRef(bSeq);
+		
+		int bcRef;
+		if (index == null) {
+			bcRef = 1;
+		} else {
+			bcRef = (int)index + 1;
+		}
+		
+		bCmtDTO dto = new bCmtDTO();
+		
+		dto.setMSeq(mSeq);
+		dto.setBSeq(bSeq);
+		dto.setBcRef(bcRef+"");
+		dto.setBcContent(bcContent);
+		
+		int result = service.addFirstComment(dto);
+		/*
+		 * int result = service.addLike(mSeq, bSeq);
+		 * 
+		 * boardDTO dto = service.getBoardInfo(bSeq); dto = service.dtoProcess(dto);
+		 * 
+		 * result = Integer.parseInt(dto.getCount());
+		 */
+		
+		return 0; 
+		
+	}
+	
 }

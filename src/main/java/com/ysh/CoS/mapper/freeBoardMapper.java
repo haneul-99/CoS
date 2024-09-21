@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.ysh.CoS.dto.bCmtDTO;
 import com.ysh.CoS.dto.boardDTO;
 
 @Mapper
@@ -52,5 +53,9 @@ public interface freeBoardMapper {
 	int delBcmt(String bSeq);
 	
 	int delBoard(String bSeq);
+
+	Object selectBcRef(String bSeq);
+
+	int addFirstComment(bCmtDTO dto);
 
 }
