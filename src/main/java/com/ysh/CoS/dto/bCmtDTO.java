@@ -13,4 +13,8 @@ public class bCmtDTO {
 	private String bcLevel;		//들여쓰기
 	private String bcDell;		//삭제여부
 	private String bcContent;	//댓글내용 
+	
+	private String nickName;	//닉네임
+	private String auth;		//권한
+	private String img;			//이미지
 }

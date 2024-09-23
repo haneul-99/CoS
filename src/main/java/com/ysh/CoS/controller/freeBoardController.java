@@ -1,12 +1,9 @@
 package com.ysh.CoS.controller;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.processing.SupportedSourceVersion;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ysh.CoS.dto.bCmtDTO;
 import com.ysh.CoS.dto.boardDTO;
-import com.ysh.CoS.dto.memberDTO;
 import com.ysh.CoS.service.freeBoardService;
-
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -89,7 +82,8 @@ public class freeBoardController {
 		int flike = 0; 
 		
 		boardDTO dto = service.getBoardInfo(bSeq); 
-			
+		List<bCmtDTO> list = service.getCommentList(bSeq);
+		
 		dto = service.dtoProcess(dto);
 		
 		String img = "default.jpg";
@@ -114,6 +108,7 @@ public class freeBoardController {
 		}
 		
 		model.addAttribute("dto", dto);
+		model.addAttribute("list", list);
 		model.addAttribute("flike", flike);
 		model.addAttribute("img", img);
 			
@@ -367,6 +362,7 @@ public class freeBoardController {
 		dto.setBcContent(bcContent);
 		
 		int result = service.addFirstComment(dto);
+		
 		/*
 		 * int result = service.addLike(mSeq, bSeq);
 		 * 
