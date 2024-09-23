@@ -142,4 +142,10 @@
 	
 	</insert>
 	
+	<select id="getCommentList" parameterType="String" resultType="com.ysh.CoS.dto.bCmtDTO">
+	
+		select bc.*, m.nickName, m.auth, m.img from tblBcmt bc inner join tblMember m on bc.mSeq = m.mSeq where bSeq = ${bSeq}
+	
+	</select>
+	
 </mapper>

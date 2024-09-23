@@ -58,4 +58,6 @@ public interface freeBoardMapper {
 
 	int addFirstComment(bCmtDTO dto);
 
+	List<bCmtDTO> getCommentList(String bSeq);
+
 }

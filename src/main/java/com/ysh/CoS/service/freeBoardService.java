@@ -176,6 +176,7 @@ public class freeBoardService {
 		return freeBoardMapper.getBoardInfo(bSeq);
 	}
 
+	//회원 권한, 회원 작성일
 	public boardDTO dtoProcess(boardDTO dto) {
 	
 		if (dto.getAuth() == "1") dto.setAuth("주니어 개발자");
@@ -296,6 +297,24 @@ public class freeBoardService {
 	public int addFirstComment(bCmtDTO dto) {
 		
 		return freeBoardMapper.addFirstComment(dto);
+	}
+
+	public List<bCmtDTO> getCommentList(String bSeq) {
+		
+		List<bCmtDTO> list = freeBoardMapper.getCommentList(bSeq);
+		
+		//가공할 것 몇일전 + 시니어 개발자
+		for (bCmtDTO dto : list) {
+			boardDTO dto1 = new boardDTO();
+			dto1.setAuth(dto.getAuth());
+			dto1.setBDate(dto.getBcDate());
+			dtoProcess(dto1);
+			
+			dto.setAuth(dto1.getAuth());
+			dto.setBcDate(dto1.getBDate());
+		}
+		
+		return list;
 	}
 	
 }
