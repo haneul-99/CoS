@@ -52,19 +52,39 @@
 			</div> <!-- 메인댓글 작성 란 -->
 			
 			<!-- 수정 중 24.09.24 -->
-			<div th:each="dto : ${list}">
-			<div class="commentInfo1" th:id="${dto.bcSeq}">
-				<img class="profile" th:src="@{/img/member/} + ${dto.img}">
-				<div class="description">
-					<span class="nick" th:text="${dto.nickName}"></span><br><span class="subDescription" th:text="${dto.auth + ' ㆍ ' + dto.bcDate}"></span>
+			<div th:each="dto : ${list}" th:id="${dto.bcSeq}">
+				<div class="commentInfo1" th:id="${dto.bcSeq}">
+					<img class="profile" th:src="@{/img/member/} + ${dto.img}">
+					<div class="description">
+						<span class="nick" th:text="${dto.nickName}"></span><br><span class="subDescription" th:text="${dto.auth + ' ㆍ ' + dto.bcDate}"></span>
+					</div>
 				</div>
-			</div>
-			<div class="commentContent" th:utext="${dto.bcContent}">안사면 떨어집니다. 고시원 살면서 이악물고 버티겠습니다. 평생 혼자살겠습니다!</div>
-			<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
-      		<hr>
+				<div class="commentContent" th:utext="${dto.bcContent}"></div>
+				<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span th:id="${dto.bcRef+dto.bcStep+dto.bcLevel}" class="rdComment writeLink">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
+      		
+      			<div th:id="${'subC'+dto.bcRef+dto.bcStep+dto.bcLevel}" class="subWrite">
+					<div id="subMiniComment">
+						<img class="subMiniProfile" th:src="${'/img/member/'+img}">
+						<textarea id="subWriteComment"></textarea>
+						<div id="subMessage">
+							<i class="fa-solid fa-circle-info"></i> 
+							댓글을 작성하려면 여기를 클릭하세요.
+						</div>
+					</div>
+					<button type="button" id="subWriteBtn">댓글 쓰기</button>
+				</div> <!-- 세부 댓글 작성란 -->
+				
+      			<div th:if="${dto.bcSeq != lastSeq}"><hr></div>
+      			
       		</div>
+      		
+      		
+      		
+      		
+      		
+      		
 			
-			<hr>
+			
 			
 			<!-- <th:if=""></th:if> -->
 			<div class="commentInfo1">
@@ -186,6 +206,8 @@
 			location.href="/member/login"; 
 		}
 		
+		$('.subWrite').hide();
+		
 		$('.like').click(function() {
 			
 			const bSeq = event.target.id;
@@ -301,6 +323,20 @@
 					console.log(a,b,c);
 				}
 			});
+			
+		});
+		
+		$('.writeLink').click(function(){
+			var id = event.target.id;
+			var text = $('#'+id).text();
+			
+			if(text=='댓글쓰기') {
+				$('#subC'+id).show();
+				$('#'+id).text('댓글숨기기');
+			} else {
+				$('#subC'+id).hide();
+				$('#'+id).text('댓글쓰기');
+			}
 			
 		});
 		

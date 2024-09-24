@@ -83,6 +83,8 @@ public class freeBoardController {
 		
 		boardDTO dto = service.getBoardInfo(bSeq); 
 		List<bCmtDTO> list = service.getCommentList(bSeq);
+
+		String lastSeq = list.get(list.size()-1).getBcSeq();
 		
 		dto = service.dtoProcess(dto);
 		
@@ -109,6 +111,7 @@ public class freeBoardController {
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
+		model.addAttribute("lastSeq", lastSeq);
 		model.addAttribute("flike", flike);
 		model.addAttribute("img", img);
 			
