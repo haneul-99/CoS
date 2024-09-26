@@ -24,7 +24,7 @@
 			<h1>[[${listDetail.iTitle}]]</h1>
 			<div id="iContent" th:utext="${listDetail.iContent}"></div>
 			<div id="buttons" th:if="${listDetail.id} == ${session.id}">
-				<button type="button" class="btn"><i class="fa-solid fa-pen-to-square"></i>수정하기</button>
+				<button type="button" class="btn" th:onclick="|location.href='@{/interview/edit/{iSeq}(iSeq=${listDetail.iSeq})}'|"><i class="fa-solid fa-pen-to-square"></i>수정하기</button>
 				<button type="button" class="btn"><i class="fa-solid fa-trash-can"></i>삭제하기</button>
 			</div>
 		</div>
@@ -83,8 +83,8 @@
 				alert("로그인 후 사용하실 수 있습니다.");
 				location.href="/member/login";
 			}
-			*/
 			
+			*/
 			$('#writeBtn').click(function() {
 		    	const icContent = document.getElementById('icContent').value;
 		    	console.log(icContent);

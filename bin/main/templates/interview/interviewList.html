@@ -63,8 +63,24 @@
 				<a th:href="${list.last} ? '#' : @{/interview/interviewList(page=${list.number+1})}"><i class="fa-solid fa-angles-right"></i></a>
 			</div>
 			
-			<button type="button" id="write" th:onClick="|location.href='@{/interview/write}'|"><i class="fa-solid fa-pen-fancy"></i> 글쓰기</button>
+			<button type="button" id="write"><i class="fa-solid fa-pen-fancy"></i> 글쓰기</button>
 			
     	</div>
 	</div>
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			
+			const id = [[${session.id}]];
+			
+			$('#write').click(function() {
+				if(id == null) {
+					alert("로그인 후 글쓰기가 가능합니다.");
+					location.href="/member/login";
+				} else {
+					location.href="/interview/write";
+				}
+			});
+			
+		</script>
+	</th:block>
 </html>

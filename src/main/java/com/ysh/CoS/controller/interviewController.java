@@ -21,6 +21,9 @@ import com.ysh.CoS.dto.intCmtDTO;
 import com.ysh.CoS.dto.interviewDTO;
 import com.ysh.CoS.service.interviewService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -71,27 +74,57 @@ public class interviewController {
 	
 	/* 면접후기게시판 상세조회 */
 	@GetMapping(value="/detail/{iSeq}")
-	public String detail(@PathVariable("iSeq") String iSeq, Model model, HttpSession session) {
+	public String detail(@PathVariable("iSeq") String iSeq, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		
 		interviewDTO listDetail = interviewService.listDetail(iSeq);
 		List<intCmtDTO> listCmt = interviewService.listCmt(iSeq);
 		int IntCmtCount = interviewService.IntCmtCount(iSeq);
+		
+		Cookie[] cookies = request.getCookies();
+		Cookie oldCookie = null;
+		int iCount = 0;
+		
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("interviewDetail")) { //interviewDetail이라는 값이 있을 경우 oldCookie에 넣어줌
+					oldCookie = cookie;
+				}
+			}
+		} 
+		
+		if(oldCookie != null) {
+			if(!oldCookie.getValue().contains(iSeq)) {	//해당 게시판번호를 가지고 있다면 조회수 증가 X
+				iCount = interviewService.viewCount(iSeq);
+				oldCookie.setValue(oldCookie.getValue() + "[" + iSeq + "]"); //게시판번호 [10] [101] 정확하게 구분하기 위해 괄호 사용
+				oldCookie.setMaxAge(60 * 60 * 2);
+				response.addCookie(oldCookie);
+				System.out.println("방문기록 아이디 " + oldCookie.getName());
+			}
+		} else {
+			iCount = interviewService.viewCount(iSeq);
+			Cookie newCookie = new Cookie("interviewDetail","[" + iSeq + "]");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+		}
+		
 		session.getAttribute("id");
 		model.addAttribute("listCmt", listCmt);
 		model.addAttribute("listDetail", listDetail);
 		model.addAttribute("IntCmtCount", IntCmtCount);
-		//System.out.println("listDetail: "+ listDetail);
-		//System.out.println("listCmt: " + listCmt);
+
 		return "/interview/interviewDetail";
 	}
 	
 	/* 게시글 작성 */
 	@GetMapping(value="/write")
 	public String write(HttpSession session, Model model) {
+		
 		String mSeq = (String) session.getAttribute("mSeq");
 		String nickName = interviewService.nickName(mSeq);
-		model.addAttribute("nickName", nickName);
-		return "/interview/interviewWrite";
 		
+		model.addAttribute("nickName", nickName);
+		
+		return "/interview/interviewWrite";
 	}
 	
 	@PostMapping(value="/writeForm")
@@ -128,13 +161,94 @@ public class interviewController {
 		if (result == 1) {
 			return "redirect:/interview/interviewList";
 		} else {
-			return "/interview/writeForm";
+			return "/interview/interviewWrite";
 		}
 	}
 	
 	private String uploadFile(String filePath, String fileName) {
 		
-		return null;
+		int n = 1;  //인덱스 숫자
+		int index = fileName.lastIndexOf("."); //확장자 위치
+		
+		String tempName = fileName.substring(0, index);  //"test"
+		String tempExt = fileName.substring(index);		//".txt"
+		
+		while(true) {
+			
+			File file = new File(filePath + "\\" + fileName);
+			
+			if (file.exists()) {
+				//있다. > 중복 > 파일명 변경
+				fileName = String.format("%s(%d).%s", tempName, n, tempExt);
+				n++;
+			} else {
+				//없다. > 사용 가능한 파일명
+				return fileName;
+			}
+		}
+	}
+	
+	/* 게시글 수정 */
+	@GetMapping(value="/edit/{iSeq}")
+	public String edit(@PathVariable("iSeq") String iSeq, Model model) {
+		
+		interviewDTO interview = interviewService.writeDetail(iSeq);
+		
+		model.addAttribute("interview", interview);
+		
+		return "/interview/interviewEdit";
+	}
+	
+	@PostMapping(value="/editForm")
+	public String editForm(interviewDTO interview, MultipartHttpServletRequest request, HttpSession session, String iSeq) {
+		
+		String iTitle = request.getParameter("iTitle");
+		String iContent = request.getParameter("editorTxt");
+		String fileName = "";
+		MultipartFile file = request.getFile("file");
+		
+		//첨부파일 수정 코딩 작성
+		if(file.getOriginalFilename().equals("")) {
+			//새 파일이 없을 때
+			interview.setIFile(interview.getIFile());
+		} else if (file.getOriginalFilename() != null) {
+			if(file.getOriginalFilename().equals(interview.getIFile())) {
+				//새 파일이 있을 때
+				File iFile = new File(interview.getIFile());
+				
+				if(iFile.exists()) {
+					iFile.delete(); //파일 삭제 - File 객체에 .delete()메소드
+				}
+			}
+		}
+		
+		if(!file.isEmpty()) {
+			fileName = file.getOriginalFilename();
+			String filePath = "/Users/kimhaneul/Documents/GitHub/CoS/bin/main/static/interviewImg/";
+			
+			fileName = uploadFile(filePath, fileName);
+			
+			File save = new File(filePath + "//" + fileName);
+			
+			try {
+				file.transferTo(save);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		interview.setMSeq((String)session.getAttribute("mSeq"));
+		interview.setITitle(iTitle);
+		interview.setIContent(iContent);
+		interview.setIFile(fileName);
+		
+		int result = interviewService.editInterview(interview);
+		
+		if (result == 1) {
+			return "redirect:/interview/interviewList";
+		} else {
+			return "/interview/interviewEdit/" + iSeq;
+		}
 	}
 
 	/* 게시판 댓글 작성 */
