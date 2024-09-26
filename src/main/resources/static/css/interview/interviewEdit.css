@@ -1,0 +1,154 @@
+.nav-menu > .menu-active > a {
+	color: #fff;
+}
+
+.nav-menu > .menu-has-children > a {
+	color: #18d26e;
+}
+
+#backDiv {
+	background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url('/img/notebook2.jpg');
+	width: 100%; 
+	height: 300px; /* 250 or 300 */
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+} 
+
+#title {
+	font-size: 40px;
+	font-weight: bold;
+	color: white;
+	margin: 0;
+}
+
+#title > span {
+	font-size: 30px;
+	font-weight: bold;
+}
+#inputForm{
+	margin: 100px 0;
+}/* 완성후 지우기 */
+
+#subDesc {
+	display: block;
+	text-align: right;
+}
+
+.star{
+	color: red;
+	font-size: 15px;
+	font-weight: 500;
+}
+
+hr {
+	margin: 20px 0; 
+}
+
+#firstLine {
+	margin-top: 0;
+	border: 0.5px solid #AEAFB0;
+}
+
+.leftTitle {
+	display: inline-block;
+	width: 200px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+input[type="text"] {
+	outline: none;
+	border: none;
+	font-size: 15px;
+	width: 300px;
+	height: 32px;
+	border: 1px solid lightgray;
+	border-radius: 2px; 
+	padding-left: 10px;
+}
+
+#iTitle {
+	width: 700px;
+}
+
+#content {
+	float: left;
+	line-height: 395px;
+}
+
+#smarteditor {
+	display: inline-block;
+	width: 680px;
+	height: 397px;
+	border: 1px solid lightgray;
+	border-radius: 2px; 
+}
+
+#editorTxt {
+	border: none;
+	outline: none;
+	resize: none;
+	width: 680px;
+	height: 364px;
+}
+
+#desc {
+	font-size: 12px;
+}
+
+.uploadBtn {
+  width: 350px;
+  height: 32px;
+  background: #18d26e;
+  color: #fff;
+  border-radius: 3px; 
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 32px;
+  &:hover {
+    background: black;
+    color: #fff;
+  }
+}
+
+#fileName {
+	font-size: 14px;
+}
+
+#file {
+	display: none;
+}
+
+#lastLine {
+	border: 0.5px solid #AEAFB0;
+}
+
+#btns {
+	display: flex;
+	justify-content: right;
+}
+
+Button[type=submit] {
+	background: #18d26e;
+}
+Button {
+	border: none;
+	outline: none;
+	width: 100px;
+	height: 32px;
+	margin-left: 15px;
+	border-radius: 3px; 
+  	font-weight: bold;
+  	font-size: 15px;
+  	cursor: pointer;
+  	background: #909090;
+  	color: #fff;
+  	&:hover {
+    	background: black;
+    	color: #fff;
+  	}
+}

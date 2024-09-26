@@ -33,4 +33,9 @@ public interface interviewMapper {
 
 	int writeInterview(interviewDTO interview);
 
+	interviewDTO writeDetail(String iSeq);
+
+	int editInterview(interviewDTO interview);
+
+	int viewCount(String iSeq);
 }

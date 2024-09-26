@@ -60,5 +60,17 @@ public class interviewService {
 	public int writeInterview(interviewDTO interview) {
 		return interviewMapper.writeInterview(interview);
 	}
+
+	public interviewDTO writeDetail(String iSeq) {
+		return interviewMapper.writeDetail(iSeq);
+	}
+
+	public int editInterview(interviewDTO interview) {
+		return interviewMapper.editInterview(interview);
+	}
+
+	public int viewCount(String iSeq) {
+		return interviewMapper.viewCount(iSeq);
+	}
 	
 }
