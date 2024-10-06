@@ -14,7 +14,7 @@
 				WHEN TIMESTAMPDIFF(SECOND, i.iDate, NOW()) &lt; 60 THEN '방금 전'
         		WHEN TIMESTAMPDIFF(MINUTE, i.iDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, i.iDate, NOW()), '분 전')
         		WHEN TIMESTAMPDIFF(HOUR, i.iDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, i.iDate, NOW()), '시간 전')
-        		WHEN TIMESTAMPDIFF(DAY, i.iDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, i.iDate, NOW()), '일 전')
+        		WHEN TIMESTAMPDIFF(DAY, i.iDate, NOW()) &lt; 14 THEN concat(TIMESTAMPDIFF(DAY, i.iDate, NOW()), '일 전')
         		ELSE date_format(i.iDate, '%Y-%m-%d') END as regDate
 		from 
 			 tblInterview i inner join tblMember m
@@ -95,7 +95,7 @@
 				WHEN TIMESTAMPDIFF(SECOND, i.iDate, NOW()) &lt; 60 THEN '방금 전'
         		WHEN TIMESTAMPDIFF(MINUTE, i.iDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, i.iDate, NOW()), '분 전')
         		WHEN TIMESTAMPDIFF(HOUR, i.iDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, i.iDate, NOW()), '시간 전')
-        		WHEN TIMESTAMPDIFF(DAY, i.iDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, i.iDate, NOW()), '일 전')
+        		WHEN TIMESTAMPDIFF(DAY, i.iDate, NOW()) &lt; 14 THEN concat(TIMESTAMPDIFF(DAY, i.iDate, NOW()), '일 전')
         		ELSE date_format(i.iDate, '%Y-%m-%d') END as regDate
 		from 
 			 tblInterview i inner join tblMember m
@@ -106,6 +106,15 @@
 			i.iSeq = #{iSeq}
 	</select>
 	
+	<select id="likeCount" resultType="int">
+		select 
+			IFNULL(count(*), 0)
+		from
+			tblIntgood
+		where
+			iSeq = #{iSeq} and mSeq = #{mSeq}
+	</select>
+	
 	<update id="viewCount">
 		update tblInterview
 		set 
@@ -113,6 +122,30 @@
 		where
 			iSeq = #{iSeq}
 	</update>
+	
+	<delete id="delInterview">
+		delete from
+			tblInterview 
+		where
+			iSeq = #{iSeq}
+	</delete>
+	
+	<insert id="likeUp">
+		insert into tblIntgood (
+				 mSeq
+				,iSeq
+		) values (
+				#{mSeq}
+				,#{iSeq}
+		)
+	</insert>
+	
+	<delete id="likeDown">
+		delete from
+			tblIntgood
+		where
+			iSeq = #{iSeq} and mSeq = #{mSeq}
+	</delete>
 	
 	<select id="nickName" resultType="String">
 		select
@@ -132,7 +165,7 @@
 				,iDate
 				,iCount
 				,iFile
-		) VALUES (
+		) values (
 				#{iSeq}
 				,#{mSeq}
 				,#{iTitle}

@@ -10,10 +10,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -34,7 +36,7 @@ public class interviewController {
 	
 	private final interviewService interviewService;
 	
-	/* 면접후기게시판 페이지 */
+	/* 게시판 페이지 */
 	@GetMapping(value="/interviewList")
 	public String interviewPage(String search,String word, Model model, @PageableDefault(value = 10) Pageable page) {
 
@@ -56,7 +58,7 @@ public class interviewController {
 		int nowPage = list.getPageable().getPageNumber() + 1;
 	    int startPage = Math.max(nowPage - 4, 1); //Math.max를 이용해서 start 페이지가 0이하로 되는 것을 방지
 	    int endPage = Math.min(nowPage + 5, list.getTotalPages()); //endPage가 총 페이지의 개수를 넘는 것을 방지
-
+	    
 	    model.addAttribute("list", list);
 	    model.addAttribute("nowPage", nowPage);
 	    model.addAttribute("startPage", startPage);
@@ -72,50 +74,80 @@ public class interviewController {
        
 	}
 	
-	/* 면접후기게시판 상세조회 */
+	/* 게시판 상세조회 */
 	@GetMapping(value="/detail/{iSeq}")
 	public String detail(@PathVariable("iSeq") String iSeq, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+		
+		String mSeq = (String)session.getAttribute("mSeq");
 		
 		interviewDTO listDetail = interviewService.listDetail(iSeq);
 		List<intCmtDTO> listCmt = interviewService.listCmt(iSeq);
 		int IntCmtCount = interviewService.IntCmtCount(iSeq);
+		int likeImg = 0;
 		
-		Cookie[] cookies = request.getCookies();
-		Cookie oldCookie = null;
-		int iCount = 0;
-		
-		if(cookies != null) {
-			for(Cookie cookie : cookies) {
-				if(cookie.getName().equals("interviewDetail")) { //interviewDetail이라는 값이 있을 경우 oldCookie에 넣어줌
-					oldCookie = cookie;
+		if(mSeq != null) {
+			
+			likeImg = interviewService.likeCount(mSeq, iSeq); 
+			
+			if(!mSeq.equals(listDetail.getMSeq())) {
+				
+				Cookie[] cookies = request.getCookies();
+				Cookie oldCookie = null;
+				int iCount = 0;
+				
+				if(cookies != null) {
+					for(Cookie cookie : cookies) {
+						if(cookie.getName().equals("interviewDetail")) { //interviewDetail이라는 값이 있을 경우 oldCookie에 넣어줌
+							oldCookie = cookie;
+						}
+					}
+				} 
+				
+				if(oldCookie != null) {
+					if(!oldCookie.getValue().contains(iSeq)) {	//해당 게시판번호를 가지고 있다면 조회수 증가 X
+						iCount = interviewService.viewCount(iSeq);
+						oldCookie.setValue(oldCookie.getValue() + "[" + iSeq + "]"); //게시판번호 [10] [101] 정확하게 구분하기 위해 괄호 사용
+						oldCookie.setMaxAge(60 * 60 * 2);
+						response.addCookie(oldCookie);
+					}
+				} else {
+					iCount = interviewService.viewCount(iSeq);
+					Cookie newCookie = new Cookie("interviewDetail","[" + iSeq + "]");
+			        newCookie.setMaxAge(60 * 60 * 24);
+			        response.addCookie(newCookie);
 				}
 			}
-		} 
-		
-		if(oldCookie != null) {
-			if(!oldCookie.getValue().contains(iSeq)) {	//해당 게시판번호를 가지고 있다면 조회수 증가 X
-				iCount = interviewService.viewCount(iSeq);
-				oldCookie.setValue(oldCookie.getValue() + "[" + iSeq + "]"); //게시판번호 [10] [101] 정확하게 구분하기 위해 괄호 사용
-				oldCookie.setMaxAge(60 * 60 * 2);
-				response.addCookie(oldCookie);
-				System.out.println("방문기록 아이디 " + oldCookie.getName());
-			}
-		} else {
-			iCount = interviewService.viewCount(iSeq);
-			Cookie newCookie = new Cookie("interviewDetail","[" + iSeq + "]");
-	        newCookie.setMaxAge(60 * 60 * 24);
-	        response.addCookie(newCookie);
 		}
 		
 		session.getAttribute("id");
+		model.addAttribute("mSeq", mSeq);
 		model.addAttribute("listCmt", listCmt);
 		model.addAttribute("listDetail", listDetail);
 		model.addAttribute("IntCmtCount", IntCmtCount);
-
+		model.addAttribute("likeImg", likeImg);
+		
 		return "/interview/interviewDetail";
 	}
 	
-	/* 게시글 작성 */
+	/* 게시판 좋아요 */
+	@ResponseBody
+	@PostMapping(value="/likeUp")
+	public int likeUp(String mSeq, String iSeq, interviewDTO interview) {
+		int result = interviewService.likeUp(mSeq, iSeq);
+		//System.out.println("likeUp result " + result);
+		return result;
+	}
+	
+	/* 게시판 좋아요 취소 */
+	@ResponseBody
+	@PostMapping(value="/likeDown")
+	public int likeDown(String mSeq, String iSeq, interviewDTO interview) {
+		int result = interviewService.likeDown(mSeq, iSeq);
+		//System.out.println("likeDown result " + result);
+		return result;
+	}
+	
+	/* 게시판 작성 */
 	@GetMapping(value="/write")
 	public String write(HttpSession session, Model model) {
 		
@@ -138,6 +170,11 @@ public class interviewController {
 		if(!file.isEmpty()) {
 			fileName = file.getOriginalFilename();
 			String filePath = "/Users/kimhaneul/Documents/GitHub/CoS/bin/main/static/interviewImg/";
+			
+			File folder = new File(filePath);
+			if (!folder.exists()) {
+				folder.mkdirs();
+			}
 			
 			fileName = uploadFile(filePath, fileName);
 			
@@ -188,7 +225,7 @@ public class interviewController {
 		}
 	}
 	
-	/* 게시글 수정 */
+	/* 게시판 수정 */
 	@GetMapping(value="/edit/{iSeq}")
 	public String edit(@PathVariable("iSeq") String iSeq, Model model) {
 		
@@ -226,6 +263,11 @@ public class interviewController {
 			fileName = file.getOriginalFilename();
 			String filePath = "/Users/kimhaneul/Documents/GitHub/CoS/bin/main/static/interviewImg/";
 			
+			File folder = new File(filePath);
+			if (!folder.exists()) {
+				folder.mkdirs();
+			}
+			
 			fileName = uploadFile(filePath, fileName);
 			
 			File save = new File(filePath + "//" + fileName);
@@ -250,6 +292,16 @@ public class interviewController {
 			return "/interview/interviewEdit/" + iSeq;
 		}
 	}
+	
+	/* 게시판 삭제 */
+	@ResponseBody	
+	@DeleteMapping(value="/delInterview/{iSeq}")
+	public int del(@PathVariable("iSeq") String iSeq) {
+		
+		int result = interviewService.delInterview(iSeq);
+		
+		return result;
+	}
 
 	/* 게시판 댓글 작성 */
 	@GetMapping(value="/writeCmt")
@@ -266,10 +318,11 @@ public class interviewController {
 	}
 	
 	/* 게시판 댓글 삭제 */
-	@PostMapping(value="/delComment/{icSeq}")
-	public String delComment(intCmtDTO intCmt, @PathVariable("icSeq") String icSeq, String iSeq) {
+	@ResponseBody	
+	@DeleteMapping(value="/delComment/{icSeq}")
+	public int delComment(intCmtDTO intCmt, @PathVariable("icSeq") String icSeq, String iSeq) {
 		int result = interviewService.delComment(icSeq);
 		System.out.println(result);
-		return "redirect:/interview/interviewList";
+		return result;
 	}
 }

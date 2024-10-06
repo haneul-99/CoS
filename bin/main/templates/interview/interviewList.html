@@ -37,9 +37,9 @@
 					<th>조회수</th>
 				</tr>
 				
-				<tr th:each="list : ${list}">
+				<tr th:each="list : ${list}" th:onclick="listDetail([[${list.iSeq}]])">
 					<td th:text="${list.iNum}"></td>
-					<td><a th:href="@{/interview/detail/{iSeq}(iSeq=${list.iSeq})}" th:text="${list.iTitle}"></a></td>
+					<td th:text="${list.iTitle}"></td>
 					<td th:text="${list.nickName}"></td>
 					<td th:text="${list.regDate}"></td>
 					<td th:text="${list.iCount}"></td>
@@ -69,8 +69,19 @@
 	</div>
 	<th:block layout:fragment="script">
 		<script th:inline="javascript">
-			
+				
 			const id = [[${session.id}]];
+			
+			function listDetail(numInfo) {
+       			var iSeq = numInfo;
+       			
+				if(id == null) {
+					alert("로그인 후 이용가능합니다.");
+					location.href="/member/login";
+				} else {
+					location.href="/interview/detail/" + iSeq;
+				}
+			}
 			
 			$('#write').click(function() {
 				if(id == null) {
@@ -80,6 +91,8 @@
 					location.href="/interview/write";
 				}
 			});
+			
+			
 			
 		</script>
 	</th:block>

@@ -119,6 +119,12 @@
 				//console.log(fileName);
 				$('#delFile').show();
 			});
+			
+			if($('#file').val() != null) {
+				$('#delFile').show();
+			} else {
+				$('#delFile').hide();
+			}
 
 			$('#delFile').click(function(){
 				$('#file').val('');
