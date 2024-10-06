@@ -42,8 +42,8 @@
 
 
 #profile {
-	margin-bottom: 30px;
 	display: flex;
+	margin-bottom: 20px;
 }
 
 .profileImg {
@@ -56,6 +56,7 @@
 #userDiv {
 	display: inline-block;
 	margin-left: 8px;
+	width: 100%;
 }
 
 #userDiv > :first-child {
@@ -72,6 +73,17 @@
 	font-size: 12.5px;
 }
 
+.heart {
+	width: 45px;
+}
+
+#less:hover {
+	content: url("/img/fullheart.png");
+}
+
+#full:hover {
+	content: url("/img/lessheart.png");
+}
 
 .fa-heart {
 	color: #F53F4D;
@@ -99,6 +111,12 @@ h1 {
 
 #iContent {
 	margin-bottom: 45px;
+}
+
+#fileImg > img{
+	height: 350px;
+	width: auto;
+	margin-bottom: 10px;
 }
 
 .btn {

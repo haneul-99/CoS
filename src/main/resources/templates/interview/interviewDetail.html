@@ -16,16 +16,18 @@
 					<span class="nick">[[${listDetail.nickName}]]</span><br>
 					<span th:text="${listDetail.auth} == 1 ? '주니어 개발자' : '시니어 개발자'" class="info"/> ·
 					<span class="info">[[${listDetail.regDate}]] ·
-					<i class="fa-solid fa-heart"></i></i>&nbsp;[[${listDetail.iGood}]] ·
+					<i class="fa-solid fa-heart"></i>&nbsp;[[${listDetail.iGood}]] ·
 					<i class="fa-regular fa-eye"></i>&nbsp;[[${listDetail.iCount}]]</span>
-					<button id="likeBtn"><i class="fa-solid fa-heart fa-2x"></i></button>
 				</div>
+				<img th:if="${likeImg} == 0" class="heart" id="less" src="/img/lessheart.png">
+				<img th:if="${likeImg} != 0" class="heart" id="full" src="/img/fullheart.png">
 			</div>
 			<h1>[[${listDetail.iTitle}]]</h1>
 			<div id="iContent" th:utext="${listDetail.iContent}"></div>
+			<div id="fileImg"><img th:if="${listDetail.iFile != null}" th:src="@{/interviewImg/}+${listDetail.iFile}"></div>
 			<div id="buttons" th:if="${listDetail.id} == ${session.id}">
 				<button type="button" class="btn" th:onclick="|location.href='@{/interview/edit/{iSeq}(iSeq=${listDetail.iSeq})}'|"><i class="fa-solid fa-pen-to-square"></i>수정하기</button>
-				<button type="button" class="btn"><i class="fa-solid fa-trash-can"></i>삭제하기</button>
+				<button type="button" class="btn" th:onclick="delInterview()"><i class="fa-solid fa-trash-can"></i>삭제하기</button>
 			</div>
 		</div>
 		<hr>
@@ -77,21 +79,92 @@
 	<th:block layout:fragment="script">
 		<script th:inline="javascript">
 			
-			const id = [[${session.id}]];
-			/*
-			if(!id) {
-				alert("로그인 후 사용하실 수 있습니다.");
-				location.href="/member/login";
+			let mSeq = [[${session.mSeq}]];
+			let iSeq = [[${listDetail.iSeq}]];
+			let likeImg = [[${likeImg}]];
+			let likeCount = [[${listDetail.iGood}]];
+			
+			if(likeImg > 0) {	//좋아요 누른 상태
+				$('#full').click(function(){
+					$.ajax({
+						url: '/interview/likeDown',
+						type: 'post',
+						data: {'mSeq':mSeq,'iSeq':iSeq},
+						dataType: 'json',
+						success: function (result) {
+							likeCount = likeCount - 1;
+							
+							$("#full").attr("src", "/img/lessheart.png");
+						
+							$("#full").attr("id", "#less");
+							$("#full").removeAttr("id", "#full");
+							
+							location.reload();
+						},
+						error: function(request, error) {
+            				alert("code: " + request.status + "message: " + request.responseText + "error: " + error);
+        				}
+					});
+				});
+			} else {
+				$('#less').click(function(){
+					$.ajax({
+						url: '/interview/likeUp',
+						type: 'post',
+						data: {'mSeq':mSeq,'iSeq':iSeq},
+						dataType: 'json',
+						success: function (result) {
+							likeCount = likeCount + 1;
+							
+							$("#less").attr("src", "/img/fullheart.png");
+						
+							$("#less").attr("id", "#full");
+							$("#less").removeAttr("id", "#less");
+							
+							location.reload();
+						},
+						error: function(request, error) {
+            				alert("code: " + request.status + "message: " + request.responseText + "error: " + error);
+        				}
+					});
+				});
 			}
 			
-			*/
 			$('#writeBtn').click(function() {
 		    	const icContent = document.getElementById('icContent').value;
-		    	console.log(icContent);
 		    	if(icContent == '') {
 					alert("내용을 입력해주세요.");
+					return false;
 				}
-		    });	    	
+		    });
+		    
+		    function delInterview() {
+				const iSeq = [[${listDetail.iSeq}]];
+				console.log(iSeq);
+				
+				if(confirm("정말로 삭제 하시겠습니까?")) {
+					$.ajax({
+						url: '/interview/delInterview/' + iSeq,
+						type: 'delete',
+						data: {'iSeq': iSeq},
+						dataType: 'json',
+						async: false,
+						success: function (result) {
+							alert("삭제되었습니다.");
+							location.href="/interview/interviewList";
+						},
+						error: function(request, error) {
+            				alert("code: " + request.status + "message: " + request.responseText + "error: " + error);
+        				}
+					});
+				} else {
+					return false;
+				}
+			}	    	
+			
+			$('#delCommentBtn').click(function(){
+				
+			});
 	    	
 	    </script>	
     </th:block>

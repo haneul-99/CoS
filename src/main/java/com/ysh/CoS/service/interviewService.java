@@ -49,10 +49,10 @@ public class interviewService {
 		return interviewMapper.listCmt(iSeq);
 	}
 
-	public int delComment(String string) {
-		return interviewMapper.delComment(string);
+	public int delComment(String icSeq) {
+		return interviewMapper.delComment(icSeq);
 	}
-
+	
 	public String nickName(String mSeq) {
 		return interviewMapper.nickName(mSeq);
 	}
@@ -72,5 +72,20 @@ public class interviewService {
 	public int viewCount(String iSeq) {
 		return interviewMapper.viewCount(iSeq);
 	}
-	
+
+	public int delInterview(String iSeq) {
+		return interviewMapper.delInterview(iSeq);
+	}
+
+	public int likeUp(String mSeq, String iSeq) {
+		return interviewMapper.likeUp(mSeq, iSeq);
+	}
+
+	public int likeCount(String mSeq, String iSeq) {
+		return interviewMapper.likeCount(mSeq, iSeq);
+	}
+
+	public int likeDown(String mSeq, String iSeq) {
+		return interviewMapper.likeDown(mSeq, iSeq);
+	}
 }

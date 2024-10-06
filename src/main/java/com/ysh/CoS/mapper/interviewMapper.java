@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.ysh.CoS.dto.intCmtDTO;
 import com.ysh.CoS.dto.interviewDTO;
@@ -27,8 +28,8 @@ public interface interviewMapper {
 
 	List<intCmtDTO> listCmt(String iSeq);
 
-	int delComment(String string);
-
+	int delComment(String icSeq);
+	
 	String nickName(String mSeq);
 
 	int writeInterview(interviewDTO interview);
@@ -38,4 +39,17 @@ public interface interviewMapper {
 	int editInterview(interviewDTO interview);
 
 	int viewCount(String iSeq);
+
+	int delInterview(String iSeq);
+
+	int likeUp(@Param("mSeq") String mSeq, @Param("iSeq") String iSeq);
+
+	int likeCount(@Param("mSeq") String mSeq, @Param("iSeq") String iSeq);
+
+	int likeDown(@Param("mSeq") String mSeq, @Param("iSeq") String iSeq);
+
+
+	
+
+
 }
