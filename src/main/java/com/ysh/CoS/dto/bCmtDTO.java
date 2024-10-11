@@ -17,4 +17,5 @@ public class bCmtDTO {
 	private String nickName;	//닉네임
 	private String auth;		//권한
 	private String img;			//이미지
+	private String rank;		//순위
 }

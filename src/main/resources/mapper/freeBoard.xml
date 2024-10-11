@@ -144,8 +144,62 @@
 	
 	<select id="getCommentList" parameterType="String" resultType="com.ysh.CoS.dto.bCmtDTO">
 	
-		select bc.*, m.nickName, m.auth, m.img from tblBcmt bc inner join tblMember m on bc.mSeq = m.mSeq where bSeq = ${bSeq}
+		select bc.*, m.nickName, m.auth, m.img from tblBcmt bc inner join tblMember m on bc.mSeq = m.mSeq where bSeq = ${bSeq}  order by bcRef, bcStep, bcLevel
 	
 	</select>
+	
+	<select id="getMaxStep" parameterType="com.ysh.CoS.dto.bCmtDTO" resultType="Integer">
+	
+		select max(bcStep) from tblBcmt where bSeq = ${bSeq} and bcRef = ${bcRef} order by bcRef, bcStep, bcLevel
+	
+	</select>
+	
+	<select id="getRank" parameterType="com.ysh.CoS.dto.bCmtDTO" resultType="String">
+	
+		select rank from (select *, RANK() over (order by bcRef, bcStep, bcLevel) as 'rank' from tblBcmt where bSeq = ${bSeq}) cmt where bcSeq = ${bcSeq}
+	
+	</select>
+	
+	<select id="getNextbcSeq" parameterType="String" resultType="Object">
+	
+		select bcSeq from (select *, RANK() over (order by bcRef, bcStep, bcLevel) as 'rank' from tblBcmt where bSeq = ${bSeq}) cmt where rank = ${rank}
+	
+	</select>
+	
+	<select id="getNextBcLevel" parameterType="Object" resultType="String">
+	
+		select bcLevel from tblBcmt where bcSeq = ${bcSeq} 
+	
+	</select>
+	
+	<update id="updateIncBcStep" parameterType="com.ysh.CoS.dto.bCmtDTO">
+	
+		update tblBcmt set bcStep = bcStep + 1 where bSeq = ${bSeq} and bcRef = ${bcRef} and bcStep >= ${bcStep}
+		
+	</update>
+	
+	<insert id="addSubComment" parameterType="com.ysh.CoS.dto.bCmtDTO">
+	
+		INSERT INTO tblBcmt (mSeq, bcDate, bSeq, bcRef, bcStep, bcLevel, bcDell, bcContent) VALUES (#{mSeq}, default, #{bSeq}, #{bcRef}, #{bcStep}, #{bcLevel}, default, #{bcContent})
+	
+	</insert>
+	
+	<select id="getBcmtInfo" parameterType="com.ysh.CoS.dto.bCmtDTO" resultType="com.ysh.CoS.dto.bCmtDTO">
+	
+		select * from (select *, RANK() over (order by bcRef, bcStep, bcLevel) as 'rank' from tblBcmt where bSeq = ${bSeq} and bcRef = ${bcRef}) cmt where bcStep = ${bcStep} and bcLevel = ${bcLevel}
+	
+	</select>
+	
+	<select id="getNextRankBcmtInfo" parameterType="com.ysh.CoS.dto.bCmtDTO" resultType="com.ysh.CoS.dto.bCmtDTO">
+	
+		select * from (select *, RANK() over (order by bcRef, bcStep, bcLevel) as 'rank' from tblBcmt where bSeq = ${bSeq} and bcRef = ${bcRef}) cmt where rank = ${rank}
+	
+	</select>
+	
+	<update id="updateDell" parameterType="String">
+	
+		update tblBcmt set bcDell = 'y' where bcSeq = ${bcSeq}
+		
+	</update>
 	
 </mapper>

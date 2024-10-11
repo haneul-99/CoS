@@ -60,4 +60,22 @@ public interface freeBoardMapper {
 
 	List<bCmtDTO> getCommentList(String bSeq);
 
+	int getMaxStep(bCmtDTO dto);
+
+	String getRank(bCmtDTO dto);
+	
+	Object getNextbcSeq(@Param("bSeq") String bSeq, @Param("rank") String rank);
+	
+	Object getNextBcLevel(Object bcSeq);
+
+	int updateIncBcStep(bCmtDTO nextdto);
+
+	int addSubComment(bCmtDTO dto);
+
+	bCmtDTO getBcmtInfo(bCmtDTO nextdto);
+
+	bCmtDTO getNextRankBcmtInfo(bCmtDTO nextdto);
+
+	int updateDell(String bcSeq);
+
 }
