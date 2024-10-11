@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -83,8 +84,6 @@ public class freeBoardController {
 		
 		boardDTO dto = service.getBoardInfo(bSeq); 
 		List<bCmtDTO> list = service.getCommentList(bSeq);
-
-		String lastSeq = list.get(list.size()-1).getBcSeq();
 		
 		dto = service.dtoProcess(dto);
 		
@@ -110,13 +109,20 @@ public class freeBoardController {
 		}
 		
 		model.addAttribute("dto", dto);
-		model.addAttribute("list", list);
-		model.addAttribute("lastSeq", lastSeq);
 		model.addAttribute("flike", flike);
 		model.addAttribute("img", img);
 			
 		return "freeBoard/listDetail";
 			
+	}
+	
+	@ResponseBody
+	@GetMapping("/commentList") 
+	public List<bCmtDTO> commentList(HttpSession session, Model model, String bSeq) {
+		
+		List<bCmtDTO> list = service.getCommentList(bSeq); 
+		
+		return list;
 	}
 	
 	@ResponseBody
@@ -366,16 +372,121 @@ public class freeBoardController {
 		
 		int result = service.addFirstComment(dto);
 		
-		/*
-		 * int result = service.addLike(mSeq, bSeq);
-		 * 
-		 * boardDTO dto = service.getBoardInfo(bSeq); dto = service.dtoProcess(dto);
-		 * 
-		 * result = Integer.parseInt(dto.getCount());
-		 */
-		
-		return 0; 
+		return result; 
 		
 	}
 	
+	@ResponseBody
+	@PostMapping("/addSubComment") 
+	public int addSubComment(Model model, String bcSeq, String mSeq, String bSeq, String bcRef, String bcStep, String bcLevel, String bcContent) {
+		
+		bCmtDTO dto = new bCmtDTO();
+		dto.setBcSeq(bcSeq);
+		dto.setMSeq(mSeq);
+		dto.setBSeq(bSeq);
+		dto.setBcRef(bcRef);
+		dto.setBcStep(bcStep);
+		dto.setBcLevel(bcLevel);
+		dto.setBcContent(bcContent);
+		
+		int result = 0;
+
+		
+		//1. bcStep과 bcLevel = 0이면 bcLevel은 1 bcStep은 맨 마지막 값
+		if (bcStep.equals("0") && bcLevel.equals("0")) {
+			int maxStep = service.getMaxStep(dto) + 1;
+			int ibcLevel = Integer.parseInt(bcLevel) + 1;
+			dto.setBcStep(maxStep+"");
+			dto.setBcLevel(ibcLevel+"");
+			
+		} else {	//2. 아니면 bcSeq의 다음글로 Level보고 판단
+			
+			int ibcStep = Integer.parseInt(bcStep) + 1;
+			int ibcLevel = Integer.parseInt(bcLevel) + 1;
+			
+			String rank = service.getRank(dto);
+			
+			Object nbcSeq = service.getNextbcSeq(bSeq,Integer.parseInt(rank)+1+"");
+			
+			Object nbcLevel = null;
+			if (nbcSeq != null)
+				nbcLevel = service.getNextBcLevel(nbcSeq);	
+			
+			bCmtDTO nextdto = new bCmtDTO();
+			
+			nextdto.setBSeq(bSeq);
+			nextdto.setBcRef(bcRef);
+			nextdto.setBcStep(ibcStep+"");
+			
+			
+			//2-1. nbclevel이 없거나 ibcLevel과 같지 않다면 뒤에값 + 1 처리 후 sql 삽입
+			if (nbcLevel == null || !nbcLevel.equals(ibcLevel+"")) {
+		
+				if (nbcLevel != null) {	//뒤에값 +1 처리 해줌 
+					result = service.updateIncBcStep(nextdto);
+				}
+				
+				dto.setBcStep(ibcStep+"");
+				dto.setBcLevel(ibcLevel+"");
+				
+			} else {
+				//2-2. 중복이라면 중복의 최댓값 찾아서 맨 끝에 붙여줌 뒤에 Step +1처리 후 sql 삽입 > 최댓값을 잘못 찾았다 1,3,2 1,3,3 1,4,2 1,5,3 1,6,3 -> 1,3,3을 찾아야하는데 1,6,3을 찾아버림;;;
+			
+				nextdto.setBSeq(bSeq);
+				nextdto.setBcRef(bcRef);
+				nextdto.setBcStep(ibcStep+"");
+				nextdto.setBcLevel(ibcLevel+"");
+				
+				nextdto = service.getBcmtInfo(nextdto);	//중복행의 정보 갖고있음 
+				
+				String nrank = nextdto.getRank();
+				int inrank = Integer.parseInt(nrank);
+				int step = ibcStep;
+				boolean flag = true;
+				
+				String nextLevel = "";
+				int inextLevel = 0;
+				
+				while (flag) {
+					inrank++; 
+					step++;
+					
+					nextdto.setRank(inrank+"");
+			
+					nextdto = service.getNextRankBcmtInfo(nextdto);
+					
+					try {
+						nextLevel = nextdto.getBcLevel();
+						inextLevel = Integer.parseInt(nextLevel);
+						if (!nextdto.getBcStep().equals(step+"") || ibcLevel > inextLevel) {
+							dto.setBcStep(step+"");
+							dto.setBcLevel(ibcLevel+"");
+							flag = false;
+						}
+					}catch (Exception e) {	//nextdto가 null일때
+						dto.setBcStep(step+"");
+						dto.setBcLevel(ibcLevel+"");
+						flag = false;
+					}
+				}
+
+				result = service.updateIncBcStep(dto);			
+				
+			}
+			
+		}
+		result += service.addSubComment(dto);	
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@PutMapping("/commentDelOk") 
+	public int commentDelOk(Model model, String bcSeq) {
+		
+		int result = service.updateDell(bcSeq);
+		
+		return result;
+	}
+
 }

@@ -316,5 +316,63 @@ public class freeBoardService {
 		
 		return list;
 	}
+
+	public int getMaxStep(bCmtDTO dto) {
+		
+		return freeBoardMapper.getMaxStep(dto);
+	}
+	
+	public String getRank(bCmtDTO dto) {
+		
+		return freeBoardMapper.getRank(dto);
+	}
+	
+	public Object getNextbcSeq(String bSeq, String rank) {
+		
+		return freeBoardMapper.getNextbcSeq(bSeq, rank);
+	}
+
+	public Object getNextBcLevel(Object bcSeq) {
+		
+		return freeBoardMapper.getNextBcLevel(bcSeq);
+	}
+
+	public int updateIncBcStep(bCmtDTO nextdto) {
+		
+		return freeBoardMapper.updateIncBcStep(nextdto);
+	}
+
+	public int addSubComment(bCmtDTO dto) {
+		
+		return freeBoardMapper.addSubComment(dto);
+	}
+
+	public bCmtDTO getBcmtInfo(bCmtDTO nextdto) {
+		
+		return freeBoardMapper.getBcmtInfo(nextdto);
+	}
+
+	public bCmtDTO getNextRankBcmtInfo(bCmtDTO nextdto) {
+		
+		return freeBoardMapper.getNextRankBcmtInfo(nextdto);
+	}
+
+	public int updateDell(String bcSeq) {
+		
+		return freeBoardMapper.updateDell(bcSeq);
+	}
+
+	
+	
+
+
+	
+
+	
+
+
+
+	
+
 	
 }

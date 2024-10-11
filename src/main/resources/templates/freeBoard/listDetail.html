@@ -35,9 +35,10 @@
 				<button type="button" th:id="e + ${dto.bSeq}" class="btn" th:onClick="|location.href='@{/freeBoard/edit/{bSeq}(bSeq=${dto.bSeq})}'|"><i class="fa-solid fa-pen-to-square"></i> 수정하기</button>
 			</div>
 			<input type="hidden" id="writeNumber" th:value="${dto.bSeq}">
+			<input type="hidden" id="author" th:value="${dto.mSeq}">
 			<hr>
 			
-			31개의 댓글 <!-- dto 댓글 수 불러와서 적용시켜야함 -->
+			<span id="commentCnt"></span> <!-- 댓글 수 출력 -->
 			
 			<div id="comment">
 				<div id="minicomment">
@@ -50,167 +51,122 @@
 				</div>
 				<button type="button" id="writeBtn">댓글 쓰기</button>
 			</div> <!-- 메인댓글 작성 란 -->
-			
-			<!-- 수정 중 24.09.24 -->
-			<div th:each="dto : ${list}" th:id="${dto.bcSeq}">
-				<div class="commentInfo1" th:id="${dto.bcSeq}">
-					<img class="profile" th:src="@{/img/member/} + ${dto.img}">
-					<div class="description">
-						<span class="nick" th:text="${dto.nickName}"></span><br><span class="subDescription" th:text="${dto.auth + ' ㆍ ' + dto.bcDate}"></span>
-					</div>
-				</div>
-				<div class="commentContent" th:utext="${dto.bcContent}"></div>
-				<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span th:id="${dto.bcRef+dto.bcStep+dto.bcLevel}" class="rdComment writeLink">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
-      		
-      			<div th:id="${'subC'+dto.bcRef+dto.bcStep+dto.bcLevel}" class="subWrite">
-					<div id="subMiniComment">
-						<img class="subMiniProfile" th:src="${'/img/member/'+img}">
-						<textarea id="subWriteComment"></textarea>
-						<div id="subMessage">
-							<i class="fa-solid fa-circle-info"></i> 
-							댓글을 작성하려면 여기를 클릭하세요.
-						</div>
-					</div>
-					<button type="button" id="subWriteBtn">댓글 쓰기</button>
-				</div> <!-- 세부 댓글 작성란 -->
-				
-      			<div th:if="${dto.bcSeq != lastSeq}"><hr></div>
-      			
-      		</div>
       		
       		
-      		
-      		
-      		
-      		
-			
-			
-			
-			<!-- <th:if=""></th:if> -->
-			<div class="commentInfo1">
-				<img class="profile" src="/img/member/default.jpg">
-				<div class="description">
-					<span class="nick">RunningDog</span><br><span class="subDescription">시니어 개발자 ㆍ 12일 전</span>
-				</div>
-			</div>
-			<div class="commentContent">안사면 떨어집니다. 고시원 살면서 이악물고 버티겠습니다. 평생 혼자살겠습니다!</div>
-			<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
-      		
-      		<!-- 세부 대댓글 디자인 시작 --> <!-- 첫번째 depth -->
-      		<div class="viewComment">
-      		
-      			<div class="commentInfo2">
-					<img class="profile2" src="/img/member/member03.jpg">
-					<div class="description">
-						<span class="nick">잠바</span><br><span class="subDescription">주니어 개발자 ㆍ 9일 전</span>
-					</div>
-				</div>
-				<div class="commentContent">그러내요...ㅋㅋㅋㅋ</div>
-				<div class="replyComment2"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
-      				
-      				<!-- 두번째 depth -->
-      				<div class="viewComment">
-      				
-      					<div class="commentInfo2">
-							<img class="profile3" src="/img/member/member05.jpg">
-						<div class="description">
-							<span class="nick">티셔츠</span><br><span class="subDescription">주니어 개발자 ㆍ 8일 전</span>
-						</div>
-						</div>
-						<div class="commentContent">앗 진짜??</div>
-						<div class="replyComment2"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
-      						
-      						<!-- 세번째 depth -->
-      						<div class="viewComment">
-      						
-      							<div class="commentInfo2">
-									<img class="profile3" src="/img/member/member07.jpg">
-								<div class="description">
-									<span class="nick">청바지</span><br><span class="subDescription">시니어 개발자 ㆍ 6일 전</span>
-								</div>
-								</div>
-								<div class="commentContent">앗 진짜??</div>
-								<div class="replyComment2"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
-      							<hr>
-      							<div class="commentInfo2">
-									<img class="profile3" src="/img/member/member08.jpg">
-								<div class="description">
-									<span class="nick">청자켓</span><br><span class="subDescription">시니어 개발자 ㆍ 5일 전</span>
-								</div>
-								</div>
-								<div class="commentContent">오호??</div>
-								<div class="replyComment2"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
-      							
-      						</div>
-      						
-      					<hr>
-      					<div class="commentInfo2">
-							<img class="profile3" src="/img/member/member06.jpg">
-						<div class="description">
-							<span class="nick">양말</span><br><span class="subDescription">주니어 개발자 ㆍ 7일 전</span>
-						</div>
-						</div>
-						<div class="commentContent">야호</div>
-						<div class="replyComment2"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
-      					
-      				</div>
-      			<hr>
-      			
-      			<div class="commentInfo2">
-					<img class="profile2" src="/img/member/member04.jpg">
-					<div class="description">
-						<span class="nick">반바지</span><br><span class="subDescription">시니어 개발자 ㆍ 4일 전</span>
-					</div>
-				</div>
-				<div class="commentContent">앗 정말요??</div>
-				<div class="replyComment2"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span></div>
-      			
-      			
-      		</div>
-      		<!-- 세부 대댓글 디자인 끝 -->
-      		
-      		<hr>
-      		<div class="commentInfo1">
-				<img class="profile" src="/img/member/member02.jpg">
-				<div class="description">
-					<span class="nick">jjavaman</span><br><span class="subDescription">주니어 개발자 ㆍ 7일 전</span>
-				</div>
-			</div>
-			<div class="commentContent">집 한채 구하고 싶은데<br>떨어져도 올라도 너무 비싸서 못사겠어요....<br>노후엔 어디 숲속에 텐트치고 살각인거 같습니다</div>
-			<div class="replyComment"><span class="moreComment rdComment"><i class="fa-solid fa-chevron-down"></i> 댓글 1개 보기</span><span class="rdComment">댓글쓰기</span><span class="remove rdComment">댓글 삭제</span>
-			</div>
-			
-			<div id="subComment">
-				<div id="subMiniComment">
-					<img class="subMiniProfile" th:src="${'/img/member/'+img}">
-					<textarea id="subWriteComment"></textarea>
-					<div id="subMessage">
-						<i class="fa-solid fa-circle-info"></i> 
-						댓글을 작성하려면 여기를 클릭하세요.
-					</div>
-				</div>
-				<button type="button" id="subWriteBtn">댓글 쓰기</button>
-			</div> <!-- 세부 댓글 작성란 -->
-			
-      		
-
+      		<!-- 댓글 리스트 -->
+      		<div class="commentList"></div>
+      		<input type="hidden" id="logImg" th:value="${img}">
       		
       	</div>
     	
 	<script>
 	
 		const mSeq =  "[[${session.mSeq}]]";
+		var writeNumber = document.getElementById('writeNumber');
+		const bSeq = writeNumber.value;
+		var logImg = $('#logImg').val();
 		
 		if (!mSeq) {
 			alert('로그인을 완료해야 세부 게시글을 조회할 수 있습니다.');
 			location.href="/member/login"; 
 		}
 		
-		$('.subWrite').hide();
+		function commentList() {
+	
+			$.ajax ({
+				type: 'GET',
+				url: '/freeBoard/commentList', 
+				data: 'bSeq=' + bSeq,
+				dataType: 'json',
+				success: function(data) {
+					
+					var commentHtml = "";
+					var beforeRef = 1;
+					var beforeStep = 0;
+					var beforeLevel = 0;
+					var author = $('#author').val();
+					let count = data.length;
+					let i=0;
+					
+					$('#commentCnt').text(count + '개의 댓글');
+					$.each(data, function(index, item){
+						i++;
+						var w = 100 - (3 * item.bcLevel);
+						var refLevelDivId = 'rStepLevel' + beforeRef + '-' + beforeStep + '-' + beforeLevel;
+						
+						if (beforeLevel < item.bcLevel) {
+							commentHtml += "<div id='" + refLevelDivId + "'>";
+						}else if (beforeLevel > item.bcLevel) {
+							for (let j=item.bcLevel; j<beforeLevel; j++)
+							commentHtml += "</div>";
+						}
+						
+						if (item.bcLevel > 0) {
+							commentHtml += "<div class='viewComment' style='width: "+ w + "%;'>";
+						} else {
+							commentHtml += "<div class='viewComment'>";
+						}
+						
+						
+							
+						commentHtml += "<div id ='" + item.bcSeq + "' class='commentInfo1'>";
+						commentHtml += "<img class='profile' src='/img/member/" + item.img +"'>";
+						commentHtml += "<div class='description'>";
+						commentHtml += "<span class='nick'>" + item.nickName + "</span><br><span class='subDescription'>" + item.auth + " ㆍ " + item.bcDate + "</span>";
+						commentHtml += "</div>";
+						commentHtml += "</div>";
+						if (item.bcDell == 'n') {
+							commentHtml += "<div class='commentContent'>" + item.bcContent + "</div>";
+						} else {
+							commentHtml += "<div class='dellDiv'>삭제된 댓글입니다.</div>";
+						}
+						if (item.bcDell === 'n' && (mSeq == item.mseq || author == mSeq)) {	
+							commentHtml += "<div class='replyComment'><span id='" + item.bcRef + "-" + item.bcStep + "-" + item.bcLevel + "' class='moreComment rdComment'><i class='fa-solid fa-chevron-up'></i> 댓글 모두 숨기기</span><span id='" + item.bcRef + item.bcStep + item.bcLevel + "' class='rdComment writeLink'>댓글쓰기</span><span id='" + item.bcSeq + "' class='remove rdComment'>댓글 삭제</span></div>";
+						} else {	
+							commentHtml += "<div class='replyComment'><span id='" + item.bcRef + "-" + item.bcStep + "-" + item.bcLevel + "' class='moreComment rdComment'><i class='fa-solid fa-chevron-up'></i> 댓글 모두 숨기기</span><span id='" + item.bcRef + item.bcStep + item.bcLevel + "' class='rdComment writeLink'>댓글쓰기</span></div>";
+						}
+						
+						commentHtml += "<div id='subC" + item.bcRef+item.bcStep+item.bcLevel + "' class='subWrite'>";
+						commentHtml += "<div id='subMiniComment'>";
+						commentHtml += "<img class='subMiniProfile' src='/img/member/" + logImg + "'>";
+						commentHtml += "<textarea id='sub" + item.bcSeq + "' class='subWriteComment'></textarea>";
+						commentHtml += "<div id='text" + item.bcSeq + "'class='subMessage'>";
+						commentHtml += "<i class='fa-solid fa-circle-info'></i>";
+						commentHtml += "댓글을 작성하려면 여기를 클릭하세요.";
+						commentHtml += "</div>";
+						commentHtml += "</div>";
+						commentHtml += "<button type='button' id='" + item.bcSeq + "' class='subWriteBtn'>댓글 쓰기</button>";
+						commentHtml += "<input type='hidden' id='bcRef" + item.bcSeq +"' value='" + item.bcRef + "'>";
+						commentHtml += "<input type='hidden' id='bcStep" + item.bcSeq +"' value='" + item.bcStep + "'>";
+						commentHtml += "<input type='hidden' id='bcLevel" + item.bcSeq +"' value='" + item.bcLevel + "'>";
+						commentHtml += "</div>";
+
+						if (count != i){
+							commentHtml += "<hr>"; 
+						}
+						
+						commentHtml += "</div>";
+						
+						beforeRef = item.bcRef;
+						beforeStep = item.bcStep;
+						beforeLevel = item.bcLevel;
+						
+					});
+					
+					$('.commentList').html(commentHtml);
+					
+				},
+				error: function(a,b,c) {
+					console.log(a,b,c);
+				}
+			});
+		}
 		
+		$(document).ready(function(){
+		    commentList();
+		});
+
 		$('.like').click(function() {
-			
-			const bSeq = event.target.id;
 			
 			if ($('.like').hasClass('lessImg')) {
 				
@@ -264,14 +220,12 @@
 		});
 		
 		function del() {
-			let id = event.target.id;
-			id = id.substring(1);
 			
 			if(confirm("정말 삭제하시겠습니까?")) {
 				$.ajax({
 					type: 'DELETE',
 					url: '/freeBoard/delOk',
-					data: 'bSeq=' + id,
+					data: 'bSeq=' + bSeq,
 					dataType: 'json',
 					success: function(result) {
 						alert('삭제되었습니다.');
@@ -287,14 +241,17 @@
 			}
 		}
 		
-		$('#writeComment').click(function(){
+		$('#writeComment').focus(function(){
 			$('#message').hide();
 		});
 		
+		$('#writeComment').blur(function(){
+			$('#message').show();
+		});
+		
+		/* 메인 댓글쓰기 버튼 */
 		$('#writeBtn').click(function(){
 			let str = $('#writeComment').val();
-			var writeNumber = document.getElementById('writeNumber');
-			var bSeq = writeNumber.value;
 			
 			str = str.replace(/&/g, "&amp;")
 		      .replace(/</g, "&lt;")
@@ -318,6 +275,7 @@
 					alert('입력되었습니다.');
 					$('#writeComment').val('');
 					$('#message').show();
+					commentList();
 				},
 				error: function(a,b,c) {
 					console.log(a,b,c);
@@ -326,7 +284,8 @@
 			
 		});
 		
-		$('.writeLink').click(function(){
+		$(document).on('click','.writeLink',function(){
+			
 			var id = event.target.id;
 			var text = $('#'+id).text();
 			
@@ -338,6 +297,107 @@
 				$('#'+id).text('댓글쓰기');
 			}
 			
+		});
+		
+		$(document).on('focus','.subWriteComment',function(){ 
+			var textid = event.target.id;
+			var id = textid.substr(3);
+			$('#text'+id).hide();
+		});
+		
+		$(document).on('blur','.subWriteComment',function(){ 
+			var textid = event.target.id;
+			var id = textid.substr(3);
+			$('#'+textid).val('');
+			$('#text'+id).show();
+		});
+		
+		/* 세부 댓글쓰기 버튼 */
+		$(document).on('mousedown','.subWriteBtn',function(){
+			
+			var bcSeq = event.target.id;
+			var bcRef = $('#bcRef' + bcSeq).val();
+			var bcStep = $('#bcStep' + bcSeq).val();
+			var bcLevel = $('#bcLevel' + bcSeq).val();
+			let str = $('#sub' + bcSeq).val();
+			
+			str = str.replace(/&/g, "&amp;")
+		      .replace(/</g, "&lt;")
+		      .replace(/>/g, "&gt;")
+		      .replace(/'/g, "&apos;")
+		      .replace(/\"/g, "&quot;")
+		      .replace(/\t/g, "&emsp;")
+		      .replace(/\r\n/g, "<br>")
+		      .replace(/\r/g, "<br>")  
+		      .replace(/\n/g, "<br>");
+			 
+			$.ajax({
+				type: 'POST',
+				url: '/freeBoard/addSubComment', 
+				data:  {bcSeq : bcSeq
+					, mSeq : mSeq
+					, bSeq : bSeq
+					, bcRef : bcRef
+					, bcStep : bcStep
+					, bcLevel : bcLevel
+					, bcContent : str},
+				dataType: 'json',
+				success: function(result) {
+					
+					alert('입력되었습니다.');
+					$('#sub' + bcSeq).val('');
+					$('.subMessage').show();
+					commentList();
+					
+				},
+				error: function(a,b,c) {
+					console.log(a,b,c);
+				}
+			});
+			
+		});
+		
+		$(document).on('click', '.moreComment', function(){
+			var id = event.target.id;
+			var text = $('#'+id).text();
+			
+			if ($('#rStepLevel'+id).length == 0) {
+				alert('하위 댓글이 없어 댓글을 숨길 수 없습니다.');
+			} else {
+				
+				if (text == ' 댓글 모두 숨기기') {
+					$('#rStepLevel' + id).hide();
+					$('#'+id).html('<i class="fa-solid fa-chevron-down"></i> 숨겨진 댓글 나타내기');
+				} else {	
+					$('#rStepLevel' + id).show();
+					$('#'+id).html('<i class="fa-solid fa-chevron-up"></i> 댓글 모두 숨기기');
+				}
+				
+			}
+			
+		});
+		
+		$(document).on('click', '.remove', function(){
+			var id = event.target.id;
+
+			if(confirm("정말 삭제하시겠습니까?")) {
+				$.ajax({
+					type: 'PUT',
+					url: '/freeBoard/commentDelOk',
+					data: 'bcSeq=' + id,
+					dataType: 'json',
+					success: function(result) {
+						alert('삭제되었습니다.');
+						commentList();
+					},
+					error: function(a,b,c) {
+						console.log(a,b,c);
+					}
+				
+				}); 
+			} else {
+				alert('취소되었습니다.')
+			}
 		});
 		
 		
