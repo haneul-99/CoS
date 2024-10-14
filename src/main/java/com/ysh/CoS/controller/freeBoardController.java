@@ -430,7 +430,7 @@ public class freeBoardController {
 				dto.setBcLevel(ibcLevel+"");
 				
 			} else {
-				//2-2. 중복이라면 중복의 최댓값 찾아서 맨 끝에 붙여줌 뒤에 Step +1처리 후 sql 삽입 > 최댓값을 잘못 찾았다 1,3,2 1,3,3 1,4,2 1,5,3 1,6,3 -> 1,3,3을 찾아야하는데 1,6,3을 찾아버림;;;
+				//2-2. 중복이라면 중복의 최댓값 찾아서 맨 끝에 붙여줌 뒤에 Step +1처리 후 sql 삽입
 			
 				nextdto.setBSeq(bSeq);
 				nextdto.setBcRef(bcRef);
