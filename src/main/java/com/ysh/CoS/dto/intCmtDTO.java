@@ -8,8 +8,9 @@ public class intCmtDTO {
 	private String mSeq;			//회원번호 
 	private String iSeq;			//면접 후기 번호 
 	private String icDate;			//작성일
-	private String step;			//스텝 
-	private String deps;			//뎁스 
+	//private String step;			//순서
+	//private String deps;			//대댓글
+	private String parentIdx;		//부모 댓글
 	private String icContent;		//댓글내용
 	
 	private String name;			//회원이름
@@ -19,5 +20,4 @@ public class intCmtDTO {
 	private String auth;			//권한 1-주니어 개발자, 2-시니어 개발자
 	private String id;				//회원아이디
 	private String regDate; 		//몇분전, 몇시간전, 몇일전
-	//private Long iSeq;
 }

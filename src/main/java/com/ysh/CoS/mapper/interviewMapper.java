@@ -48,6 +48,12 @@ public interface interviewMapper {
 
 	int likeDown(@Param("mSeq") String mSeq, @Param("iSeq") String iSeq);
 
+	intCmtDTO getParent(String iSeq);
+
+	List<intCmtDTO> commentList(String iSeq);
+
+	List<intCmtDTO> replyList(String parentIdx);
+
 
 	
 

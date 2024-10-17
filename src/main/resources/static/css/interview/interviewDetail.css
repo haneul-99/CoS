@@ -244,11 +244,18 @@ textarea {
 	color: #18d26e; 
 }
 
+#writeComment {
+	border: none;
+	outline: none;
+	background-color:transparent;
+	color: #9FA3AE;
+}
+
 #writeComment:hover {
 	color: #18d26e; 
 }
 
-#delCommentBtn {
+.commentBtn {
 	border: none;
 	outline: none;
 	background-color:transparent;
@@ -256,7 +263,7 @@ textarea {
 	color: red;
 }
 
-#delCommentBtn:hover {
+.commentBtn:hover {
 	color: #18d26e; 
 }
 
