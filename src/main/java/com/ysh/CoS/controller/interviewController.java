@@ -81,7 +81,7 @@ public class interviewController {
 		String mSeq = (String)session.getAttribute("mSeq");
 		
 		interviewDTO listDetail = interviewService.listDetail(iSeq);
-		List<intCmtDTO> listCmt = interviewService.listCmt(iSeq);
+		List<intCmtDTO> listCmt = interviewService.commentList(iSeq);
 		int IntCmtCount = interviewService.IntCmtCount(iSeq);
 		int likeImg = 0;
 		
@@ -118,14 +118,11 @@ public class interviewController {
 				}
 			}
 		}
-		
 		session.getAttribute("id");
 		model.addAttribute("mSeq", mSeq);
-		model.addAttribute("listCmt", listCmt);
 		model.addAttribute("listDetail", listDetail);
 		model.addAttribute("IntCmtCount", IntCmtCount);
 		model.addAttribute("likeImg", likeImg);
-		
 		return "/interview/interviewDetail";
 	}
 	
@@ -302,27 +299,37 @@ public class interviewController {
 		
 		return result;
 	}
-
+	/* 게시판 댓글 조회 */
+	@ResponseBody
+	@GetMapping(value="/commentList")
+	public List<intCmtDTO> commentList(String iSeq) {
+		List<intCmtDTO> listCmt = interviewService.commentList(iSeq);
+		return listCmt;
+	}
+	
 	/* 게시판 댓글 작성 */
-	@GetMapping(value="/writeCmt")
-	public String writeCmt(intCmtDTO intCmt, HttpSession session, String iSeq) {
+	@ResponseBody
+	@PostMapping(value="/writeCmt")
+	public int writeCmt(intCmtDTO intCmt, HttpSession session, String iSeq) {
 		
 	    intCmt.setIcSeq(intCmt.getIcSeq());
 	    intCmt.setIcContent(intCmt.getIcContent());
 	    intCmt.setMSeq((String)session.getAttribute("mSeq"));
+	    if(intCmt.getParentIdx() != null || !intCmt.getParentIdx().equals("")) {
+	    	intCmt.setParentIdx(intCmt.getParentIdx());
+	    }
 	    intCmt.setISeq(iSeq);
 		
-		interviewService.writeCmt(intCmt);
+		int result = interviewService.writeCmt(intCmt);
 
-		return "redirect:/interview/interviewList";
+		return result;
 	}
 	
 	/* 게시판 댓글 삭제 */
 	@ResponseBody	
 	@DeleteMapping(value="/delComment/{icSeq}")
-	public int delComment(intCmtDTO intCmt, @PathVariable("icSeq") String icSeq, String iSeq) {
+	public int delComment(intCmtDTO intCmt, @PathVariable("icSeq") String icSeq) {
 		int result = interviewService.delComment(icSeq);
-		System.out.println(result);
 		return result;
 	}
 }

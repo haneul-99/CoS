@@ -213,21 +213,26 @@
 				,mSeq
 				,iSeq
 				,icDate
+				,parentIdx
 				,icContent
-				,step
-				,deps
 		)VALUES(
 				 #{icSeq}
 				,#{mSeq}
 				,#{iSeq}
 				,default
+				<choose>
+	    			<when test='parentIdx != null and !parentIdx.equals("")'>
+	    		    	,#{parentIdx}
+	    		    </when>
+	    		    <otherwise>
+	    		    	,0
+	    		    </otherwise> 
+	    		 </choose>
 				,#{icContent}
-				,0
-				,0
 		)	
 	</insert>
-	
-	<select id="listCmt" resultType="com.ysh.CoS.dto.intCmtDTO">
+
+	<select id="commentList" resultType="com.ysh.CoS.dto.intCmtDTO">
 		select
 			 c.*
 			,m.name
@@ -240,15 +245,40 @@
 				WHEN TIMESTAMPDIFF(SECOND, c.icDate, NOW()) &lt; 60 THEN '방금 전'
 				WHEN TIMESTAMPDIFF(MINUTE, c.icDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, c.icDate, NOW()), '분 전')
         		WHEN TIMESTAMPDIFF(HOUR, c.icDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, c.icDate, NOW()), '시간 전')
-        		WHEN TIMESTAMPDIFF(DAY, c.icDate, NOW()) &lt; 5 THEN concat(TIMESTAMPDIFF(DAY, c.icDate, NOW()), '일 전')
+        		WHEN TIMESTAMPDIFF(DAY, c.icDate, NOW()) &lt; 14 THEN concat(TIMESTAMPDIFF(DAY, c.icDate, NOW()), '일 전')
         		ELSE date_format(c.icDate, '%Y-%m-%d') END as regDate
 		from
-			tblIntcmt c inner join tblInterview i
-			on c.iSeq = i.iSeq
-			inner join tblMember m
-			on i.mSeq = m.mSeq
+			tblIntcmt c inner join tblMember m
+			on c.mSeq = m.mSeq
+			inner join tblInterview i   <!-- 정보에 따라 조인 순서 중요 -->
+			on m.mSeq = i.mSeq
 		where
 			c.iSeq=#{iSeq}
+			order by regdate desc
+	</select>
+	
+	<select id="replyList" resultType="com.ysh.CoS.dto.intCmtDTO">
+		select
+			 c.*
+			,m.name
+			,m.nickName
+			,m.img
+			,m.auth
+			,m.id
+			,m.mSeq
+			,CASE 
+				WHEN TIMESTAMPDIFF(SECOND, c.icDate, NOW()) &lt; 60 THEN '방금 전'
+				WHEN TIMESTAMPDIFF(MINUTE, c.icDate, NOW()) &lt; 60 THEN concat(TIMESTAMPDIFF(MINUTE, c.icDate, NOW()), '분 전')
+        		WHEN TIMESTAMPDIFF(HOUR, c.icDate, NOW()) &lt; 24 THEN concat(TIMESTAMPDIFF(HOUR, c.icDate, NOW()), '시간 전')
+        		WHEN TIMESTAMPDIFF(DAY, c.icDate, NOW()) &lt; 14 THEN concat(TIMESTAMPDIFF(DAY, c.icDate, NOW()), '일 전')
+        		ELSE date_format(c.icDate, '%Y-%m-%d') END as regDate
+		from
+			tblIntcmt c inner join tblMember m
+			on c.mSeq = m.mSeq
+			inner join tblInterview i   <!-- 정보에 따라 조인 순서 중요 -->
+			on m.mSeq = i.mSeq
+		where
+			c.parentIdx=#{parentIdx}
 	</select>
 	
 	<delete id="delComment">

@@ -88,4 +88,16 @@ public class interviewService {
 	public int likeDown(String mSeq, String iSeq) {
 		return interviewMapper.likeDown(mSeq, iSeq);
 	}
+
+	public intCmtDTO getParent(String iSeq) {
+		return interviewMapper.getParent(iSeq);
+	}
+
+	public List<intCmtDTO> commentList(String iSeq) {
+		return interviewMapper.commentList(iSeq);
+	}
+
+	public List<intCmtDTO> replyList(String parentIdx) {
+		return interviewMapper.replyList(parentIdx);
+	}
 }
