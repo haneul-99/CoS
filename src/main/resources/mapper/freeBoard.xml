@@ -6,19 +6,19 @@
 
 	<select id="list" parameterType="hashmap" resultType="com.ysh.CoS.dto.boardDTO">
 	
-		select * from (select b.*, m.nickName, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq) r where bNo between ${begin} and ${end}
+		select r.*, (case when bc.bcmt is null then 0 else bc.bcmt end) as bCmt from (select bseq, count(bSeq) as bcmt from tblBcmt group by bSeq) bc right outer join (select b.*, m.nickName, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq) r on bc.bSeq = r.bSeq where bNo between ${begin} and ${end} order by bNo
 	
 	</select>
 	
 	<select id="listSingleSearch" parameterType="hashmap" resultType="com.ysh.CoS.dto.boardDTO">
 	
-		select * from (select b.*, m.nickName, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq where ${search} like '%${word}%') r where bNo between ${begin} and ${end}
+		select r.*, (case when bc.bcmt is null then 0 else bc.bcmt end) as bCmt from (select bseq, count(bSeq) as bcmt from tblBcmt group by bSeq) bc right outer join (select b.*, m.nickName, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq where ${search} like '%${word}%') r on bc.bSeq = r.bSeq where bNo between ${begin} and ${end} order by bNo
 	
 	</select>
 	
 	<select id="listAllSearch" parameterType="hashmap" resultType="com.ysh.CoS.dto.boardDTO">
 	
-		select * from (select b.*, m.nickName, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq where bTitle like '%${word}%' || bContent like '%${word}%' || nickName like '%${word}%') r where bNo between ${begin} and ${end}
+		select r.*, (case when bc.bcmt is null then 0 else bc.bcmt end) as bCmt from (select bseq, count(bSeq) as bcmt from tblBcmt group by bSeq) bc right outer join (select b.*, m.nickName, ROW_NUMBER() OVER(order by bSeq desc) as 'bNo' from tblBoard b inner join tblMember m on b.mseq = m.mseq where bTitle like '%${word}%' || bContent like '%${word}%' || nickName like '%${word}%') r on bc.bSeq = r.bSeq where bNo between ${begin} and ${end} order by bNo
 	
 	</select>
 	
@@ -43,7 +43,7 @@
 	<select id="getBoardInfo" parameterType="String" resultType="com.ysh.CoS.dto.boardDTO">
 	
 		select m.nickName, m.auth, m.img, b.bSeq, b.mSeq, b.bTitle, b.bContent, b.bDate, b.bCount, b.bFile, (case when b.count is null then 0 else b.count end)as count from tblMember m inner join (select b.*, bg.count from tblBoard b left outer join (select bSeq, count(bSeq) as count from tblBGood group by bSeq) bg on b.bSeq = bg.bSeq) b on m.mSeq = b.mSeq where bSeq = ${bSeq}
-	
+
 	</select>
 	
 	<update id="increaseCount" parameterType="String">
