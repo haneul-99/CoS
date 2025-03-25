@@ -96,7 +96,7 @@ public class freeBoardService {
 			if (n > totalPage) {
 				pagebar += String.format(" <a href='#!' class='page dis'>&gt;&gt;</a> ");
 			} else {
-				pagebar += String.format(" <a href='/freeBoard/list?page=%d' class='page'>gt;&gt;</a> ", n);
+				pagebar += String.format(" <a href='/freeBoard/list?page=%d' class='page'>&gt;&gt;</a> ", n);
 			}
 			
 		} else {	//isSearch가 "y"인 경우(=검색어가 있는 경우)
@@ -178,9 +178,11 @@ public class freeBoardService {
 
 	//회원 권한, 회원 작성일
 	public boardDTO dtoProcess(boardDTO dto) {
-	
-		if (dto.getAuth() == "1") dto.setAuth("주니어 개발자");
-		else dto.setAuth("시니어 개발자");
+		
+		if (dto.getAuth() != null) {			
+			if (dto.getAuth().equals("1")) dto.setAuth("주니어 개발자");
+			else dto.setAuth("시니어 개발자");
+		}
 		
 		String date = dto.getBDate();
 		int year = Integer.parseInt(date.substring(0, 4));

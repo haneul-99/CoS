@@ -14,6 +14,7 @@ public class boardDTO {
 	
 	private String nickName;	//닉네임
 	private String bNo;			//글 번호
+	private String bCmt;		//댓글 수
 	
 	private String img;			//이미지
 	private String auth;		//개발자 종류

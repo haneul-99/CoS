@@ -11,7 +11,7 @@
     	</div>
 		
 		<div class="container" style="height: 1000px;">
-	      	<h3><span id="free" onClick="location.href='/freeBoard/list'">자유게시판</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>QnA게시판</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="interview" onClick="location.href='/interview/interviewPage'">면접후기게시판</span></h3>
+	      	<h3><span id="free" onClick="location.href='/freeBoard/list'">자유게시판</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>QnA게시판</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="interview" onClick="location.href='/interview/interviewList'">면접후기게시판</span></h3>
 			<h1 id="subTitle">자유게시판</h1>		 	
 				 	
 			<form method="GET" action="/freeBoard/list">
@@ -43,7 +43,7 @@
 				</tr>
 				<tr th:each="list1 : ${list}" th:id="${list1.bSeq}" th:onClick="|location.href='@{/freeBoard/listDetail/{bSeq}(bSeq=${list1.bSeq})}'|">
 					<td th:text="${list1.bNo}"></td>
-					<td th:utext="${list1.bTitle} + ' [' + ${list1.bCount} + ']'"></td>
+					<td th:utext="${list1.bTitle} + ' [' + ${list1.bCmt} + ']'"></td>
 					<td th:utext="${list1.nickName}"></td>
 					<td th:text="${list1.bDate}"></td>
 					<td th:text="${list1.bCount}"></td>
