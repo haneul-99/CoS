@@ -361,7 +361,7 @@
 			var id = event.target.id;
 			var text = $('#'+id).text();
 			
-			if ($('#rStepLevel'+id).length == 0) {
+			if ($('#rStepLevel'+id).length == 0 && id != '') {
 				alert('하위 댓글이 없어 댓글을 숨길 수 없습니다.');
 			} else {
 				
