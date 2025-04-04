@@ -126,7 +126,7 @@ public class freeBoardService {
 			if (n > totalPage) {
 				pagebar += String.format(" <a href='#!' class='page dis'>&gt;&gt;</a> ");
 			} else {
-				pagebar += String.format(" <a href='/freeBoard/list?search=%s&word=%s&page=%d' class='page'>gt;&gt;</a> ", map.get("search"), map.get("word"), n);
+				pagebar += String.format(" <a href='/freeBoard/list?search=%s&word=%s&page=%d' class='page'>&gt;&gt;</a> ", map.get("search"), map.get("word"), n);
 			}
 			
 			if (map.get("search").equals("bTitle")) {
