@@ -329,9 +329,9 @@ public class freeBoardService {
 		return freeBoardMapper.getRank(dto);
 	}
 	
-	public Object getNextbcSeq(String bSeq, String rank) {
+	public Object getNextbcSeq(String bSeq, String rank, String bcRef) {
 		
-		return freeBoardMapper.getNextbcSeq(bSeq, rank);
+		return freeBoardMapper.getNextbcSeq(bSeq, rank, bcRef);
 	}
 
 	public Object getNextBcLevel(Object bcSeq) {
