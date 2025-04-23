@@ -64,7 +64,7 @@ public interface freeBoardMapper {
 
 	String getRank(bCmtDTO dto);
 	
-	Object getNextbcSeq(@Param("bSeq") String bSeq, @Param("rank") String rank);
+	Object getNextbcSeq(@Param("bSeq") String bSeq, @Param("rank") String rank, @Param("bcRef") String bcRef);
 	
 	Object getNextBcLevel(Object bcSeq);
 

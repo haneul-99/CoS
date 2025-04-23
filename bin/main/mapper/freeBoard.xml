@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ysh.CoS.mapper.freeBoardMapper">
@@ -144,7 +143,7 @@
 	
 	<select id="getCommentList" parameterType="String" resultType="com.ysh.CoS.dto.bCmtDTO">
 	
-		select bc.*, m.nickName, m.auth, m.img from tblBcmt bc inner join tblMember m on bc.mSeq = m.mSeq where bSeq = ${bSeq}  order by bcRef, bcStep, bcLevel
+		select bc.*, m.nickName, m.auth, m.img from tblBcmt bc inner join tblMember m on bc.mSeq = m.mSeq where bSeq = ${bSeq} order by bcRef, bcStep, bcLevel
 	
 	</select>
 	
@@ -156,13 +155,13 @@
 	
 	<select id="getRank" parameterType="com.ysh.CoS.dto.bCmtDTO" resultType="String">
 	
-		select rank from (select *, RANK() over (order by bcRef, bcStep, bcLevel) as 'rank' from tblBcmt where bSeq = ${bSeq}) cmt where bcSeq = ${bcSeq}
+		select rank from (select *, RANK() over (order by bcRef, bcStep, bcLevel) as 'rank' from tblBcmt where bSeq = ${bSeq} and bcRef = ${bcRef}) cmt where bcSeq = ${bcSeq}
 	
 	</select>
 	
 	<select id="getNextbcSeq" parameterType="String" resultType="Object">
 	
-		select bcSeq from (select *, RANK() over (order by bcRef, bcStep, bcLevel) as 'rank' from tblBcmt where bSeq = ${bSeq}) cmt where rank = ${rank}
+		select bcSeq from (select *, RANK() over (order by bcRef, bcStep, bcLevel) as 'rank' from tblBcmt where bSeq = ${bSeq} and bcRef = ${bcRef}) cmt where rank = ${rank}
 	
 	</select>
 	

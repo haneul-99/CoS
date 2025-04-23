@@ -406,7 +406,7 @@ public class freeBoardController {
 			
 			String rank = service.getRank(dto);
 			
-			Object nbcSeq = service.getNextbcSeq(bSeq,Integer.parseInt(rank)+1+"");
+			Object nbcSeq = service.getNextbcSeq(bSeq,Integer.parseInt(rank)+1+"", bcRef);
 			
 			Object nbcLevel = null;
 			if (nbcSeq != null)
@@ -433,42 +433,42 @@ public class freeBoardController {
 				//2-2. 중복이라면 중복의 최댓값 찾아서 맨 끝에 붙여줌 뒤에 Step +1처리 후 sql 삽입
 			
 				nextdto.setBSeq(bSeq);
-				nextdto.setBcRef(bcRef);
-				nextdto.setBcStep(ibcStep+"");
-				nextdto.setBcLevel(ibcLevel+"");
+				nextdto.setBcRef(bcRef); 
+				nextdto.setBcStep(ibcStep+""); 
+				nextdto.setBcLevel(ibcLevel+""); 
 				
 				nextdto = service.getBcmtInfo(nextdto);	//중복행의 정보 갖고있음 
 				
 				String nrank = nextdto.getRank();
-				int inrank = Integer.parseInt(nrank);
-				int step = ibcStep;
+				int inrank = Integer.parseInt(nrank); 
+				int step = ibcStep; 
 				boolean flag = true;
 				
 				String nextLevel = "";
 				int inextLevel = 0;
 				
 				while (flag) {
-					inrank++; 
-					step++;
+					inrank++;
+					step++; 
 					
-					nextdto.setRank(inrank+"");
+					nextdto.setRank(inrank+""); 
 			
 					nextdto = service.getNextRankBcmtInfo(nextdto);
 					
 					try {
-						nextLevel = nextdto.getBcLevel();
-						inextLevel = Integer.parseInt(nextLevel);
-						if (!nextdto.getBcStep().equals(step+"") || ibcLevel > inextLevel) {
+						nextLevel = nextdto.getBcLevel(); 
+						inextLevel = Integer.parseInt(nextLevel); 
+						if (ibcLevel > inextLevel) { 
 							dto.setBcStep(step+"");
 							dto.setBcLevel(ibcLevel+"");
 							flag = false;
 						}
 					}catch (Exception e) {	//nextdto가 null일때
-						dto.setBcStep(step+"");
-						dto.setBcLevel(ibcLevel+"");
+						dto.setBcStep(step+""); 
+						dto.setBcLevel(ibcLevel+""); 
 						flag = false;
 					}
-				}
+				}  //while 끝
 
 				result = service.updateIncBcStep(dto);			
 				
