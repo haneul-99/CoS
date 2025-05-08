@@ -54,7 +54,7 @@
     </div>
     <body>
     <script>
-    let oEditors = []
+    let oEditors = [];
 
     smartEditor = function() {
     	
@@ -99,7 +99,7 @@
     	oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
 		let content = document.getElementById("editorTxt").value;
 		
-    	if (content == '<p>&nbsp;</p>') {
+    	if (content == '<p>&nbsp;</p>' || content == '<br>') {
     		alert('내용을 입력하지 않았습니다.');
     		oEditors.getById["editorTxt"].exec("FOCUS");
     		return false;
